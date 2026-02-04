@@ -7,9 +7,9 @@ Public Class clsDatabase
         If ConfigurationManager.AppSettings("conType").ToString = "local" Then
             dbUtility.Initialize_DB_MYSQL_WEB(ConfigurationManager.ConnectionStrings("sqlDB").ConnectionString)
         Else
-            dbUtility.Initialize_DB_MYSQL_WEB("Server=172.16.1.101;Initial Catalog='db_scid';Persist Security Info=no;User Name='scid';Password='scid';default command timeout=360;Port=3602;Allow Zero Datetime=true;AllowUserVariables=True")
+            ' dbUtility.Initialize_DB_MYSQL_WEB("Server=172.16.1.101;Initial Catalog='db_scid';Persist Security Info=no;User Name='scid';Password='scid';default command timeout=360;Port=3602;Allow Zero Datetime=true;AllowUserVariables=True")
             'dbUtility.Initialize_DB_MYSQL_WEB("Server=172.16.1.104;Initial Catalog='db_test';Persist Security Info=no;User Name='noel';Password='noel';default command timeout=360;Port=3607;Allow Zero Datetime=true;AllowUserVariables=True")
-            'dbUtility.Initialize_DB_MYSQL_WEB("Server=localhost;Initial Catalog='db_scid';Persist Security Info=no;User Name='root';Password='ictlgucdo';default command timeout=360;Port=3306;Allow Zero Datetime=true;AllowUserVariables=True")
+            dbUtility.Initialize_DB_MYSQL_WEB("Server=localhost;Initial Catalog='db_cctms';Persist Security Info=no;User Name='root';Password='ictlgucdo';default command timeout=360;Port=3306;Allow Zero Datetime=true;AllowUserVariables=True")
         End If
 
     End Sub
@@ -70,7 +70,6 @@ Public Class clsDatabase
     End Sub
 
     Public Sub Populate_DDLB_Datatable(ByRef this_ddlb As DropDownList, ByVal this_displayvalue As String, ByVal this_datavalue As String, ByVal this_Datatable As DataTable, Optional ByVal _firstItem As String = "... Please select ...", Optional ByVal _firstItemValue As String = "0")
-
 
         With this_ddlb
             .DataSource = this_Datatable
