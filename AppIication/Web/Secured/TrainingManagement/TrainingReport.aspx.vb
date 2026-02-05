@@ -1,9 +1,9 @@
 ﻿Imports System.Data
-Partial Class Secured_DashBoard
+Partial Class Secured_TrainingManagement_TrainingReport
     Inherits cPageInit_Secured_BS
 
     Dim _clsDB As New clsDatabase
-   
+
     Dim _dtGVForInspection As New DataTable
     Dim _dtGVReturnInspection As New DataTable
 
@@ -15,5 +15,5 @@ Partial Class Secured_DashBoard
 
     End Sub
 
- 
+
 End Class

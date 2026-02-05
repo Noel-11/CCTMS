@@ -22,6 +22,7 @@
 
     <link href="Scripts/NiceAdmin/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
 
+
     <!-- Font Awesome icons (free version)-->
     <%--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>--%>
 
@@ -87,9 +88,10 @@
         gtag('config', 'G-BTES5DW7T1');
     </script>
 
-</head>
 
-<body style="background: linear-gradient(to bottom, #306a6aab, #e7e7e7);">
+</head>
+<body class="bg-light">
+
 
     <form id="form1" runat="server" autocomplete="off">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -106,7 +108,7 @@
                             <form>
                                 <div class="form-outline mb-4">
                                     <div class="form-group text-center">
-                                        <img src="<%=ResolveClientUrl("~/Images/login_1.png")%>" class="img-fluid img-thumbnail" alt="LOGIN IMAGE" />
+                                        <%--<img src="<%=ResolveClientUrl("~/Images/login_1.png")%>" class="img-fluid img-thumbnail" alt="LOGIN IMAGE" />--%>
                                     </div>
                                 </div>
 
@@ -140,19 +142,7 @@
                 </div>
             </div>
 
-            <hr />
-
-            <div class="row" id="visitorCount">
-                <div class="col-sm-6" align="center">
-                    <asp:Label runat="server" Style="font-size: 14px; font-weight: bold;" Text="Today's Visitor Count : "></asp:Label>
-                    <asp:Label runat="server" ID="lblTodayVisitor" CssClass="badge text-bg-danger" Style="font-size: 16px; font-weight: bold;"></asp:Label>
-                </div>
-
-                <div class="col-sm-6" align="center">
-                    <asp:Label runat="server" Style="font-size: 14px; font-weight: bold;" Text="Total Visitor Count : "></asp:Label>
-                    <asp:Label runat="server" ID="lblTotalVisitor" CssClass="badge text-bg-primary" Style="font-size: 16px; font-weight: bold;"></asp:Label>
-                </div>
-            </div>
+          
 
         </div>
 
@@ -160,6 +150,7 @@
         <div class="footer">
             <uc3:sFooter ID="sFooter1" runat="server" />
         </div>
+
 
     </form>
 </body>

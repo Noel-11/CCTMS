@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" Theme="Skins" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Login.aspx.vb" Inherits="_Login" Theme="Skins" %>
 
 <!DOCTYPE html>
 
@@ -24,6 +24,19 @@
     <link href="Scripts/mycss/landing_page.css" rel="stylesheet" />
 
     <script src="Scripts/NiceAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .login-box {
+            max-width: 360px;
+            margin: -30px auto 0;
+            padding: 25px;
+            background: #fff;
+        }
+
+            .login-box input {
+                text-align: center;
+            }
+    </style>
 
 </head>
 <body>
@@ -52,7 +65,7 @@
                             <a class="nav-link" href="index.html">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Login.aspx">LOGIN</a>
+                            <a class="nav-link" href="#">LOGIN</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">REGISTER</a>
@@ -76,26 +89,21 @@
         </section>
 
 
-        <section class="pb-5">
-            <div class="container text-center">
-                <p class="mb-4">
-                    The City College of Cagayan de Oro, through the Office for Lifelong Learning and Professional Development (OLLPD), is committed to fostering
- a culture of continuous growth and excellence.
-                </p>
+        <!-- LOGIN -->
+        <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+            <ContentTemplate>
+                <div class="login-box text-center">
+                    <div class="mb-3">
+                        <asp:TextBox runat="server" CssClass="form-control" Placeholder="username" ID="txtUserName" />
+                    </div>
+                    <div class="mb-3">
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Password" Placeholder="password" ID="txtPassword" />
+                    </div>
 
-                <p class="mb-5">
-                    Pre-registration is now available for Continuing Professional Development (CPD) programs, specialized training sessions, and seminars. 
-            Whether you are a professional seeking license renewal, a worker looking to upskill, or a lifelong learner, 
-            our programs are designed to meet the evolving demands of the global workforce.
-                </p>
-
-                <div class="d-flex justify-content-center gap-3">
-                    <a href="Join.aspx" class="btn btn-green px-4">WHY JOIN OUR PROGRAMS?</a>
-                    <a href="Registration.aspx" class="btn btn-green px-5">REGISTER</a>
+                    <asp:Button runat="server" Text="LOGIN" class="btn btn-green px-5" ID="btnLogin" />
                 </div>
-            </div>
-        </section>
-
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
         <asp:UpdatePanel runat="server" ID="upUpdate">
             <ContentTemplate>

@@ -8,6 +8,7 @@ Partial Class Include_wucConfirmBoxBS5
     End Function
 
     Public Sub setModalType(ByVal _modalType As String)
+        hfPrompt.Value = "MODAL"
         hfModalType.Value = _modalType
     End Sub
 
@@ -20,8 +21,14 @@ Partial Class Include_wucConfirmBoxBS5
     End Sub
 
     Public Sub showConfirmBox()
+        If hfPrompt.Value = "NOTIFICATION" Then
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "notification", "myNotification();", True)
+        Else
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "pnlDisplay", "var myModal = new bootstrap.Modal(document.getElementById('pnlPending2'), {});  myModal.show();", True)
+        End If
         'ScriptManager.RegisterStartupScript(Page, Page.GetType(), "pnlDisplay", "$('#pnlPending2').modal();", True)
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "pnlDisplay", "var myModal = new bootstrap.Modal(document.getElementById('pnlPending2'), {});  myModal.show();", True)
+
     End Sub
 
     Public Sub setYesButton(Optional isVisible As Boolean = True, Optional thisText As String = "Yes", Optional thisColor As String = "BLUE")
@@ -44,7 +51,6 @@ Partial Class Include_wucConfirmBoxBS5
             Case Else
                 thisClass = "btn btn-primary"
         End Select
-
 
         btnMsgBoxYes.Attributes.Add("class", thisClass)
         'btnMsgBoxYes.Attributes.Add("onserverclick", "btnOK_Click")
@@ -92,14 +98,16 @@ Partial Class Include_wucConfirmBoxBS5
     End Sub
 
     Public Sub setError(Optional thisErrorHeader As String = "ERROR", Optional thisErrorMessage As String = "")
+        hfPrompt.Value = "MODAL"
         setHeaderText(thisErrorHeader)
         setMessage(thisErrorMessage)
         setHeader("RED", "YELLOW")
-        setYesButton(False)
-        setNoButton(True, "OK")
+        setYesButton(True, "OK", "RED")
+        setNoButton(False)
     End Sub
 
     Public Sub setConfirm(Optional thisHeader As String = "CONFIRM", Optional thisMessage As String = "")
+        hfPrompt.Value = "MODAL"
         setHeaderText(thisHeader)
         setMessage(thisMessage)
         setHeader("GREEN", "YELLOW")
@@ -108,11 +116,17 @@ Partial Class Include_wucConfirmBoxBS5
     End Sub
 
     Public Sub setInfo(Optional thisHeader As String = "Info", Optional thisMessage As String = "")
+        hfPrompt.Value = "MODAL"
         setHeaderText(thisHeader)
         setMessage(thisMessage)
         setHeader("BLUE", "YELLOW")
-        setYesButton(True, "OK")
-        setNoButton(False)
+        setYesButton(False)
+        setNoButton(True, "OK", "BLUE")
+    End Sub
+
+    Public Sub setNotification(Optional thisMessage As String = "")
+        hfPrompt.Value = "NOTIFICATION"
+        ' infoContent.InnerText = thisMessage
     End Sub
 
 End Class

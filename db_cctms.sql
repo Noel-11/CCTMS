@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `tbl_cms_menu` (
   `last_date` varchar(30) DEFAULT NULL,
   `module` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_cms_menu: ~52 rows (approximately)
+-- Dumping data for table db_cctms.tbl_cms_menu: ~11 rows (approximately)
 INSERT INTO `tbl_cms_menu` (`menu_id`, `parent_id`, `menu_name`, `page_url`, `menu_level`, `sort_order`, `menu_icon`, `is_public`, `is_active`, `system_module`, `last_user`, `last_date`, `module`) VALUES
 	(1, 0, 'Administration', '', 1, 99, '', 'N', 'Y', 1, 'System Administrator', '8/25/2015 11:42:14 PM', 'SENIOR CITIZEN'),
 	(2, 1, 'User Account', '~/Secured/SystemAdministration/UserEntry.aspx', 2, 1, '', 'N', 'Y', 1, 'AUTO', '4/17/2014 10:29:54 AM', NULL),
@@ -69,52 +69,13 @@ INSERT INTO `tbl_cms_menu` (`menu_id`, `parent_id`, `menu_name`, `page_url`, `me
 	(4, 1, 'User Permission', '~/Secured/SystemAdministration/UserPermission.aspx', 2, 3, '', 'N', 'Y', 1, 'AUTO', '4/17/2014 10:29:54 AM', NULL),
 	(5, 1, 'Role Permission', '~/Secured/SystemAdministration/RolePermission.aspx', 2, 4, '', 'N', 'Y', 1, 'AUTO', '4/17/2014 10:29:54 AM', NULL),
 	(6, 1, 'CMS', '~/Secured/SystemAdministration/cmsMenu.aspx', 2, 5, '', 'N', 'Y', 1, 'AUTO', '4/17/2014 10:29:54 AM', NULL),
-	(7, 1, 'Employee Upload', '~/Secured/SystemAdministration/UploadEmployeeInformation.aspx', 2, 6, '', 'N', 'N', 1, 'System Administrator', '7/1/2016 9:58:12 AM', NULL),
-	(8, 0, 'Database Library', '', 1, 9, '', 'N', 'N', 2, 'System Administrator', '9/1/2015 5:50:10 PM', 'SENIOR CITIZEN'),
-	(9, 8, 'Course Entry', '~/Secured/DatabaseLibrary/Course.aspx', 2, 1, '', 'N', 'Y', 2, 'System Administrator', '4/17/2014 8:00:40 PM', NULL),
-	(10, 8, 'Religion', '~/Secured/DatabaseLibrary/Religion.aspx', 2, 2, '', 'N', 'Y', 2, 'System Administrator', '4/17/2014 8:54:27 PM', NULL),
-	(11, 0, 'Senior Citizen', '', 1, 1, '', 'N', 'N', 2, 'System Administrator', '9/1/2015 5:49:35 PM', 'SENIOR CITIZEN'),
-	(12, 11, 'SC Information', '~/Secured/SeniorCitizen/SeniorCitizenInformation.aspx', 2, 1, '', 'N', 'Y', 2, 'System Administrator', '4/18/2014 10:13:27 AM', NULL),
-	(13, 8, 'Skills', '~/Secured/DatabaseLibrary/Skill.aspx', 2, 3, '', 'N', 'Y', 2, 'System Administrator', '4/18/2014 4:36:11 PM', NULL),
-	(14, 8, 'Asset', '~/Secured/DatabaseLibrary/Asset.aspx', 2, 4, '', 'N', 'Y', 2, 'System Administrator', '4/18/2014 4:36:32 PM', NULL),
-	(15, 8, 'Barangay Sitio', '~/Secured/DatabaseLibrary/Sitio.aspx', 2, 5, '', 'N', 'Y', 2, 'System Administrator', '4/18/2014 5:04:29 PM', NULL),
-	(16, 8, 'School', '~/Secured/DatabaseLibrary/School.aspx', 2, 6, '', 'N', 'Y', 2, 'System Administrator', '4/19/2014 9:52:27 AM', NULL),
-	(17, 0, 'Senior Citizen Reports', '', 1, 3, '', 'N', 'N', 2, 'System Administrator', '9/1/2015 5:49:50 PM', 'SENIOR CITIZEN'),
-	(18, 17, 'Birthday Celebrants', '~/Secured/SeniorCitizen/Reports/rptSCBirthdayCelebrants.aspx', 2, 1, '', 'N', 'Y', 2, 'System Administrator', '4/19/2014 3:46:47 PM', NULL),
-	(19, 17, 'Age Listing', '~/Secured/SeniorCitizen/Reports/rptSCAgeListing.aspx', 2, 2, '', 'N', 'Y', 2, 'System Administrator', '4/19/2014 6:15:17 PM', NULL),
-	(20, 17, 'Listing', '~/Secured/SeniorCitizen/Reports/rptSCList.aspx', 2, 0, '', 'N', 'Y', 2, 'System Administrator', '4/19/2014 9:37:52 PM', NULL),
-	(21, 0, 'ID Registration', '', 1, 1, '<i class="fa-solid fa-address-card"></i>', 'N', 'Y', 3, 'System Administrator', '8/26/2015 5:00:41 AM', 'SENIOR CITIZEN'),
-	(22, 21, 'Validation', '~/Secured/Senior/ValidateRegistration.aspx', 2, 1, '', 'N', 'Y', 3, 'scadmin', '02/23/2023 9:00:40 AM', NULL),
-	(23, 21, 'Pending', '~/Secured/Senior/PendingRegistration.aspx', 2, 2, '', 'N', 'Y', 3, 'scadmin', '02/28/2023 8:27:08 AM', NULL),
-	(30, 0, 'Invidual Message', '', 1, 1, '', 'N', 'N', 4, 'System Administrator', '8/25/2015 11:41:07 PM', NULL),
-	(31, 30, 'Send Message', '~/Secured/Task/MessageIndividualSend.aspx', 2, 1, '', 'N', 'Y', 4, 'System Administrator', '4/23/2014 7:28:22 PM', NULL),
-	(32, 11, 'Upload Data', '~/Secured/SeniorCitizen/UploadSCIDData.aspx', 2, 2, '', 'N', 'Y', 2, 'System Administrator', '5/3/2014 5:38:46 AM', NULL),
-	(34, 1, 'Encrypt String', '~/Secured/SystemAdministration/EncryptString.aspx', 2, 99, '', 'N', 'N', 1, 'System Administrator', '7/1/2016 9:58:05 AM', NULL),
-	(35, 17, 'PSI Listing', '~/Secured/SeniorCitizen/Reports/rptSCPSIList.aspx', 2, 3, '', 'N', 'Y', 2, 'System Administrator', '5/9/2014 10:28:35 AM', NULL),
-	(36, 17, 'Medical History', '~/Secured/SeniorCitizen/Reports/rptSCMedicalHistory.aspx', 2, 4, '', 'N', 'Y', 2, 'System Administrator', '5/9/2014 11:25:57 AM', NULL),
-	(37, 17, 'With Ailment', '~/Secured/SeniorCitizen/Reports/rptSCAilmentList.aspx', 2, 5, '', 'N', 'Y', 2, 'System Administrator', '5/9/2014 12:47:31 PM', NULL),
-	(40, 11, 'Tag Dead SC', '~/Secured/SeniorCitizen/SCTagDead.aspx', 2, 3, '', 'N', 'Y', NULL, 'System Administrator', '7/21/2015 4:46:45 PM', NULL),
-	(41, 21, 'Tag Registration', '~/Secured/Senior/TagRegistration.aspx', 2, 3, '', 'N', 'Y', NULL, 'scadmin', '02/27/2023 2:34:48 PM', NULL),
-	(42, 21, 'Registration Status', '~/Secured/Senior/RegistrationStatus.aspx', 2, 4, '', 'N', 'Y', NULL, 'scadmin', '02/28/2023 8:43:57 AM', NULL),
-	(43, 21, 'Registration Comments', '~/Secured/Senior/RegistrationComments.aspx', 2, 5, '', 'N', 'Y', NULL, 'System Administrator', '06/19/2023 2:23:11 PM', NULL),
-	(44, 0, 'Utility', '', 1, 4, '', 'N', 'Y', NULL, 'scadmin', '11/28/2022 2:05:25 PM', NULL),
-	(45, 0, 'Reference', '', 1, 5, '', 'N', 'Y', NULL, 'System Administrator', '06/05/2023 1:56:32 PM', 'SENIOR CITIZEN'),
-	(46, 45, 'Living Condition', '~/Secured/Reference/refLivingA.aspx', 2, 1, '', 'N', 'Y', NULL, 'System Administrator', '06/07/2023 10:34:36 AM', NULL),
-	(47, 45, 'Skills', '~/Secured/Reference/refSkills.aspx', 2, 2, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 12:10:11 PM', NULL),
-	(48, 45, 'Community Service and Involvement', '~/Secured/Reference/refCommunity.aspx', 2, 3, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 1:46:35 PM', NULL),
-	(49, 45, 'Household Condition', '~/Secured/Reference/refLivingB.aspx', 2, 4, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 2:44:24 PM', NULL),
-	(50, 45, 'Source of Income', '~/Secured/Reference/refSourceIncome.aspx', 2, 5, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 2:44:14 PM', NULL),
-	(51, 45, 'Asset: Real and Immovable Properties', '~/Secured/Reference/refAssetA.aspx', 2, 6, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 3:01:37 PM', NULL),
-	(52, 45, 'Asset: Personal and Movable Properties', '~/Secured/Reference/refAssetB.aspx', 2, 7, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 3:23:01 PM', NULL),
-	(53, 45, 'Problems / Needs Commonly Encountered', '~/Secured/Reference/refPNC.aspx', 2, 8, '', 'N', 'Y', NULL, 'System Administrator', '06/06/2023 3:48:55 PM', NULL),
-	(54, 45, 'Health Problems / Ailments', '~/Secured/Reference/refHealth.aspx', 2, 9, '', 'N', 'Y', NULL, 'System Administrator', '06/07/2023 2:50:00 PM', NULL),
-	(55, 45, 'Social / Emotional', '~/Secured/Reference/refSocial.aspx', 2, 10, '', 'N', 'Y', NULL, 'System Administrator', '06/09/2023 10:53:49 AM', NULL),
-	(56, 45, 'Area / Difficulty', '~/Secured/Reference/refDifficulty.aspx', 2, 11, '', 'N', 'Y', NULL, 'System Administrator', '06/09/2023 11:07:17 AM', NULL),
-	(57, 0, 'UserAdmin', '', 1, 10, '', 'N', 'Y', NULL, 'System Administrator', '10/21/2025 1:50:53 PM', 'SENIOR CITIZEN'),
-	(58, 57, 'User Entry', '~/Secured/UserAdmin/adminUserEntry.aspx', 2, 1, '', 'N', 'Y', NULL, 'System Administrator', '10/21/2025 1:51:34 PM', NULL),
-	(59, 57, 'User Permission', '~/Secured/UserAdmin/adminUserPermission.aspx', 2, 2, '', 'N', 'Y', NULL, 'System Administrator', '10/21/2025 1:52:05 PM', NULL),
-	(60, 0, 'DashBoard', '~/Secured/DashBoard.aspx', 1, 0, '', 'N', 'Y', NULL, 'System Administrator', '10/21/2025 3:06:07 PM', 'SENIOR CITIZEN'),
-	(61, 0, 'Report', '', 1, 2, '', 'N', 'Y', NULL, 'System Administrator', '10/22/2025 3:16:24 PM', 'SENIOR CITIZEN');
+	(57, 0, 'UserAdmin', '', 1, 10, '', 'N', 'Y', 1, 'System Administrator', '10/21/2025 1:50:53 PM', 'SENIOR CITIZEN'),
+	(58, 57, 'User Entry', '~/Secured/UserAdmin/adminUserEntry.aspx', 2, 1, '', 'N', 'Y', 1, 'System Administrator', '10/21/2025 1:51:34 PM', NULL),
+	(59, 57, 'User Permission', '~/Secured/UserAdmin/adminUserPermission.aspx', 2, 2, '', 'N', 'Y', 1, 'System Administrator', '10/21/2025 1:52:05 PM', NULL),
+	(60, 0, 'DashBoard', '~/Secured/DashBoard.aspx', 1, 0, '', 'N', 'Y', 1, 'System Administrator', '10/21/2025 3:06:07 PM', 'SENIOR CITIZEN'),
+	(61, 0, 'Trainings', '', 1, 1, '', 'N', 'Y', 1, 'scadmin', '2/5/2026 1:52:23 PM', 'SENIOR CITIZEN'),
+	(63, 61, 'List', '~/Secured/TrainingManagement/Trainings.aspx', 2, 1, '', 'N', 'Y', NULL, 'scadmin', '2/5/2026 1:51:17 PM', NULL),
+	(64, 61, 'Report', '~/Secured/TrainingManagement/TrainingReport.aspx', 2, 2, '', 'N', 'Y', NULL, 'scadmin', '2/5/2026 1:51:40 PM', NULL);
 
 -- Dumping structure for table db_cctms.tbl_comments
 CREATE TABLE IF NOT EXISTS `tbl_comments` (
@@ -192,6 +153,22 @@ INSERT INTO `tbl_login_log` (`trans_id`, `user_id`, `login_ip`, `login_datetime`
 	('01192026381048FC7FF787F1EF4749A9B4C0798', 'admin', '::1', '2026-01-19 10:38:48', 'FAIL'),
 	('011920263810524475128BBB5049B39840FF11D', 'admin', '::1', '2026-01-19 10:38:52', 'FAIL'),
 	('011920263810573CF4C90730A949258547F8B7D', 'admin', '::1', '2026-01-19 10:38:57', 'FAIL'),
+	('020520260304426726CB8C5C874C04BE5398FED', 'dodong', '::1', '2026-02-05 16:03:42', 'FAIL'),
+	('02052026050449788AC44EFAB642C188264FB0C', 'dodong', '::1', '2026-02-05 16:05:49', 'FAIL'),
+	('0205202605045037591C4B6B02477DABF6DD594', 'dodong', '::1', '2026-02-05 16:05:50', 'FAIL'),
+	('020520261004213EBA9C55811E43FBA18B74212', 'dodong', '::1', '2026-02-05 16:10:21', 'FAIL'),
+	('02052026110421B0A77025701F4630B6AC1C204', 'dodong', '::1', '2026-02-05 16:11:21', 'FAIL'),
+	('020520262901222D46B0933FA54CB3ADA0D35CD', 'scadmin', '::1', '2026-02-05 13:29:22', 'FAIL'),
+	('02052026290128999EC6D855A740919209D0B37', 'admin', '::1', '2026-02-05 13:29:28', 'FAIL'),
+	('02052026290131E2AE219D69CA4F39A3F19DCE6', 'admin', '::1', '2026-02-05 13:29:31', 'FAIL'),
+	('020520263001094D79F59BA32F4BD19BE96A9CD', 'scadmin', '::1', '2026-02-05 13:30:09', 'FAIL'),
+	('020520263101375C2F614656F74892B35350DBD', 'scadmin', '::1', '2026-02-05 13:31:37', 'FAIL'),
+	('0205202632012384C2F70C651C4FEFA409ECF25', 'scadmin', '::1', '2026-02-05 13:32:23', 'FAIL'),
+	('02052026320154A08FC15D9191404E8F792A554', 'scadmin', '::1', '2026-02-05 13:32:54', 'FAIL'),
+	('0205202633015369447D4A2FBB4196947118E4F', 'scadmin', '::1', '2026-02-05 13:33:53', 'FAIL'),
+	('02052026340133080B0B4A31C54D3AB640AC99C', 'scadmin', '::1', '2026-02-05 13:34:33', 'FAIL'),
+	('0205202646031776262626FF1547E6B24144245', 'scadmin', '::1', '2026-02-05 15:46:17', 'FAIL'),
+	('020520264603178BD350A5914546EBB93499C58', 'scadmin', '::1', '2026-02-05 15:46:17', 'FAIL'),
 	('06132023310900815CBE6CEC954A0591221F542', 'asdsad', '::1', '2023-06-13 09:31:00', 'FAIL'),
 	('0619202317041889D4D8AD88734361A8CD1FCA2', 'admin', '::1', '2023-06-19 16:17:18', 'FAIL'),
 	('06222023220857D0F243F76F03480898E3C9355', 'admin', '::1', '2023-06-22 08:22:57', 'FAIL'),
@@ -262,11 +239,11 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_educ_attainment` (
 
 -- Dumping structure for table db_cctms.tbl_ref_gender
 CREATE TABLE IF NOT EXISTS `tbl_ref_gender` (
-  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `description` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
-  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `create_date` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `description` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -320,6 +297,18 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_program_sources` (
 
 -- Dumping data for table db_cctms.tbl_ref_program_sources: ~0 rows (approximately)
 
+-- Dumping structure for table db_cctms.tbl_ref_training_speakers
+CREATE TABLE IF NOT EXISTS `tbl_ref_training_speakers` (
+  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `speaker_name` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `speaker_designation` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` varchar(50) COLLATE latin1_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_ref_training_speakers: ~0 rows (approximately)
+
 -- Dumping structure for table db_cctms.tbl_registration_comments
 CREATE TABLE IF NOT EXISTS `tbl_registration_comments` (
   `trans_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -332,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `tbl_registration_comments` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table db_cctms.tbl_registration_comments: ~12,370 rows (approximately)
+-- Dumping data for table db_cctms.tbl_registration_comments: ~0 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_registration_details
 CREATE TABLE IF NOT EXISTS `tbl_registration_details` (
@@ -364,64 +353,114 @@ INSERT INTO `tbl_system_default` (`default_desc`, `default_value`) VALUES
 
 -- Dumping structure for table db_cctms.tbl_training
 CREATE TABLE IF NOT EXISTS `tbl_training` (
-  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `training_date` date DEFAULT NULL,
   `training_time` time DEFAULT NULL,
-  `training_title` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
-  `training_desc` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `training_title` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `training_desc` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `training_slots` int(11) DEFAULT '0',
-  `other_details` longtext COLLATE latin1_general_ci,
+  `other_details` longtext CHARACTER SET latin1 COLLATE latin1_general_ci,
   `attendance` int(11) DEFAULT '0',
-  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
-  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training: ~0 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training: ~1 rows (approximately)
+INSERT INTO `tbl_training` (`trans_id`, `training_date`, `training_time`, `training_title`, `training_desc`, `training_slots`, `other_details`, `attendance`, `is_active`, `create_user`, `create_date`) VALUES
+	('0205202652034383463E6FBAA24D258095A17F6', '2026-02-16', '00:00:00', 'SAMPLE TITLE', 'SAMPLE DESCRIPTION', 14, 'other details\nsample links and others', 0, 'Y', 'scadmin', '2026-02-05 15:52:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applicants
 CREATE TABLE IF NOT EXISTS `tbl_training_applicants` (
-  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `lname` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `fname` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `mname` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `ename` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `gender` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `civil_status` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `contact_no` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `email_add` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `home_addr` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `city_province` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `profession` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `educ_attain` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `workplace` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `position` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `prc_no` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `pref_learn_tracks` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `pref_learn_tracks_others` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `pref_learn_mode` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `pref_sched` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `lname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `fname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `mname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `ename` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `gender` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `civil_status` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `contact_no` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `email_add` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `home_addr` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `city_province` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `profession` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `educ_attain` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `workplace` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `position` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `prc_no` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `pref_learn_tracks` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `pref_learn_tracks_others` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `pref_learn_mode` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `pref_sched` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `topic_interest` varchar(500) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `program_discovered` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  `prc_expiration` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `program_discovered` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `prc_expiration` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
-  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
-  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `user_name` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `password` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applicants: ~0 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_applicants: ~1 rows (approximately)
+INSERT INTO `tbl_training_applicants` (`trans_id`, `lname`, `fname`, `mname`, `ename`, `gender`, `civil_status`, `contact_no`, `email_add`, `home_addr`, `city_province`, `profession`, `educ_attain`, `workplace`, `position`, `prc_no`, `pref_learn_tracks`, `pref_learn_tracks_others`, `pref_learn_mode`, `pref_sched`, `topic_interest`, `program_discovered`, `prc_expiration`, `registration_date`, `user_name`, `password`, `is_active`, `create_user`, `create_date`) VALUES
+	('02052026401102998E9C469EEF40299B1032C92', 'LNAME SHS', 'FNAME SJAD', 'MNAME SD', 'Jr.', 'Male', 'Married', '09355465456', 'noel.sierra.moreno@gmail.com', 'HOME ADDRESS', 'ILIGAN CITY', 'profession occupation', 'MASTER\'S DEGREE', 'WORKPLACE AFFILIATION', 'POSITION JOB TITLE ADASD', 'prc license Number', 'DIGITAL TRANSFORMATION', '', 'HYBRID', 'WEEKENDS', 'specific topic interest assshsd', 'specific topic interest assshsd', '2027-01-01', '2026-02-05 11:40:00', 'dodong', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-05 11:40:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applications
 CREATE TABLE IF NOT EXISTS `tbl_training_applications` (
-  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `training_id` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
-  PRIMARY KEY (`trans_id`)
+  `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `training_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `applicant_id` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `application_status` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `application_remarks` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `application_datetime` datetime DEFAULT NULL,
+  `validation_datetime` datetime DEFAULT NULL,
+  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `last_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `last_date` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`trans_id`),
+  KEY `training_id` (`training_id`,`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- Dumping data for table db_cctms.tbl_training_applications: ~0 rows (approximately)
+
+-- Dumping structure for table db_cctms.tbl_training_attendance
+CREATE TABLE IF NOT EXISTS `tbl_training_attendance` (
+  `trans_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attendee_no` int(11) DEFAULT '0',
+  `training_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `applicant_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `remarks` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `is_present` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `is_active` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `create_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `create_date` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `last_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `last_date` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`trans_id`),
+  KEY `training_id` (`training_id`,`applicant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_training_attendance: ~0 rows (approximately)
+
+-- Dumping structure for table db_cctms.tbl_training_speakers
+CREATE TABLE IF NOT EXISTS `tbl_training_speakers` (
+  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `training_id` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `training_speaker` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`trans_id`),
+  KEY `training_id` (`training_id`,`training_speaker`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_training_speakers: ~0 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_user_access_permission
 CREATE TABLE IF NOT EXISTS `tbl_user_access_permission` (
@@ -439,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user_access_permission` (
   `last_user` varchar(50) DEFAULT NULL,
   `last_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_permission_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5424 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5515 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table db_cctms.tbl_user_access_permission: ~214 rows (approximately)
 INSERT INTO `tbl_user_access_permission` (`user_permission_id`, `user_role_id`, `user_id`, `menu_id`, `page_url`, `can_access`, `can_create`, `can_update`, `can_delete`, `can_report`, `can_export`, `last_user`, `last_date`) VALUES
@@ -593,19 +632,6 @@ INSERT INTO `tbl_user_access_permission` (`user_permission_id`, `user_role_id`, 
 	(3657, '0', '040920153510058B0D09A2F7164379A4B8', 38, '&nbsp;', 'N', 'N', 'N', 'N', 'N', 'N', 'RAY ANTHONY   VIRTUDAZO', '5/16/2015 10:41:01 AM'),
 	(3658, '0', '040920153510058B0D09A2F7164379A4B8', 39, 'EmployeeUserEntry.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'RAY ANTHONY   VIRTUDAZO', '5/16/2015 10:41:01 AM'),
 	(3659, '0', '040920153510058B0D09A2F7164379A4B8', 47, 'EmployeeUserPermission.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'RAY ANTHONY   VIRTUDAZO', '5/16/2015 10:41:01 AM'),
-	(5044, '4', 'scadmin', 21, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:35 AM'),
-	(5045, '4', 'scadmin', 22, 'ValidateRegistration.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:35 AM'),
-	(5046, '4', 'scadmin', 23, 'PendingRegistration.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:35 AM'),
-	(5047, '4', 'scadmin', 41, 'TagRegistration.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5048, '4', 'scadmin', 42, 'RegistrationStatus.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5049, '4', 'scadmin', 43, 'RegistrationComments.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5050, '4', 'scadmin', 44, '&nbsp;', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5051, '4', 'scadmin', 1, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5052, '4', 'scadmin', 2, 'UserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5053, '4', 'scadmin', 3, 'UserRole.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5054, '4', 'scadmin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5055, '4', 'scadmin', 5, 'RolePermission.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:36 AM'),
-	(5056, '4', 'scadmin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '02/28/2023 8:44:37 AM'),
 	(5373, '4', '1111', 21, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '10/21/2025 2:45:29 PM'),
 	(5374, '4', '1111', 22, 'ValidateRegistration.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '10/21/2025 2:45:29 PM'),
 	(5375, '4', '1111', 23, 'PendingRegistration.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 2:45:29 PM'),
@@ -656,7 +682,20 @@ INSERT INTO `tbl_user_access_permission` (`user_permission_id`, `user_role_id`, 
 	(5420, '1', 'admin', 3, 'UserRole.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 3:06:18 PM'),
 	(5421, '1', 'admin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 3:06:18 PM'),
 	(5422, '1', 'admin', 5, 'RolePermission.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 3:06:18 PM'),
-	(5423, '1', 'admin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 3:06:18 PM');
+	(5423, '1', 'admin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '10/21/2025 3:06:18 PM'),
+	(5502, '4', 'scadmin', 60, 'DashBoard.aspx', 'Y', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5503, '4', 'scadmin', 61, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5504, '4', 'scadmin', 63, 'Trainings.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5505, '4', 'scadmin', 64, 'TrainingReport.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5506, '4', 'scadmin', 57, '&nbsp;', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5507, '4', 'scadmin', 58, 'adminUserEntry.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:38 PM'),
+	(5508, '4', 'scadmin', 59, 'adminUserPermission.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5509, '4', 'scadmin', 1, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5510, '4', 'scadmin', 2, 'UserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5511, '4', 'scadmin', 3, 'UserRole.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5512, '4', 'scadmin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5513, '4', 'scadmin', 5, 'RolePermission.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
+	(5514, '4', 'scadmin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM');
 
 -- Dumping structure for table db_cctms.tbl_user_info
 CREATE TABLE IF NOT EXISTS `tbl_user_info` (

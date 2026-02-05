@@ -1,18 +1,15 @@
 ﻿Imports System.Data
-Partial Class _Default
+Partial Class _DataPrivacy
     Inherits System.Web.UI.Page
 
     Dim _clsDB As New clsDatabase
-
- 
 
     Dim _btnOK As New HtmlButton
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
-          
-          
+
 
         End If
 
@@ -22,8 +19,6 @@ Partial Class _Default
     End Sub
 
     Protected Sub btnOK_Click(ByVal sender As Object, ByVal e As System.EventArgs)
-
-       
 
     End Sub
 
@@ -38,5 +33,5 @@ Partial Class _Default
     '    End If
     'End Function
 
-    
+
 End Class

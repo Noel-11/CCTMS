@@ -24,9 +24,7 @@ Partial Class _admin
             Session("NOTIFYME") = ConfigurationManager.AppSettings("NotifyMe").ToString
             Session("SENDSMS") = _clsDB.Get_DB_Item("SELECT default_value FROM tbl_system_default WHERE default_desc = 'notify_sms'")
 
-            lblTodayVisitor.Text = _clsVisitor.getVisitorCount
-            lblTotalVisitor.Text = _clsVisitor.getVisitorCount("ALL")
-
+          
         End If
 
     End Sub

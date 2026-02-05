@@ -4,18 +4,19 @@ Imports System.Net
 Imports System.IO
 
 Public Class clsCommunicate
+
     Public Sub sendGmail(thisRecipient As String, thisSubject As String, thisMessage As String)
         Try
             Dim client As New SmtpClient("smtp.gmail.com", 587)
             client.EnableSsl = True
             client.UseDefaultCredentials = False
-            Dim [from] As New MailAddress("obbServiceEmail@gmail.com", "[BOLONSIRI ONLINE BURIAL BOOKING]")
+            Dim [from] As New MailAddress("obbServiceEmail@gmail.com", "[BPM APPLICATION]")
             Dim [to] As New MailAddress(thisRecipient, thisRecipient)
             Dim message As New MailMessage([from], [to])
             message.Body = thisMessage & "<br/><br/>" & " This is a system generated email, please do not reply."
             message.IsBodyHtml = True
             message.Subject = thisSubject
-            Dim myCreds As New NetworkCredential("obbServiceEmail@gmail.com", "ryejqkkrqkfulasy")
+            Dim myCreds As New NetworkCredential("bpmsservice2024@gmail.com", "xpnh gztv ydyt fqoi")
             client.Credentials = myCreds
 
             client.Send(message)
@@ -26,6 +27,7 @@ Public Class clsCommunicate
     End Sub
 
     Public Sub sendGmailWithAttachment(thisRecipient As String, thisSubject As String, thisMessage As String, fileName As String, fileByte As MemoryStream)
+
         Try
             'Dim attachPDF As New Attachment(fileByte, "application/pdf")
             'attachPDF.ContentDisposition.FileName = fileName

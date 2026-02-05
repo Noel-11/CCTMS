@@ -1,0 +1,43 @@
+﻿ body {
+            background-color: #ffffff;
+        }
+
+        .sidebar {
+            width: 220px;
+        }
+
+        .sidebar .btn {
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        .card-summary {
+            height: 90px;
+            border: 1px solid #dcdcdc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .btn-green {
+            background-color: #2e7d32;
+            color: #fff;
+        }
+
+        .btn-green:hover {
+            background-color: #256628;
+            color: #fff;
+        }
+
+        table th {
+            font-size: 13px;
+            font-weight: 600;
+        }

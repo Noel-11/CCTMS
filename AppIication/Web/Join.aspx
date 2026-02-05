@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" Theme="Skins" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Join.aspx.vb" Inherits="_Join" Theme="Skins" %>
 
 <!DOCTYPE html>
 
@@ -52,7 +52,7 @@
                             <a class="nav-link" href="index.html">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Login.aspx">LOGIN</a>
+                            <a class="nav-link" href="#">LOGIN</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">REGISTER</a>
@@ -64,35 +64,33 @@
         </nav>
 
 
-        <section class="page1">
+        <section class="page_join mb-5">
             <div class="container">
-                <div class="college"><b>CITY COLLEGE</b></div>
-                <div class="empower">EMPOWER YOUR FUTURE</div>
-
-                <div class="highlight mb-2">SEMINAR</div>
-                <div class="cont mb-3"><span style="color: #e5b417;">CONTINUING </span><span>PROFESSIONAL</span> <span style="color: black;">DEVELOPMENT</span></div>
-                <div class="sub mb-2">TRAINING</div>
+                <div class="join"><b>WHY JOIN OUR
+                    <br>
+                    PROGRAMS?</b></div>
             </div>
         </section>
 
 
         <section class="pb-5">
-            <div class="container text-center">
+            <div class="container">
                 <p class="mb-4">
-                    The City College of Cagayan de Oro, through the Office for Lifelong Learning and Professional Development (OLLPD), is committed to fostering
- a culture of continuous growth and excellence.
+                    By registering your interest, you get early access to high-quality training tailored to the needs of the Kagay-anon community and beyond:
+
+
                 </p>
 
                 <p class="mb-5">
-                    Pre-registration is now available for Continuing Professional Development (CPD) programs, specialized training sessions, and seminars. 
-            Whether you are a professional seeking license renewal, a worker looking to upskill, or a lifelong learner, 
-            our programs are designed to meet the evolving demands of the global workforce.
+                    <ul>
+                        <li class="mb-3"><b>PRC-Accredited CPD Units:</b> Earn the required units for professional license renewal in various fields.</li>
+                        <li class="mb-3"><b>Industry-Relevant Skills:</b> Gain practical knowledge in technology, pedagogy, leadership, and management.</li>
+                        <li class="mb-3"><b>Expert Mentorship:</b> Learn from seasoned practitioners and academic leaders.</li>
+                        <li class="mb-3"><b>Networking Opportunities:</b> Connect with a diverse community of professionals and experts in your field.</li>
+                    </ul>
                 </p>
 
-                <div class="d-flex justify-content-center gap-3">
-                    <a href="Join.aspx" class="btn btn-green px-4">WHY JOIN OUR PROGRAMS?</a>
-                    <a href="Registration.aspx" class="btn btn-green px-5">REGISTER</a>
-                </div>
+
             </div>
         </section>
 
