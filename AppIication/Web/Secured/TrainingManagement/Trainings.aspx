@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SCID" Language="VB" AutoEventWireup="false" CodeFile="Trainings.aspx.vb"
+﻿<%@ Page Title="Trainings" Language="VB" AutoEventWireup="false" CodeFile="Trainings.aspx.vb"
     Inherits="Secured_TrainingManagement_Trainings" Theme="Skins"
     MasterPageFile="~/MasterPage/Admin.master" %>
 

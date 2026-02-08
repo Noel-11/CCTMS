@@ -1,77 +1,104 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AppUpcoming.aspx.vb" Inherits="Secured_Applicant_AppUpcoming" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AppUpcoming.aspx.vb"
+    Inherits="Secured_Applicant_AppUpcoming" MasterPageFile="~/MasterPage/Applicant.master" %>
 
-<!DOCTYPE html>
-<html>
-<head runat="server">
-    <title>Dashboard</title>
-    <link href="../../Scripts/NiceAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../Scripts/mycss/Applicant.css" rel="stylesheet" />
+<asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
+   
+    <!-- UPCOMING TRAININGS -->
+    <div class="section-title">LIST OF UPCOMING TRAININGS</div>
 
-</head>
-
-<body>
-
-    <form id="form1" runat="server">
-
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-        </asp:ScriptManager>
-
-        <div class="container-fluid mt-3">
-            <div class="d-flex">
-
-                <!-- LEFT SIDEBAR -->
-                <div class="sidebar me-4">
-                    <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard" CssClass="btn btn-green w-100" />
-                    <asp:Button runat="server" Text="COMPLETED TRAININGS" ID="btnComplete" CssClass="btn btn-outline-success w-100" />
-                    <asp:Button runat="server" Text="UPCOMING TRAININGS" ID="btnUpcoming" CssClass="btn btn-green w-100" />
-                </div>
-
-                <!-- MAIN CONTENT -->
-                <div class="flex-fill">
-
-                    <!-- TOP RIGHT PROFILE -->
-                    <div class="text-end mb-3">
-                        <a href="#" class="text-decoration-none text-muted">PROFILE</a>
-                    </div>
-
-                    <!-- AVAILABLE TRAININGS -->
-                    <div class="section-title">LIST OF UPCOMING TRAININGS</div>
-
-                    <div class="table-responsive border rounded p-2">
-                        <asp:GridView
-                            runat="server" ID="_gvTraining"
-                            CssClass="table table-borderless align-middle"
-                            AutoGenerateColumns="False" EmptyDataText="NO TRAINING AVAILABLE">
-
-                            <Columns>
-                                <asp:BoundField HeaderText="TRAINING DATE" DataField="training_date" />
-                                <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
-                                <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
-                               
-                                <asp:TemplateField HeaderText="ACTION">
-                                    <ItemTemplate>
-                                        <asp:Button
-                                            runat="server"
-                                            Text="VIEW"
-                                            CssClass="btn btn-sm btn-green" trainingId='<%# Eval("trans_id")%>' />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-
-                        </asp:GridView>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <asp:UpdatePanel runat="server" ID="upUpdate">
+    <div class="table-responsive border rounded p-2">
+        <asp:UpdatePanel runat="server" ID="UpdatePanel1">
             <ContentTemplate>
-                <asp:HiddenField runat="server" ID="hfTransId"></asp:HiddenField>
+                <asp:GridView
+                    runat="server" ID="_gvTraining"
+                    CssClass="table table-bordered align-middle"
+                    AutoGenerateColumns="False" EmptyDataText="NO TRAINING AVAILABLE">
+
+                    <Columns>
+                        <asp:BoundField HeaderText="TRAINING DATE" DataField="training_date" />
+                        <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
+                        <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
+
+                        <asp:TemplateField HeaderText="ACTION">
+                            <ItemTemplate>
+                                <asp:Button
+                                    runat="server"
+                                    Text="View"
+                                    ID="btnRegister" CommandArgument='<%# Bind("trans_id")%>'
+                                    CssClass="btn btn-sm btn-green" OnCommand="cmdGVView"
+                                    trainingDate='<%# Eval("training_date")%>'
+                                    title='<%# Eval("training_title")%>'
+                                    description='<%# Eval("training_desc")%>'
+                                    availableSlots='<%# Eval("availableSlots")%>'
+                                    otherDetails='<%# Eval("other_details")%>'
+                                    ToolTip="Click to View" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+
+                </asp:GridView>
             </ContentTemplate>
         </asp:UpdatePanel>
+    </div>
 
-    </form>
+    <div id="mdlView" role="dialog" class="modal fade"  aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <asp:UpdatePanel runat="server" ID="UpdatePanel9">
+                    <ContentTemplate>
 
-</body>
-</html>
+                        <div class="modal-header bg-success-subtle">
+                            <h5 class="modal-title text-dark" runat="server" id="lblReturnHeaderText">Training Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body bg-light">
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <span class="form-label fw-bold text-dark">Training Date: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTrainingDate"></asp:Label>
+                                </div>
+
+                                <div class="col-md-6 mb-1">
+                                    <span class="fw-bold text-dark">Training Title: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTrainingTitle"></asp:Label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <span class="fw-bold text-dark">Description: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblDescription"></asp:Label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <span class="fw-bold text-dark">Other Details (Links & Credentials): </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblOtherDescription"></asp:Label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <%--<button type="button" class="btn btn-primary" runat="server" id="btn">Confirm</button>--%>
+                            <button type="button" class="btn btn-success" runat="server" id="btnCloseView" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
+
+    <asp:UpdatePanel runat="server" ID="upUpdate">
+        <ContentTemplate>
+            <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+</asp:Content>

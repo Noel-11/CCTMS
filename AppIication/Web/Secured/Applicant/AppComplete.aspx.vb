@@ -19,16 +19,28 @@ Partial Class Secured_Applicant_AppComplete
 
         Dim dt As New DataTable
 
-        Dim _clsRecord As New clsTraining
+        Dim _clsRecord As New clsTrainingAttendance
 
-        dt = _clsRecord.browseTrainingApplicant("", hfTransId.Value)
+        dt = _clsRecord.browseCompletedTrainings(hfTransId.Value)
 
         _gvTraining.DataSource = dt
         _gvTraining.DataBind()
 
     End Sub
 
-    Protected Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
-        Response.Redirect("AppDashBoard.aspx")
+#Region "VIEW"
+
+    Protected Sub cmdGVView(ByVal sender As Object, ByVal e As CommandEventArgs)
+
+        lblTrainingDate.Text = CType(sender, Button).Attributes("trainingDate")
+        lblTrainingTitle.Text = CType(sender, Button).Attributes("title")
+        lblDescription.Text = CType(sender, Button).Attributes("description")
+        lblOtherDescription.Text = CType(sender, Button).Attributes("otherDetails")
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlView", "var myModal = new bootstrap.Modal(document.getElementById('mdlView'), {});  myModal.show();", True)
     End Sub
+
+#End Region
+
+ 
 End Class

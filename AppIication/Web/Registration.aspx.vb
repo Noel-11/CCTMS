@@ -36,7 +36,7 @@ Partial Class _Registration
 
     Protected Sub btnNo_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         If thisMsgBox.getModalType = "OKSAVE" Then
-            Response.Redirect("Default.aspx")
+            Response.Redirect("Login.aspx")
         End If
     End Sub
 

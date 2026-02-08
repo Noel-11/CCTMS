@@ -64,6 +64,19 @@ Public Class clsTrainingAttendance
         Return _clsDB.Fill_DataTable(sql, "tbl_training_attendance")
     End Function
 
+    Public Function browseCompletedTrainings(ByVal _thisId As String) As DataTable
+        Dim sql As String = ""
+
+        sql = "SELECT tbl_training.* FROM tbl_training_attendance " & _
+              "INNER JOIN tbl_training ON tbl_training_attendance.training_id = tbl_training.trans_id " & _
+              "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.is_present = 'Y' AND " & _
+              "tbl_training_attendance.applicant_id = '" & _thisId & "' " & _
+              "ORDER BY tbl_training.training_date DESC "
+
+
+        Return _clsDB.Fill_DataTable(sql, "tbl_training_attendance")
+    End Function
+
 
     Public Sub saveTrainingAttendance()
         If transId = "" Then

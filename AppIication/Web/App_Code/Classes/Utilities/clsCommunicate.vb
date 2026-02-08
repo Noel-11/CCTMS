@@ -10,7 +10,7 @@ Public Class clsCommunicate
             Dim client As New SmtpClient("smtp.gmail.com", 587)
             client.EnableSsl = True
             client.UseDefaultCredentials = False
-            Dim [from] As New MailAddress("obbServiceEmail@gmail.com", "[BPM APPLICATION]")
+            Dim [from] As New MailAddress("obbServiceEmail@gmail.com", "[CITY COLLEGE APPLICATION]")
             Dim [to] As New MailAddress(thisRecipient, thisRecipient)
             Dim message As New MailMessage([from], [to])
             message.Body = thisMessage & "<br/><br/>" & " This is a system generated email, please do not reply."
