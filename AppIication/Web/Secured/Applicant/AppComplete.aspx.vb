@@ -8,7 +8,6 @@ Partial Class Secured_Applicant_AppComplete
 
         If Not Page.IsPostBack Then
             hfTransId.Value = Session("UserId")
-
             fillGVTrainings()
 
         End If
@@ -38,9 +37,10 @@ Partial Class Secured_Applicant_AppComplete
         lblOtherDescription.Text = CType(sender, Button).Attributes("otherDetails")
 
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlView", "var myModal = new bootstrap.Modal(document.getElementById('mdlView'), {});  myModal.show();", True)
+
     End Sub
 
 #End Region
 
- 
+
 End Class

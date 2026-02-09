@@ -5,9 +5,16 @@ Imports System.Net.Mail
 Imports System.Net.Mail.SmtpClient
 
 Public Class clsDatabase
-    Public dbUtility As New clsDimbo.clsMYSQLDatabase
+    Public dbUtility As New clsDimboMySQL.clsMYSQLDatabase
     Public Sub New()
-        dbUtility.Initialize_DB_MYSQL_WEB(ConfigurationManager.ConnectionStrings("mysqlCCRODB").ConnectionString, True)
+
+        If ConfigurationManager.AppSettings("conType").ToString = "local" Then
+            dbUtility.Initialize_DB_MYSQL_WEB(ConfigurationManager.ConnectionStrings("mysqlDB").ConnectionString)
+        Else
+
+            dbUtility.Initialize_DB_MYSQL_WEB("Server=localhost;Initial Catalog='db_cctms';Persist Security Info=no;User Name='root';Password='ictlgucdo';default command timeout=360;Port=3306;Allow Zero Datetime=true;AllowUserVariables=True")
+        End If
+
     End Sub
 
     Public Function Fill_DataTable(ByVal select_str As String, Optional ByVal table_name As String = "tbl_list") As DataTable

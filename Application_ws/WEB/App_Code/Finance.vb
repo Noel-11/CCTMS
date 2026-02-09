@@ -10,10 +10,11 @@ Imports System.Data
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class Finance
     Inherits System.Web.Services.WebService
+
     Dim _clsDB As New clsDatabase
-    Dim _clsRequestPayment As New clsRequestPayment
-    Dim _clsRequester As New clsRequester
+
     Dim _clsRegistrationDetails As New clsRegistrationDetails
+
     Dim _clsWebServiceLog As New clsWebserviceLog
 
     Private Sub saveLog(ByVal _thisRefCode As String, ByVal _thisFunctionName As String, ByVal _thisStatus As String)
@@ -55,21 +56,24 @@ Public Class Finance
 
     <WebMethod()> _
     Public Function getRequestPayment(ByVal controlNo As String, ByVal wsKey As String) As DataTable
+
         Dim dt As New DataTable
         Dim sql As String = ""
 
         If checkWsKey(wsKey) = True Then
             Try
-                'sql = "SELECT tbl_request_payment.ref_code,CONCAT(tbl_request.req_type,' (',type_desc,')') AS type_desc, " & _
-                '      "copy_count AS count,copy_amount AS amounr,copy_total AS total FROM tbl_request_payment " & _
-                '      "INNER JOIN tbl_request ON tbl_request_payment.req_id = tbl_request.requester_id AND tbl_request.is_active = 'Y' " & _
-                '      "INNER JOIN tbl_request_details ON tbl_request.trans_id = tbl_request_details.req_id AND tbl_request_details.is_active = 'Y' " & _
-                '      "INNER JOIN tbl_ref_document_type ON tbl_request_details.copy_type = tbl_ref_document_type.trans_id " & _
-                '      "WHERE tbl_request_payment.is_active = 'Y' AND ref_code = '" & controlNo & "' "
 
-                sql = "SELECT tbl_request_payment.ref_code,CONCAT(tbl_request_payment.r_lname,', ',tbl_request_payment.r_fname,' ',tbl_request_payment.r_mname) AS payor,r_celno AS celno,req_type as description,total_amount,finance_paid,finance_or FROM tbl_request_payment " & _
-                      "INNER JOIN tbl_requester ON tbl_request_payment.req_id = tbl_requester.trans_id " & _
-                      "WHERE tbl_request_payment.is_active = 'Y' AND tbl_request_payment.ref_code = '" & controlNo.Trim & "' LIMIT 1"
+                'sql = "SELECT tbl_request_payment.ref_code,CONCAT(tbl_request_payment.r_lname,', ',tbl_request_payment.r_fname,' ',tbl_request_payment.r_mname) AS payor,r_celno AS celno,req_type as description,total_amount,finance_paid,finance_or FROM tbl_request_payment " & _
+                '      "INNER JOIN tbl_requester ON tbl_request_payment.req_id = tbl_requester.trans_id " & _
+                '      "WHERE tbl_request_payment.is_active = 'Y' AND tbl_request_payment.ref_code = '" & controlNo.Trim & "' LIMIT 1"
+
+                sql = "SELECT tbl_training_applications.app_code AS ref_code, CONCAT(tbl_training_applicants.lname,', ',tbl_training_applicants.fname,' ',tbl_training_applicants.mname) AS payor, " & _
+                      "tbl_training_applicants.contact_no AS celno,tbl_training.training_title,tbl_training_applications.application_fee AS total_amount,tbl_training_applications.is_finance_paid AS finance_paid, " & _
+                      "tbl_training_applications.application_or AS finance_or  FROM tbl_training_applications " & _
+                      "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+                      "INNER JOIN tbl_training_applicants ON tbl_training_applications.applicant_id = tbl_training_applicants.trans_id " & _
+                      "WHERE tbl_training_applications.is_active = 'Y' AND tbl_training_applications.app_code = '" & controlNo.Trim & "' " & _
+                      "LIMIT 1"
 
                 dt = _clsDB.Fill_DataTable(sql)
 
@@ -99,56 +103,61 @@ Public Class Finance
                     _msg = "INVALID PAYMENT MODE"
                 Else
                     Dim dt As New DataTable
+                    Dim sql As String = ""
 
-                    dt = _clsDB.Fill_DataTable("SELECT tbl_request_payment.trans_id,req_id,is_paid,finance_paid,req_status,tbl_ref_status.sort_order FROM tbl_request_payment " & _
-                                               "INNER JOIN tbl_requester ON tbl_request_payment.req_id = tbl_requester.trans_id " & _
-                                               "INNER JOIN tbl_ref_status ON tbl_requester.req_status = tbl_ref_status.status_code " & _
-                                               "WHERE tbl_request_payment.ref_code = '" & controlNo.Trim & "' AND tbl_request_payment.is_active = 'Y' LIMIT 1")
+
+                    dt = _clsDB.Fill_DataTable("SELECT trans_id,applicant_id,training_id,is_finance_paid FROM tbl_training_applications " & _
+                                               "WHERE app_code = '" & controlNo & "' AND is_active = 'Y' LIMIT 1")
 
                     If dt.Rows.Count > 0 Then
-                        If dt.Rows(0)("finance_paid") = "N" Then
-                            With _clsRequestPayment
-                                .transId = dt.Rows(0)(0)
-                                .financePaid = "Y"
-                                .financeOr = orNo.Trim
-                                .financeMode = paymentMode.ToUpper.Trim
-                                'If paymentMode.ToLower = "online" Then
 
-                                If CInt(dt.Rows(0)("sort_order")) < 5 Then
-                                    Dim _defaultMsg As String = _clsDB.Get_DB_Item("SELECT default_msg FROM tbl_ref_status WHERE status_code = 'PAID' LIMIT 1").ToString
+                        Dim _clsApplication As New clsTrainingApplications
 
-                                    With _clsRequester
-                                        .transId = dt.Rows(0)(1)
-                                        .reqStatus = "PAID"
-                                        .valDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                        .reqRemarks = _defaultMsg & " By Finance Payment System (" & paymentMode.Trim.ToUpper & ")"
-                                        .lastUser = "FINANCE"
-                                        .updateValidationStatus()
-                                    End With
+                        Dim _clsAttendance As New clsTrainingAttendance
 
-                                    With _clsRegistrationDetails
-                                        .reqId = dt.Rows(0)(1)
-                                        .regStatus = _clsRequester.reqStatus
-                                        .remarks = _clsRequester.reqRemarks
-                                        .lastUser = _clsRequester.lastUser
-                                        .saveRegistrationDetails()
-                                    End With
-                                End If
+                        For Each dr As DataRow In dt.Rows
+                            If dr("is_finance_paid") = "N" Then
 
-                                'If dt.Rows(0)("is_paid") = "N" Then
-                                '    .isPaid = "Y"
-                                '    .orNumber = orNo.Trim
-                                '    .updateIsPaid()
-                                'End If
+                                With _clsApplication
+                                    .transId = dr("trans_id")
+                                    .applicationOr = orNo.Trim
+                                    .applicationOrDate = DateTime.Now.Date.ToString("yyyy-MM-dd")
+                                    .isFinancePaid = "Y"
+                                    .financeMode = paymentMode.ToUpper.Trim
+                                    .financeDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                    .lastUser = "FINANCE WS"
+                                    .updateFinancePayment()
 
-                                .lastUser = _clsRequester.lastUser
-                                'End If
-                                .updateIsPaidFinance()
-                            End With
-                            _msg = "PAYMENT PAID"
-                        Else
-                            _msg = "ALREADY PAID"
-                        End If
+                                    .applicationStatus = "PAID"
+                                    .applicationRemarks = "PAID IN FINANCE: " & paymentMode.ToUpper.Trim
+                                    .validationDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                    .updateApplicationStatus()
+                                End With
+
+                                With _clsAttendance
+                                    .initialize()
+                                    .deleteAttendance(dr("applicant_id"), dr("training_id"))
+                                    .trainingId = dr("training_id")
+                                    .applicantId = dr("applicant_id")
+                                    .lastUser = "FINANCE WS"
+                                    .saveTrainingAttendance()
+                                End With
+
+                                With _clsRegistrationDetails
+                                    .applicantId = dr("trans_id")
+                                    .regStatus = _clsApplication.applicationStatus
+                                    .remarks = _clsApplication.applicationRemarks
+                                    .lastUser = _clsApplication.lastUser
+                                    .saveRegistrationDetails()
+                                End With
+
+                                _msg = "PAYMENT PAID"
+                            Else
+                                _msg = "ALREADY PAID"
+                            End If
+                        Next
+
+
 
                     Else
                         _msg = "PAYMENT NOT FOUND"
@@ -176,50 +185,61 @@ Public Class Finance
             Try
                 Dim dt As New DataTable
 
-                dt = _clsDB.Fill_DataTable("SELECT trans_id,req_id,is_paid,finance_mode,finance_paid FROM tbl_request_payment WHERE ref_code = '" & controlNo.Trim & "' AND is_active = 'Y' LIMIT 1")
+                dt = _clsDB.Fill_DataTable("SELECT trans_id,applicant_id,training_id,is_finance_paid,finance_mode FROM tbl_training_applications " & _
+                                                 "WHERE app_code = '" & controlNo & "' AND is_active = 'Y' LIMIT 1")
 
                 If dt.Rows.Count > 0 Then
-                    If dt.Rows(0)("finance_paid") = "Y" Then
-                        With _clsRequestPayment
-                            .transId = dt.Rows(0)(0)
-                            .financePaid = "N"
-                            .financeOr = ""
-                            .financeMode = dt.Rows(0)("finance_mode")
-                            .lastUser = "FINANCE"
-                            .updateIsPaidFinance()
-                        End With
 
-                        If dt.Rows(0)("is_paid") = "N" Then
-                            Dim _defaultMsg As String = _clsDB.Get_DB_Item("SELECT default_msg FROM tbl_ref_status WHERE status_code = 'FOR PAYMENT' LIMIT 1").ToString
+                    Dim _clsApplication As New clsTrainingApplications
 
-                            With _clsRequester
-                                .transId = dt.Rows(0)(1)
-                                .reqStatus = "FOR PAYMENT"
-                                .valDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                .reqRemarks = _defaultMsg & " Cancelled From Finance Payment System"
-                                .lastUser = "FINANCE"
-                                .updateValidationStatus()
+                    Dim _clsAttendance As New clsTrainingAttendance
+
+                    For Each dr As DataRow In dt.Rows
+                        If dr("is_finance_paid") = "Y" Then
+
+                            With _clsApplication
+                                .transId = dr("trans_id")
+                                .applicationOr = ""
+                                .applicationOrDate = Nothing
+                                .isFinancePaid = "N"
+                                .financeMode = dr("finance_mode")
+                                .lastUser = "FINANCE WS"
+                                .updateFinancePayment()
+
+                                .applicationStatus = "FOR PAYMENT"
+                                .applicationRemarks = "Cancelled From Finance Payment System"
+                                .validationDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                .lastUser = "FINANCE WS"
+                                .updateApplicationStatus()
+                            End With
+
+                            With _clsAttendance
+                                .initialize()
+                                .deleteAttendance(dr("applicant_id"), dr("training_id"))
+
                             End With
 
                             With _clsRegistrationDetails
-                                .reqId = dt.Rows(0)(1)
-                                .regStatus = _clsRequester.reqStatus
-                                .remarks = _defaultMsg
-                                .lastUser = _clsRequester.lastUser
+                                .applicantId = dr("trans_id")
+                                .regStatus = _clsApplication.applicationStatus
+                                .remarks = _clsApplication.applicationRemarks
+                                .lastUser = _clsApplication.lastUser
                                 .saveRegistrationDetails()
                             End With
+
+                            _msg = "PAYMENT CANCELLED"
+                        Else
+                            _msg = "PAYMENT NOT PAID"
                         End If
 
-                        _msg = "PAYMENT CANCELLED"
-                    Else
-                        _msg = "PAYMENT NOT PAID"
-                    End If
+                    Next
+
 
                 Else
                     _msg = "PAYMENT NOT FOUND"
                 End If
 
-                saveLog(controlNo.Trim, "CANCELOR", _msg)
+                    saveLog(controlNo.Trim, "CANCELOR", _msg)
             Catch ex As Exception
                 saveLog(controlNo.Trim, "CANCELOR", "ERROR-" & ex.Message)
                 _msg = "ERROR-" & ex.Message

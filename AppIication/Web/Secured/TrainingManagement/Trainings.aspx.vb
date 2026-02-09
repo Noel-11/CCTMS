@@ -16,7 +16,6 @@ Partial Class Secured_TrainingManagement_Trainings
 
     End Sub
 
-
     Protected Sub fillGv()
 
         Dim dt As New DataTable

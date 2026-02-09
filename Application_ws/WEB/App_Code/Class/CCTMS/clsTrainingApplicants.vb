@@ -121,16 +121,16 @@ Public Class clsTrainingApplicants
 
     End Function
 
-    Public Function getUserName(ByVal _thisUName As String) As String
+    Public Function getUserName(ByVal _thisLName As String) As String
         Dim uName As String = ""
         Dim dtCheckExist As New DataTable
 
-        uName = _thisUName
+        uName = _thisLName & "_" & Left(Guid.NewGuid().ToString.Replace("-", ""), 2).ToUpper
 
         dtCheckExist = _clsDB.Fill_DataTable("SELECT trans_id AS FROM tbl_user_info WHERE user_name = '" & uName & "'")
 
         While dtCheckExist.Rows.Count > 0
-            uName = _thisUName & "_" & Left(Guid.NewGuid().ToString.Replace("-", ""), 2).ToUpper
+            uName = _thisLName & "_" & Left(Guid.NewGuid().ToString.Replace("-", ""), 2).ToUpper
             dtCheckExist = _clsDB.Fill_DataTable("SELECT trans_id AS FROM tbl_training_applicants WHERE user_name = '" & uName & "'")
         End While
 
@@ -139,7 +139,7 @@ Public Class clsTrainingApplicants
 
     Public Sub saveTrainingApplicants()
         If transId = "" Then
-            _userName = getUserName(_lname & _fname)
+            _userName = getUserName(_lname)
             With _clsDB.dbUtility
                 .fieldItems = "trans_id,lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration,registration_date,user_name,password,is_active,create_user,create_date"
                 .sqlString = .getSQLStatement("tbl_training_applicants", "INSERT")

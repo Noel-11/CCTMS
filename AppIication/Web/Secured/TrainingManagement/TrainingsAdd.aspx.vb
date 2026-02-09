@@ -49,10 +49,11 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         Dim _clsTraining As New clsTraining
 
-
+        dtpTrainingDate.ReadOnly = False
         txtTrainingTitle.ReadOnly = False
         txtDescription.ReadOnly = False
         txtTrainingSlots.ReadOnly = False
+        txtRegistrationFee.ReadOnly = False
 
         divAttendees.Visible = False
         divApplicants.Visible = False
@@ -61,9 +62,11 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
             spanTainingHead.InnerText = "UPDATE TRAINING"
 
+            dtpTrainingDate.ReadOnly = True
             txtTrainingTitle.ReadOnly = True
             txtDescription.ReadOnly = True
             txtTrainingSlots.ReadOnly = True
+            txtRegistrationFee.ReadOnly = True
 
             With _clsTraining
                 .getTraining(hfTransId.Value)
@@ -72,6 +75,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
                 txtDescription.Text = .trainingDesc
                 txtTrainingSlots.Text = .trainingSlots
                 txtOtherDetails.Text = .otherDetails
+                txtRegistrationFee.Text = .registrationFee
 
             End With
 
@@ -101,6 +105,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
             .trainingDesc = txtDescription.Text.Trim.ToUpper
             .trainingSlots = txtTrainingSlots.Text.Trim.ToUpper
             .otherDetails = txtOtherDetails.Text.Trim
+            .registrationFee = txtRegistrationFee.Text.Trim
             .lastUser = Session("UserName")
             .saveTraining()
 

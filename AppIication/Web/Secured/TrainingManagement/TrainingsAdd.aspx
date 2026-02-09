@@ -32,7 +32,7 @@
                             <ContentTemplate>
                                 <br />
                                 <div class="row mb-2">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="input-group">
                                             <label class="input-group-text">Training Date</label>
                                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingDate" />
@@ -40,11 +40,11 @@
                                     </div>
 
                                     <%--<div class="col-lg-3">
-                                <div class="input-group">
+                                     <div class="input-group">
                                     <label class="input-group-text">Training Time</label>
                                     <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingTime" />
-                                </div>
-                            </div>--%>
+                                    </div>
+                                     </div>--%>
 
                                     <div class="col-lg-6">
                                         <div class="input-group">
@@ -53,17 +53,11 @@
                                         </div>
                                     </div>
 
-
                                 </div>
 
                                 <div class="row mb-2">
-                                    <div class="col-lg-4">
-                                        <div class="input-group">
-                                            <label class="input-group-text">No. of Slots</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingSlots" TextMode="Number" MaxLength="3" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
+
+                                    <div class="col-lg-12">
                                         <div class="input-group">
                                             <label class="input-group-text">Description</label>
                                             <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" />
@@ -72,6 +66,24 @@
                                 </div>
 
                                 <div class="row mb-2">
+
+                                    <div class="col-lg-4">
+                                        <div class="input-group">
+                                            <label class="input-group-text">No. of Slots</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingSlots" TextMode="Number" MaxLength="3" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="input-group">
+                                            <label class="input-group-text">Registration Fee</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistrationFee" TextMode="Number" min="0.00" max="999999.99" MaxLength="9" step="any" Style="text-align: right"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-2">
+
                                     <div class="col-lg-12">
                                         <div class="input-group">
                                             <label class="input-group-text">Links and Other Details</label>

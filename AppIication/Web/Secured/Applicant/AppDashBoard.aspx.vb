@@ -37,20 +37,20 @@ Partial Class Secured_Applicant_AppDashBoard
 
     End Sub
 
+
     Protected Sub fillGVTrainings()
 
         Dim dt As New DataTable
 
         Dim _clsRecord As New clsTraining
 
-        dt = _clsRecord.browseTrainingApplicant("", hfApplicantId.Value)
+        dt = _clsRecord.browseTrainingApplicant(hfApplicantId.Value)
 
         _gvTraining.DataSource = dt
         _gvTraining.DataBind()
 
     End Sub
 
- 
 #Region "REGISTER"
 
     Protected Sub cmdGVRegister(ByVal sender As Object, ByVal e As CommandEventArgs)
@@ -92,18 +92,21 @@ Partial Class Secured_Applicant_AppDashBoard
     Private Sub trainingRegistration()
 
         Dim _clsTrainingApplication As New clsTrainingApplications
+        Dim _clsTraining As New clsTraining
 
         With _clsTrainingApplication
             .initialize()
             .trainingId = hfTrainingId.Value
             .applicantId = hfApplicantId.Value
             .applicationStatus = "FOR PAYMENT"
-            .applicationRemarks = "Pay to secured slot"
+            .applicationRemarks = "Pay to secure slot"
             .applicationDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm")
             .lastUser = Session("UserName")
             .saveTrainingApplications()
 
         End With
+
+        _clsTraining.updateAttendance(hfTrainingId.Value)
 
     End Sub
 

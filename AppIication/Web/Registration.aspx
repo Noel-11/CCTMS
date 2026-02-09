@@ -84,17 +84,11 @@
                         <div class="col-md-3">
                             <label class="form-label">Gender</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="ddlGender">
-                                <asp:ListItem Text="" Value="" />
-                                <asp:ListItem Text="Male" Value="Male" />
-                                <asp:ListItem Text="Female" Value="Female" />
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Civil Status</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCivilStatus">
-                                <asp:ListItem Text="" Value="" />
-                                <asp:ListItem Text="Single" Value="Single" />
-                                <asp:ListItem Text="Married" Value="Married" />
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-3">
@@ -115,8 +109,6 @@
                         <div class="col-md-6">
                             <label class="form-label">City / Province</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="dllCityAddr">
-                                <asp:ListItem Text="CAGAYAN DE ORO CITY" Value="CAGAYAN DE ORO CITY"></asp:ListItem>
-                                <asp:ListItem Text="ILIGAN CITY" Value="ILIGAN CITY"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
@@ -132,9 +124,6 @@
                         <div class="col-md-4">
                             <label class="form-label">Highest Educational Attainment</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="dllEducation">
-                                <asp:ListItem Text="BACHELOR'S DEGREE" Value="BACHELOR'S DEGREE"></asp:ListItem>
-                                <asp:ListItem Text="MASTER'S DEGREE" Value="MASTER'S DEGREE"></asp:ListItem>
-                                <asp:ListItem Text="DOCTORAL DEGREE" Value="DOCTORAL DEGREE"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4">
@@ -164,17 +153,38 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Preferred Learning Tracks</label>
-                            <asp:DropDownList runat="server" CssClass="form-control" ID="dllPreferredTracks">
-                                <asp:ListItem Text="Educational leadership & Pedagogy" Value="LEADERSHIP & PEDAGOGY"></asp:ListItem>
-                                <asp:ListItem Text="Digital Transformation & IT Literacy" Value="DIGITAL TRANSFORMATION"></asp:ListItem>
+                            <asp:DropDownList runat="server" CssClass="form-select" ID="dllPreferredTracks" Visible="false">
                             </asp:DropDownList>
+
+                            <asp:GridView runat="server" ID="_gvLearnTracks" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered" PageSize="15"
+                                EmptyDataText="NO RECORD FOUND"
+                                PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
+                                GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="false">
+                                <Columns>
+
+                                    <asp:TemplateField HeaderText="Sel" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:CheckBox runat="server" ID="chkSelect" listId='<%# Eval("trans_id")%>' Checked="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Sel" HeaderStyle-Width="20%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
+                                        <ItemTemplate>
+
+                                            <asp:Label runat="server" ID="lblDescription" Text='<%# Eval("description")%>' Font-Bold="true"></asp:Label>
+                                            <asp:TextBox runat="server" ID="txtOthers" Visible='<%# Eval("isOther")%>' Width="100%"></asp:TextBox>
+
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+
+                                </Columns>
+                            </asp:GridView>
+
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Preferred Learning Mode</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="ddlPreferredMode">
-                                <asp:ListItem Text="Face-to-Face (at city College of CDO)" Value="F2F"></asp:ListItem>
-                                <asp:ListItem Text="Fully Online (Zoom/Google Meet)" Value="ONLINE"></asp:ListItem>
-                                <asp:ListItem Text="Hybrid (Mix of Online and In-person)" Value="HYBRID"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
@@ -183,10 +193,9 @@
                         <div class="col-md-6">
                             <label class="form-label">Preferred Schedule</label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="ddlPreferredSched">
-                                 <asp:ListItem Text="Weekdays" Value="WEEKDAYS"></asp:ListItem>
-                                 <asp:ListItem Text="Weekends" Value="WEEKENDS"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
+
                         <div class="col-md-6">
                             <label class="form-label">Specific Topic of Interest</label>
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" ID="txtSpecificTopic" />
@@ -198,8 +207,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">How did you hear about our programs?</label>
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlHear" >
-                              <asp:ListItem Text="Social Media (Facebook/Linkedln)" Value="WEEKDAYS"></asp:ListItem>
+                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlHear">
                         </asp:DropDownList>
                     </div>
 
@@ -207,13 +215,17 @@
                     <h6 class="border-bottom pb-2 mt-4 fw-bold">DATA PRIVACY AND VERIFICATION</h6>
 
                     <div class="form-check">
-                        <asp:CheckBox runat="server" CssClass="form-check-input" />
-                        <label class="form-check-label">I certify that all information provided is true and correct.</label>
+                        <label class="form-check-label">
+                            <asp:CheckBox runat="server" CssClass="form-check-input" />
+                            <span >I certify that all information provided is true and correct.</span>
+                        </label>
+
                     </div>
 
                     <div class="form-check">
-                        <asp:CheckBox runat="server" CssClass="form-check-input" />
+
                         <label class="form-check-label">
+                            <asp:CheckBox runat="server" CssClass="form-check-input" />
                             I have read and agree to the <a href="DataPrivacy.aspx" target="_blank">Data Privacy Consent</a>.
                         </label>
                     </div>

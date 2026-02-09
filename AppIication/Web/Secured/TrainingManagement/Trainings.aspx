@@ -58,6 +58,7 @@
                             <asp:BoundField DataField="other_details" HeaderText="Other Details" ItemStyle-Width="30%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="training_slots" HeaderText="Slots" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="attendance" HeaderText="Attendance" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                              <asp:BoundField DataField="registration_fee" HeaderText="Fee" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N}" />
 
 
                         </Columns>

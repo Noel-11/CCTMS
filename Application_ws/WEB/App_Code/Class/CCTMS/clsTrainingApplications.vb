@@ -8,7 +8,6 @@ Public Class clsTrainingApplications
         initialize()
     End Sub
 
-
 #Region "Properties"
     Public Property transId As String
 
@@ -26,6 +25,18 @@ Public Class clsTrainingApplications
 
     Public Property validationDatetime As String
 
+    Public Property applicationFee As String
+
+    Public Property applicationOr As String
+
+    Public Property applicationOrDate As String
+
+    Public Property isFinancePaid As String
+
+    Public Property financeMode As String
+
+    Public Property financeDateTime As String
+
     Public Property isActive As String
 
     Public Property createUser As String
@@ -38,7 +49,6 @@ Public Class clsTrainingApplications
 
 #End Region
 
-
     Public Sub initialize()
         _transId = ""
         _appCode = ""
@@ -48,6 +58,11 @@ Public Class clsTrainingApplications
         _applicationRemarks = ""
         _applicationDatetime = Nothing
         _validationDatetime = Nothing
+        _applicationFee = "0"
+        _applicationOr = ""
+        _applicationOrDate = Nothing
+        _isFinancePaid = "N"
+        _financeMode = "WALKIN"
         _isActive = ""
         _createUser = ""
         _createDate = Nothing
@@ -138,6 +153,40 @@ Public Class clsTrainingApplications
         '        .executeUsingCommandFromSQL(True)
         '    End With
         'End If
+    End Sub
+
+    Public Sub updateFinancePayment()
+
+        With _clsDB.dbUtility
+            .fieldItems = "application_or,application_or_date,is_finance_paid,finance_mode,finance_datetime,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("application_or", _applicationOr)
+            .ADDPARAM_CMD_String("application_or_date", DateTime.Now.ToString("yyyy-MM-dd"))
+            .ADDPARAM_CMD_String("is_finance_paid", _isFinancePaid)
+            .ADDPARAM_CMD_String("finance_mode", _financeMode)
+            .ADDPARAM_CMD_String("finance_datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    Public Sub updateApplicationStatus()
+
+        With _clsDB.dbUtility
+            .fieldItems = "application_status,application_remarks,validation_datetime,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("application_status", _applicationStatus)
+            .ADDPARAM_CMD_String("application_remarks", _applicationRemarks)
+            .ADDPARAM_CMD_String("validation_datetime", _validationDatetime)
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
     End Sub
 
     Public Sub getTrainingApplications(ByVal _id As String)
