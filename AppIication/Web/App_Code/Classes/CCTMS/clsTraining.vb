@@ -29,6 +29,10 @@ Public Class clsTraining
 
     Public Property registrationFee As String
 
+    Public Property trainingStatus As String
+
+    Public Property trainingRemarks As String
+
     Public Property isActive As String
 
     Public Property createUser As String
@@ -49,6 +53,8 @@ Public Class clsTraining
         _otherDetails = ""
         _attendance = "0"
         _registrationFee = "0"
+        _trainingStatus = ""
+        _trainingRemarks = ""
         _isActive = ""
         _createUser = ""
         _createDate = ""
@@ -68,8 +74,32 @@ Public Class clsTraining
         End If
 
         sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
-              "training_desc,training_slots, attendance, other_details, registration_fee FROM tbl_training " & _
+              "training_desc,training_slots, attendance, other_details, registration_fee,training_status FROM tbl_training " & _
               "WHERE is_active = 'Y' " & sqlWhere & _
+              "ORDER BY training_date DESC"
+
+        Return _clsDB.Fill_DataTable(sql, "tbl_training")
+    End Function
+
+    Public Function browseTrainingWAttendance(ByVal _criteria As String, Optional _thisDateFrom As String = "", Optional _thisDateTo As String = "") As DataTable
+        Dim sql As String = ""
+
+        Dim sqlWhere As String = ""
+
+        If _criteria <> "" Then
+            sqlWhere += "AND (training_title LIKE '%" & _criteria & "%' OR training_desc LIKE '%" & _criteria & "%') "
+        End If
+
+        If _thisDateFrom <> "" And _thisDateTo <> "" Then
+            sqlWhere += "AND (training_date BETWEEN '" & _thisDateFrom & "' AND '" & _thisDateTo & "') "
+        End If
+
+        sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
+              "training_desc,training_slots, other_details, registration_fee,training_status, " & _
+              "SUM(CASE WHEN COALESCE(tbl_training_attendance.trans_id,'') <> '' THEN 1 ELSE 0 END) AS attendance FROM tbl_training " & _
+              "LEFT JOIN tbl_training_attendance ON tbl_training.trans_id = tbl_training_attendance.training_id AND tbl_training_attendance.is_active = 'Y' " & _
+              "WHERE tbl_training.is_active = 'Y' " & sqlWhere & _
+              "GROUP BY tbl_training.trans_id " & _
               "ORDER BY training_date DESC"
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training")
@@ -78,7 +108,7 @@ Public Class clsTraining
     Public Function browseTrainingApplicant(ByVal _thisApplicant As String) As DataTable
         Dim sql As String = ""
         sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
-              "training_desc,(training_slots - attendance) AS availableSlots, other_details FROM tbl_training " & _
+              "training_desc,(training_slots - attendance) AS availableSlots, other_details, registration_fee FROM tbl_training " & _
               "LEFT JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
               "tbl_training_applications.applicant_id = '" & _thisApplicant & "' " & _
               "WHERE tbl_training.is_active = 'Y' AND COALESCE(tbl_training_applications.trans_id,'') = '' AND (training_slots - attendance) > 0 " & _
@@ -91,7 +121,7 @@ Public Class clsTraining
     Public Sub saveTraining()
         If transId = "" Then
             With _clsDB.dbUtility
-                .fieldItems = "trans_id,training_date,training_time,training_title,training_desc,training_slots,other_details,attendance,registration_fee,is_active,create_user,create_date"
+                .fieldItems = "trans_id,training_date,training_time,training_title,training_desc,training_slots,other_details,attendance,registration_fee,training_status,is_active,create_user,create_date"
                 .sqlString = .getSQLStatement("tbl_training", "INSERT")
                 _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 5).ToUpper
                 .ADDPARAM_CMD_String("trans_id", _transId)
@@ -103,9 +133,10 @@ Public Class clsTraining
                 .ADDPARAM_CMD_String("other_details", _otherDetails)
                 .ADDPARAM_CMD_String("attendance", _attendance)
                 .ADDPARAM_CMD_String("registration_fee", _registrationFee)
+                .ADDPARAM_CMD_String("training_status", _trainingStatus)
                 .ADDPARAM_CMD_String("is_active", "Y")
                 .ADDPARAM_CMD_String("create_user", _lastUser)
-                .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+                .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
                 .executeUsingCommandFromSQL(True)
             End With
         Else
@@ -135,8 +166,6 @@ Public Class clsTraining
             _attendanceCount = 0
         End Try
 
-
-
         With _clsDB.dbUtility
             .fieldItems = "attendance"
             .sqlString = .getSQLStatement("tbl_training", "UPDATE", "trans_id")
@@ -145,6 +174,19 @@ Public Class clsTraining
             .executeUsingCommandFromSQL(True)
         End With
 
+    End Sub
+
+    Public Sub updateStatus()
+        With _clsDB.dbUtility
+            .fieldItems = "training_status,training_remarks,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("training_status", _trainingStatus)
+            .ADDPARAM_CMD_String("training_remarks", _trainingRemarks)
+            .ADDPARAM_CMD_String("last_user", lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
     End Sub
 
     Public Sub getTraining(ByVal _id As String)
@@ -160,6 +202,8 @@ Public Class clsTraining
             _otherDetails = dt.Rows(0)("other_details").ToString
             _attendance = dt.Rows(0)("attendance").ToString
             _registrationFee = dt.Rows(0)("registration_fee").ToString
+            _trainingStatus = dt.Rows(0)("training_status").ToString
+            _trainingRemarks = dt.Rows(0)("training_remarks").ToString
             _isActive = dt.Rows(0)("is_active").ToString
         Else
             initialize()

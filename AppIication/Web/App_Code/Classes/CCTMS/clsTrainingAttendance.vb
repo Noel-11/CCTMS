@@ -56,10 +56,12 @@ Public Class clsTrainingAttendance
 
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training_applicants.* FROM tbl_training_attendance " & _
+        sql = "SELECT tbl_training_attendance.trans_id, lname,fname,mname,ename, contact_no,email_add,prc_no,prc_expiration, " & _
+              "CONCAT(lname,', ',fname,' ',ename,' ',mname) AS applicantName, is_present, " & _
+              "(CASE WHEN is_present = 'Y' THEN 'TRUE' ELSE 'FALSE' END) AS isAttendanceChecked FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
               "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.training_id = '" & _thisId & "' " & _
-              "ORDER BY last_name,first_name"
+              "ORDER BY lname,fname"
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training_attendance")
     End Function
@@ -79,38 +81,67 @@ Public Class clsTrainingAttendance
 
 
     Public Sub saveTrainingAttendance()
-        If transId = "" Then
-            With _clsDB.dbUtility
-                .fieldItems = "trans_id,attendee_no,training_id,applicant_id,remarks,is_present,is_active,create_user,create_date"
-                .sqlString = .getSQLStatement("tbl_training_attendance", "INSERT")
-                _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 25).ToUpper
-                .ADDPARAM_CMD_String("trans_id", _transId)
-                .ADDPARAM_CMD_String("attendee_no", _attendeeNo)
-                .ADDPARAM_CMD_String("training_id", _trainingId)
-                .ADDPARAM_CMD_String("applicant_id", _applicantId)
-                .ADDPARAM_CMD_String("remarks", _remarks)
-                .ADDPARAM_CMD_String("is_present", _isPresent)
-                .ADDPARAM_CMD_String("is_active", _isActive)
-                .ADDPARAM_CMD_String("create_user", _lastUser)
-                .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString)
-                .executeUsingCommandFromSQL(True)
-            End With
-        Else
-            With _clsDB.dbUtility
-                .fieldItems = "attendee_no,training_id,applicant_id,remarks,is_present,is_active,last_user,last_date"
-                .sqlString = .getSQLStatement("tbl_training_attendance", "UPDATE", "trans_id")
-                .ADDPARAM_CMD_String("attendee_no", _attendeeNo)
-                .ADDPARAM_CMD_String("training_id", _trainingId)
-                .ADDPARAM_CMD_String("applicant_id", _applicantId)
-                .ADDPARAM_CMD_String("remarks", _remarks)
-                .ADDPARAM_CMD_String("is_present", _isPresent)
-                .ADDPARAM_CMD_String("is_active", _isActive)
-                .ADDPARAM_CMD_String("last_user", _lastUser)
-                .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString)
-                .ADDPARAM_CMD_String("trans_id", _transId)
-                .executeUsingCommandFromSQL(True)
-            End With
-        End If
+        '  If transId = "" Then
+        With _clsDB.dbUtility
+            .fieldItems = "trans_id,attendee_no,training_id,applicant_id,remarks,is_present,is_active,create_user,create_date"
+            .sqlString = .getSQLStatement("tbl_training_attendance", "INSERT")
+            _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 25).ToUpper
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .ADDPARAM_CMD_String("attendee_no", _attendeeNo)
+            .ADDPARAM_CMD_String("training_id", _trainingId)
+            .ADDPARAM_CMD_String("applicant_id", _applicantId)
+            .ADDPARAM_CMD_String("remarks", _remarks)
+            .ADDPARAM_CMD_String("is_present", _isPresent)
+            .ADDPARAM_CMD_String("is_active", _isActive)
+            .ADDPARAM_CMD_String("create_user", _lastUser)
+            .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString)
+            .executeUsingCommandFromSQL(True)
+        End With
+        'Else
+        '    With _clsDB.dbUtility
+        '        .fieldItems = "attendee_no,training_id,applicant_id,remarks,is_present,is_active,last_user,last_date"
+        '        .sqlString = .getSQLStatement("tbl_training_attendance", "UPDATE", "trans_id")
+        '        .ADDPARAM_CMD_String("attendee_no", _attendeeNo)
+        '        .ADDPARAM_CMD_String("training_id", _trainingId)
+        '        .ADDPARAM_CMD_String("applicant_id", _applicantId)
+        '        .ADDPARAM_CMD_String("remarks", _remarks)
+        '        .ADDPARAM_CMD_String("is_present", _isPresent)
+        '        .ADDPARAM_CMD_String("is_active", _isActive)
+        '        .ADDPARAM_CMD_String("last_user", _lastUser)
+        '        .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString)
+        '        .ADDPARAM_CMD_String("trans_id", _transId)
+        '        .executeUsingCommandFromSQL(True)
+        '    End With
+        'End If
+    End Sub
+
+
+    Public Sub updateAttendanceIsPresent()
+
+        With _clsDB.dbUtility
+            .fieldItems = "is_present,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_attendance", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("is_present", _isPresent)
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    Public Sub updateAttendanceIsPresentByTraining()
+
+        With _clsDB.dbUtility
+            .fieldItems = "is_present,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_attendance", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("is_present", _isPresent)
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
     End Sub
 
 

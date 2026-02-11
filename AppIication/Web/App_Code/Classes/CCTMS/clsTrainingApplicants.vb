@@ -177,7 +177,7 @@ Public Class clsTrainingApplicants
             End With
         Else
             With _clsDB.dbUtility
-                .fieldItems = "lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration,registration_date"
+                .fieldItems = "lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration"
                 .sqlString = .getSQLStatement("tbl_training_applicants", "UPDATE", "trans_id")
                 .ADDPARAM_CMD_String("lname", _lname)
                 .ADDPARAM_CMD_String("fname", _fname)
@@ -201,7 +201,6 @@ Public Class clsTrainingApplicants
                 .ADDPARAM_CMD_String("topic_interest", _topicInterest)
                 .ADDPARAM_CMD_String("program_discovered", _programDiscovered)
                 .ADDPARAM_CMD_String("prc_expiration", _prcExpiration)
-                .ADDPARAM_CMD_String("registration_date", _registrationDate)
                 .ADDPARAM_CMD_String("trans_id", _transId)
                 .executeUsingCommandFromSQL(True)
             End With

@@ -46,4 +46,8 @@ Partial Class Secured_TrainingManagement_Trainings
         Session("TRAINING_ID") = ""
         Response.Redirect("TrainingsAdd.aspx")
     End Sub
+
+    Protected Sub btnSearch_ServerClick(sender As Object, e As EventArgs) Handles btnSearch.ServerClick
+        fillGv()
+    End Sub
 End Class

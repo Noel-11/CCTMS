@@ -1,5 +1,5 @@
-﻿<%@ Page Title="DASHBOARD" Language="VB" AutoEventWireup="false" CodeFile="DashBoard.aspx.vb"
-    Inherits="Secured_DashBoard" Theme="Skins"
+﻿<%@ Page Title="SCID" Language="VB" AutoEventWireup="false" CodeFile="TrainingReport_0.aspx.vb"
+    Inherits="Secured_TrainingManagement_TrainingReport_0" Theme="Skins"
     MasterPageFile="~/MasterPage/Admin.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">

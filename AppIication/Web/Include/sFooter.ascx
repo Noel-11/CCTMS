@@ -50,24 +50,24 @@
                             <div class="client-info">
                                <%-- <img src="<%=ResolveClientUrl("~/Images/clenro.png")%>" alt="CLENRO Logo" width="50" />--%>
 
-                                <h3>SENIOR CITIZEN'S ID ONLINE REGISTRATION</h3>
-                                <p>The Online Senior Citizen ID Application System offers a convenient, quick, and accessible way for Senior Citizens
+                                <h3>CITY COLLEGE TRAINING MANAGEMENT SYSTEM</h3>
+                                <p>The City College Training Management System is an online platform designed to facilitate training applications
                                     <span id="dots" style="display: block">...</span>
-                                    <span id="more"> to apply for their identification card without visiting the City Social Welfare and Development Office in person. Through this platform, applicants can easily enter their details, upload the necessary documents, and monitor the progress of their application.
+                                    <span id="more"> and efficiently manage scheduled training programs under the City College of Cagayan de Oro City.
                                         <br />
                                         <br />
                                         
                                     </span>
                                 </p>
                                 <button type="button" id="myBtn" onclick="myFunction()">Read more</button>
-                                <h5 class="pb-3 fs-5">CITY SOCIAL WELFARE DEVELOPMENT</h5>
+                                <h5 class="pb-3 fs-5">CITY COLLEGE OF CAGAYAN DE ORO CITY</h5>
                                 <p>
                                     <%--<strong>Vision:</strong> Shall be the most highly competitive ICT organization in the City Government of Cagayan de Oro.
                                     <br />
                                     <br />
                                     <strong>Mission:</strong> To serve the City Government of Cagayan de Oro by providing a reliable, accurate and efficient ICT solutions and services while continuously innovates technology to meet the needs of our clients and stakeholders.
                                      --%>
-                                    <strong>Office of the Senior Citizens Affair</strong>
+                                    <strong>Office for Lifelong Learning & Professional Development</strong>
                                     <br />
                                     <br />
                                     <strong>Developed by:</strong> CMISID Team | QA - TIN | DEVELOPER - NOEL
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 col-sm-6 col-xs-12 version">
-                                Version 2.0
+                                Version 1.0
                             </div>
                         </div>
                     </div>

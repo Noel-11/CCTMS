@@ -16,8 +16,7 @@ Partial Class _Default
 
         End If
 
-        _btnOK = thisMsgBox.FindControl("btnMsgBoxYes")
-        AddHandler _btnOK.ServerClick, AddressOf btnOK_Click
+       
 
     End Sub
 

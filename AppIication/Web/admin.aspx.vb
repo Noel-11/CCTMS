@@ -61,7 +61,7 @@ Partial Class _admin
             Catch ex As Exception
             End Try
 
-            Session("MODULE") = "SENIOR CITIZEN"
+            Session("MODULE") = "CCTMS"
 
             'If _clsUser.verifyDefaultPassword(txtPassword.Value) = True Then
 

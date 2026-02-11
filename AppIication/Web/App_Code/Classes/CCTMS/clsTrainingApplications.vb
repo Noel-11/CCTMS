@@ -18,11 +18,17 @@ Public Class clsTrainingApplications
 
     Public Property applicantId As String
 
+    Public Property applicantName As String
+
+    Public Property applicantContact As String
+
     Public Property applicationStatus As String
 
     Public Property applicationRemarks As String
 
     Public Property applicationDatetime As String
+
+    Public Property applicationFee As String
 
     Public Property validationDatetime As String
 
@@ -44,9 +50,12 @@ Public Class clsTrainingApplications
         _appCode = ""
         _trainingId = ""
         _applicantId = ""
+        _applicantName = ""
+        _applicantContact = ""
         _applicationStatus = ""
         _applicationRemarks = ""
         _applicationDatetime = Nothing
+        _applicationFee = "0"
         _validationDatetime = Nothing
         _isActive = ""
         _createUser = ""
@@ -59,7 +68,7 @@ Public Class clsTrainingApplications
     Public Function browseTrainingApplications(ByVal _thisId As String) As DataTable
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training_applicants.* " & _
+        sql = "SELECT tbl_training_applicants.*, CONCAT(lname,', ',fname,' ',fname,' ',mname) AS applicantName " & _
               "FROM tbl_training_applications " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_applications.applicant_id = tbl_training_applicants.trans_id " & _
               "LEFT JOIN tbl_training_attendance ON tbl_training_applicants.trans_id = tbl_training_attendance.applicant_id AND " & _
@@ -104,23 +113,27 @@ Public Class clsTrainingApplications
 
     Public Sub saveTrainingApplications()
         'If transId = "" Then
+
         With _clsDB.dbUtility
-            .fieldItems = "trans_id,app_code,training_id,applicant_id,application_status,application_remarks,application_datetime,validation_datetime,is_active,create_user,create_date"
+            .fieldItems = "trans_id,app_code,training_id,applicant_id,applicant_name,applicant_contact,application_status,application_remarks,application_datetime,application_fee,is_active,create_user,create_date"
             .sqlString = .getSQLStatement("tbl_training_applications", "INSERT")
             _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 25).ToUpper
             .ADDPARAM_CMD_String("trans_id", _transId)
             .ADDPARAM_CMD_String("app_code", getAppcode())
             .ADDPARAM_CMD_String("training_id", _trainingId)
             .ADDPARAM_CMD_String("applicant_id", _applicantId)
+            .ADDPARAM_CMD_String("applicant_name", _applicantName)
+            .ADDPARAM_CMD_String("applicant_contact", applicantContact)
             .ADDPARAM_CMD_String("application_status", _applicationStatus)
             .ADDPARAM_CMD_String("application_remarks", _applicationRemarks)
             .ADDPARAM_CMD_String("application_datetime", _applicationDatetime)
-            .ADDPARAM_CMD_String("validation_datetime", _validationDatetime)
+            .ADDPARAM_CMD_String("application_fee", _applicationFee)
             .ADDPARAM_CMD_String("is_active", "Y")
             .ADDPARAM_CMD_String("create_user", _lastUser)
             .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
             .executeUsingCommandFromSQL(True)
         End With
+
         'Else
         '    With _clsDB.dbUtility
         '        .fieldItems = "training_id,applicant_id,application_status,application_remarks,application_datetime,validation_datetime,is_active,last_user,last_date"

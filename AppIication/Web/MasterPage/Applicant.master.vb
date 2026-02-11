@@ -15,9 +15,10 @@ Partial Class MasterPage_Applicant
         'ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select3", "$('.ddlSelM2').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead2'),dropdownAutoWidth:'true',});", True)
 
         'User Details
-        ' If Not Page.IsPostBack Then
-        setMenuActiveCSS()
-        'End If
+        If Not Page.IsPostBack Then
+            setMenuActiveCSS()
+
+        End If
 
     End Sub
 

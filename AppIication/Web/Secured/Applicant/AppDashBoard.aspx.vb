@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Data
+Imports Microsoft.Reporting.WebForms
 Partial Class Secured_Applicant_AppDashBoard
     Inherits cPageInit_Secured_Client
     Dim _clsDB As New clsDatabase
@@ -28,7 +29,9 @@ Partial Class Secured_Applicant_AppDashBoard
 
         If thisMsgBox.getModalType = "REGISTER" Then
             trainingRegistration()
-            Response.Redirect("AppDashBoard.aspx")
+            generateReport()
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
+            ' Response.Redirect("AppDashBoard.aspx")
         End If
 
     End Sub
@@ -36,7 +39,6 @@ Partial Class Secured_Applicant_AppDashBoard
     Protected Sub btnNo_Click(ByVal sender As Object, ByVal e As System.EventArgs)
 
     End Sub
-
 
     Protected Sub fillGVTrainings()
 
@@ -57,6 +59,20 @@ Partial Class Secured_Applicant_AppDashBoard
 
         hfTrainingId.Value = e.CommandArgument
 
+        lblTrainingDate.Text = CType(sender, Button).Attributes("trainingDate")
+        lblTrainingTitle.Text = CType(sender, Button).Attributes("title")
+        lblDescription.Text = CType(sender, Button).Attributes("description")
+        lblOtherDescription.Text = CType(sender, Button).Attributes("otherDetails")
+        lblTrainingSlots.Text = CType(sender, Button).Attributes("availableSlots")
+        lblTrainingFee.Text = CType(sender, Button).Attributes("registrationFee")
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlView", "var myModal = new bootstrap.Modal(document.getElementById('mdlView'), {});  myModal.show();", True)
+
+    End Sub
+
+
+    Protected Sub btnApply_ServerClick(sender As Object, e As EventArgs) Handles btnApply.ServerClick
+
         Dim dtExist As New DataTable
 
         dtExist = _clsDB.Fill_DataTable("SELECT trans_id, DATE_FORMAT(application_datetime,'%m/%d/%Y %h:%i %p') AS application_datetime,application_status FROM tbl_training_applications " & _
@@ -66,23 +82,21 @@ Partial Class Secured_Applicant_AppDashBoard
 
         If dtExist.Rows.Count > 0 Then
             thisMsgBox.setError("REGISTERED", "You're already applied on this training!" & _
-                                              "Schedule: " & CType(sender, Button).Attributes("trainingDate") & "<br/>" & _
-                                              "Title: " & CType(sender, Button).Attributes("title") & "<br/>" & _
+                                              "Schedule: " & lblTrainingDate.Text & "<br/>" & _
+                                              "Title: " & lblTrainingTitle.Text & "<br/>" & _
                                               "DateTime Applied: " & dtExist.Rows(0)("application_datetime") & "<br/>" & _
                                               "Status : " & dtExist.Rows(0)("application_status"))
 
         Else
             thisMsgBox.setModalType("REGISTER")
             thisMsgBox.setConfirm(, "Do you want to register on this Training? <br/> " & _
-                                    "Schedule: " & CType(sender, Button).Attributes("trainingDate") & "<br/>" & _
-                                    "Title: " & CType(sender, Button).Attributes("title") & "<br/>" & _
-                                    "Description: " & CType(sender, Button).Attributes("description") & "<br/>" & _
-                                    "Description: " & CType(sender, Button).Attributes("description") & "<br/>" & _
-                                    "Available Slots: " & CType(sender, Button).Attributes("availableSlots") & "<br/>" & _
+                                    "Schedule: " & lblTrainingDate.Text & "<br/>" & _
+                                    "Title: " & lblTrainingTitle.Text & "<br/>" & _
+                                    "Description: " & lblDescription.Text & "<br/>" & _
+                                    "Available Slots: " & lblTrainingSlots.Text & "<br/>" & _
                                     "Click yes to proceed.")
 
         End If
-
 
         thisMsgBox.showConfirmBox()
 
@@ -91,16 +105,23 @@ Partial Class Secured_Applicant_AppDashBoard
 
     Private Sub trainingRegistration()
 
+        Dim _clsApplicant As New clsTrainingApplicants
+
         Dim _clsTrainingApplication As New clsTrainingApplications
         Dim _clsTraining As New clsTraining
+
+        _clsApplicant.getTrainingApplicants(hfApplicantId.Value)
 
         With _clsTrainingApplication
             .initialize()
             .trainingId = hfTrainingId.Value
             .applicantId = hfApplicantId.Value
+            .applicantName = _clsApplicant.lname & ", " & _clsApplicant.fname & IIf(_clsApplicant.ename <> "", " " & _clsApplicant.ename, "") & " " & _clsApplicant.mname
+            .applicantContact = _clsApplicant.contactNo
             .applicationStatus = "FOR PAYMENT"
             .applicationRemarks = "Pay to secure slot"
             .applicationDatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm")
+            .applicationFee = CDec(lblTrainingFee.Text)
             .lastUser = Session("UserName")
             .saveTrainingApplications()
 
@@ -112,5 +133,67 @@ Partial Class Secured_Applicant_AppDashBoard
 
 #End Region
 
+
+#Region "BILLING"
+
+    'Protected Sub btnPrintAttendance_ServerClick(sender As Object, e As EventArgs) Handles btnPrintAttendance.ServerClick
+    '    generateReport()
+    '    lblReportHeadName.Text = "TRAINING ATTENDANCE"
+    '    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
+    'End Sub
+
+    Public Sub generateReport()
+        Try
+            Dim warnings() As Warning
+            Dim streamIds() As String
+            Dim mimeType As String = String.Empty
+            Dim encoding As String = String.Empty
+            Dim extension As String = String.Empty
+            'Dim agerange As String
+            Dim rvPrint As ReportViewer = New ReportViewer
+
+            rvPrint.ProcessingMode = ProcessingMode.Local
+            rvPrint.LocalReport.ReportPath = Server.MapPath("~/Secured/Report/rptBilling.rdlc")
+
+            Dim dsTrainingApplication As New ReportDataSource("dsTrainingApplication", getBilling())
+          
+
+            rvPrint.LocalReport.DataSources.Clear()
+            rvPrint.LocalReport.DataSources.Add(dsTrainingApplication)
+
+            rvPrint.LocalReport.Refresh()
+
+            Dim bytes() As Byte = rvPrint.LocalReport.Render("PDF", Nothing, mimeType, encoding, extension, streamIds, warnings)
+
+            Session("pdfBytes") = bytes
+
+            ltEmbed.Text = String.Format("<object data=""{0}{1}"" type=""application/pdf"" width=""100%"" height=""700px""></object>", ResolveUrl("~/ReportHandler.ashx"), "")
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+        'ReportsMsgBox.show("PAYROLL")
+    End Sub
+
+    Private Function getBilling() As DataTable
+
+        Dim sql As String = ""
+
+        sql = "SELECT tbl_training_applications.trans_id,tbl_training_applications.app_code,tbl_training_applications.applicant_name,application_fee, " & _
+              "tbl_training_applications.applicant_contact AS contact_no,CONCAT(tbl_training.training_title,': ',tbl_training.training_desc) AS training_description FROM tbl_training_applications " & _
+              "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+              "WHERE tbl_training_applications.applicant_id = '" & hfApplicantId.Value & "' AND " & _
+              "tbl_training_applications.training_id = '" & hfTrainingId.Value & "'"
+
+        Dim dt As New DataTable
+
+        dt = _clsDB.Fill_DataTable(sql, "tbl_training")
+
+        Return dt
+
+    End Function
+
+#End Region
 
 End Class

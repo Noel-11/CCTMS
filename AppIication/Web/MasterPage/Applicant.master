@@ -2,6 +2,8 @@
 
 <!DOCTYPE html>
 
+<%@ Register Src="~/Include/sFooterPublic.ascx" TagName="sFooter" TagPrefix="uc3" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
 <head runat="server">
@@ -20,82 +22,14 @@
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/Applicant.css")%>" rel="stylesheet" />
 
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/AppHeader.css")%>" rel="stylesheet" />
-        <link href="<%=ResolveClientUrl("~//Scripts/mycss/AppFooter.css")%>" rel="stylesheet" />
-
+       
         <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js")%>"></script>
         <%--<script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/jquery.min.js")%>"></script>--%>
         <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
 
     </asp:ContentPlaceHolder>
 
-    <style>
-        .page-wrapper {
-            min-height: 100vh; /* full viewport height */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .app-content {
-            flex: 1; /* pushes footer to bottom */
-        }
-
-        .layout {
-            display: flex;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            width: 220px;
-            /*background-color: #2e7d32;*/
-            padding: 15px;
-            transition: transform 0.3s ease;
-        }
-
-
-
-        /* MAIN CONTENT */
-        .main-view {
-            flex: 1;
-            padding: 20px;
-        }
-
-        /* HAMBURGER */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* MOBILE VIEW */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-
-            .sidebar {
-                position: fixed;
-                top: 64px; /* height of header */
-                left: 0;
-                height: calc(100% - 64px);
-                transform: translateX(-100%);
-                z-index: 1000;
-                background-color: #d8ebd8;
-                border-radius: 8px;
-            }
-
-                .sidebar.show {
-                    transform: translateX(0);
-                }
-
-            .layout {
-                flex-direction: column;
-            }
-        }
-    </style>
-
+    
     <script>
         function toggleMenu() {
             document.getElementById("ctl00_divMenu").classList.toggle("show");
@@ -163,17 +97,9 @@
             <main class="app-content">
             <!-- sidebar + content here -->
 
-            <%--<div class="container-fluid mt-3">--%>
-          <%--  <div class="d-flex">--%>
                 <div class="layout">
                 <!-- LEFT SIDEBAR -->
 
-          <%--  <aside class="sidebar" id="divSideMenu">
-              <a class="menu-item active">Dashboard</a>
-              <a class="menu-item">Completed Trainings</a>
-              <a class="menu-item">Upcoming Trainings</a>
-            </aside>--%>
-              
                 <div runat="server" id="divMenu" class="sidebar me-4" >
                     <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard"  />
                     <asp:Button runat="server" Text="COMPLETED TRAININGS" ID="btnComplete"  />
@@ -187,37 +113,11 @@
                 </div>
 
                     </div>
-            <%--</div>--%>
-        <%--</div>--%>
-
+         
         </main>
+
             <!-- FOOTER -->
-            <footer class="app-footer">
-                <div class="footer-content">
-
-                    <div class="footer-logos">
-                        <img src="images/citycollege-logo.png" alt="City College Logo">
-                        <div class="footer-text">
-                            <strong>City College Training Online Application</strong>
-                            <span>Powered by: Information Technology Department</span>
-                        </div>
-                        <img src="images/it-department-logo.png" alt="IT Department Logo">
-                    </div>
-
-                    <div class="footer-actions">
-                        <a href="https://www.citycollege.edu.ph" target="_blank" class="footer-btn">Visit Official Website
-                        </a>
-                        <a href="https://www.facebook.com/citycollege" target="_blank" class="footer-btn outline">Official Facebook Page
-                        </a>
-                    </div>
-
-                    <div class="footer-copy">
-                        © 2026 City College. All Rights Reserved.
-                    </div>
-
-                </div>
-            </footer>
-
+           <uc3:sFooter ID="sFooter1" runat="server" />
 
         </div>
 

@@ -39,19 +39,24 @@ Partial Class _Registration
         End If
     End Sub
 
-    Protected Sub btnHome_ServerClick(sender As Object, e As EventArgs) Handles btnHome.ServerClick
-        Response.Redirect("Default.aspx")
-    End Sub
+    'Protected Sub btnHome_ServerClick(sender As Object, e As EventArgs) Handles btnHome.ServerClick
+    '    Response.Redirect("Default.aspx")
+    'End Sub
 
     Private Sub getDll()
 
         _clsDB.populateDDLB(ddlGender, "description", "trans_id", "tbl_ref_gender", "description", " WHERE is_active = 'Y'", , "")
 
+
         _clsDB.populateDDLB(ddlCivilStatus, "description", "trans_id", "tbl_ref_civil_status", "description", " WHERE is_active = 'Y'", , "")
 
-        _clsDB.populateDDLB(dllCityAddr, "description", "trans_id", "tbl_ref_city_province", "description", " WHERE is_active = 'Y'", , "")
+        _clsDB.populateDDLB(ddlCityAddr, "description", "trans_id", "tbl_ref_city_province", "description", " WHERE is_active = 'Y'", , "")
+
+        ddlCityAddr.Items.RemoveAt(0)
+        ddlCityAddr.SelectedValue = "CAGAYAN DE ORO_D1"
 
         _clsDB.populateDDLB(dllEducation, "description", "trans_id", "tbl_ref_educ_attainment", "description", " WHERE is_active = 'Y'", , "")
+        dllEducation.Items.RemoveAt(0)
 
         _clsDB.populateDDLB(dllPreferredTracks, "description", "trans_id", "tbl_ref_learning_tracks", "description", " WHERE is_active = 'Y'", , "")
 
@@ -86,7 +91,7 @@ Partial Class _Registration
             .contactNo = txtContactNo.Text.Trim
             .emailAdd = txtEmail.Text.Trim
             .homeAddr = txtHomeAddr.Text.Trim.ToUpper
-            .cityProvince = dllCityAddr.SelectedValue
+            .cityProvince = ddlCityAddr.SelectedValue
             .profession = txtProfession.Text.Trim
             .educAttain = dllEducation.SelectedValue
             .position = txtPosition.Text.Trim.ToUpper
@@ -98,7 +103,7 @@ Partial Class _Registration
             .prefLearnMode = ddlPreferredMode.SelectedValue
             .prefSched = ddlPreferredSched.SelectedValue
             .topicInterest = txtSpecificTopic.Text.Trim
-            .programDiscovered = txtSpecificTopic.Text.Trim
+            .programDiscovered = ddlHear.SelectedValue
             '.userName = .lname
             .saveTrainingApplicants()
 

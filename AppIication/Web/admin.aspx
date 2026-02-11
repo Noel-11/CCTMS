@@ -11,7 +11,7 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="Shortcut Icon" href="~/favicon.ico" type="image/x-icon" />
-    <title>SENIOR CITIZEN'S ID ONLINE REGISTRATION</title>
+    <title>CITY COLLEGE</title>
 
     <link href="Scripts/Bootstrap5/css/bootstrap.css" rel="stylesheet" />
     <link href="Scripts/Bootstrap5/css/bootstrap.min.css" rel="stylesheet" />
