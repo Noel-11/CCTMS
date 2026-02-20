@@ -28,11 +28,16 @@
 
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/landing_page.css")%>" rel="stylesheet" />
       
+         <link href="<%=ResolveClientUrl("~/Scripts/mycss/mycss.css")%>" rel="stylesheet" />
+
         <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js")%>"></script>
 
+          <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
+
+         <!-- Template Main JS File -->
+    <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
+
     </asp:ContentPlaceHolder>
-
-
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7L1XJHHL63"></script>
@@ -45,8 +50,6 @@
     </script>
 
 
-    
-
 </head>
 
 <body>
@@ -54,6 +57,9 @@
     <form id="form1" role="form" method="post" runat="server" autocomplete="off" defaultbutton="btnDoNothing">
         <asp:Button ID="btnDoNothing" runat="server" Enabled="false" Style="display: none;" />
         <asp:ScriptManager ID="ScriptManager1" runat="server">
+             <Scripts>
+                <asp:ScriptReference Path="~/Scripts/block/UPBlock.js" />
+            </Scripts>
         </asp:ScriptManager>
 
          <!-- HEADER -->
@@ -90,8 +96,13 @@
 
          <asp:ContentPlaceHolder ID="cpConTent" runat="server">
 
+
         </asp:ContentPlaceHolder>
 
+           <div id="domMessage" style="display: none;">
+               <div class="loader"></div>
+                                 
+         </div>
 
         <!-- Footer -->
         <uc3:sFooter ID="sFooter1" runat="server" />

@@ -8,7 +8,6 @@ Partial Class Secured_Applicant_AppUpcoming
 
         If Not Page.IsPostBack Then
             hfApplicantId.Value = Session("APPLICANTID")
-
             fillGVTrainings()
 
         End If
@@ -28,8 +27,6 @@ Partial Class Secured_Applicant_AppUpcoming
 
     End Sub
 
-   
-
 #Region "VIEW"
 
     Protected Sub cmdGVView(ByVal sender As Object, ByVal e As CommandEventArgs)
@@ -37,6 +34,7 @@ Partial Class Secured_Applicant_AppUpcoming
         lblTrainingDate.Text = CType(sender, Button).Attributes("trainingDate")
         lblTrainingTitle.Text = CType(sender, Button).Attributes("title")
         lblDescription.Text = CType(sender, Button).Attributes("description")
+        lblVenue.Text = CType(sender, Button).Attributes("venue")
         lblOtherDescription.Text = CType(sender, Button).Attributes("otherDetails")
 
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlView", "var myModal = new bootstrap.Modal(document.getElementById('mdlView'), {});  myModal.show();", True)

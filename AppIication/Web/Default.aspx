@@ -32,5 +32,6 @@
                 <a href="Registration.aspx" class="btn btn-green px-5">REGISTER</a>
             </div>
         </div>
+
     </section>
 </asp:Content>

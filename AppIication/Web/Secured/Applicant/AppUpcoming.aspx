@@ -2,7 +2,7 @@
     Inherits="Secured_Applicant_AppUpcoming" MasterPageFile="~/MasterPage/Applicant.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
-   
+
     <!-- UPCOMING TRAININGS -->
     <div class="section-title">LIST OF UPCOMING TRAININGS</div>
 
@@ -18,6 +18,8 @@
                         <asp:BoundField HeaderText="TRAINING DATE" DataField="training_date" />
                         <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
                         <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
+                        <asp:BoundField HeaderText="VENUE" DataField="training_venue" />
+                        <asp:BoundField HeaderText="STATUS" DataField="application_status" />
 
                         <asp:TemplateField HeaderText="ACTION">
                             <ItemTemplate>
@@ -29,6 +31,7 @@
                                     trainingDate='<%# Eval("training_date")%>'
                                     title='<%# Eval("training_title")%>'
                                     description='<%# Eval("training_desc")%>'
+                                    venue='<%# Eval("training_venue")%>'
                                     availableSlots='<%# Eval("availableSlots")%>'
                                     otherDetails='<%# Eval("other_details")%>'
                                     ToolTip="Click to View" />
@@ -41,8 +44,8 @@
         </asp:UpdatePanel>
     </div>
 
-    <div id="mdlView" role="dialog" class="modal fade"  aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
-        <div class="modal-dialog">
+    <div id="mdlView" role="dialog" class="modal fade" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <asp:UpdatePanel runat="server" ID="UpdatePanel9">
                     <ContentTemplate>
@@ -69,6 +72,14 @@
                                 <div class="col-md-12 mb-1">
                                     <span class="fw-bold text-dark">Description: </span>
                                     <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblDescription"></asp:Label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <span class="fw-bold text-dark">Venue: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblVenue"></asp:Label>
                                 </div>
 
                             </div>

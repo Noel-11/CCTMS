@@ -5,6 +5,8 @@ Public Class clsTrainingApplicants
     Dim _clsSecurity As New clsDimboMySQL.clsSecurity
     Dim _clsSystemInfo As New clsSystemInfo
 
+    Dim _clsUtilSecurity As New clsUtilSecurity
+
     Public Sub New()
         initialize()
     End Sub
@@ -113,13 +115,7 @@ Public Class clsTrainingApplicants
         Return _clsDB.Fill_DataTable(sql, "tbl_training_applicants")
     End Function
 
-    Public Function validatePassword(ByVal _thisUserId As String, ByVal _thisPassword As String) As Boolean
-
-        getTrainingApplicantsUser(_thisUserId)
-
-        Return _clsSecurity.validateSameText(_thisPassword, _Password)
-
-    End Function
+   
 
     Public Function getUserName(ByVal _thisUName As String) As String
         Dim uName As String = ""
@@ -139,7 +135,7 @@ Public Class clsTrainingApplicants
 
     Public Sub saveTrainingApplicants()
         If transId = "" Then
-            _userName = getUserName(_lname & _fname)
+            _userName = getUserName(emailAdd)
             With _clsDB.dbUtility
                 .fieldItems = "trans_id,lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration,registration_date,user_name,password,is_active,create_user,create_date"
                 .sqlString = .getSQLStatement("tbl_training_applicants", "INSERT")
@@ -218,6 +214,48 @@ Public Class clsTrainingApplicants
         End With
 
     End Sub
+
+    Public Sub updateApplicantPassword()
+
+        With _clsDB.dbUtility
+            .fieldItems = "password"
+            .sqlString = .getSQLStatement("tbl_training_applicants", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("password", _clsUtilSecurity.encryptString(_password))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    Public Function validatePassword(ByVal _thisUserId As String, ByVal _thisPassword As String) As Boolean
+
+        getTrainingApplicantsUser(_thisUserId)
+
+        Return _clsSecurity.validateSameText(_thisPassword, _Password)
+
+    End Function
+
+    Public Function validateLogin(ByVal _struserid As String, ByVal _strpassword As String) As Boolean
+
+        Dim dt As New DataTable
+
+        getTrainingApplicantsUser(_struserid)
+
+        dt = _clsDB.Fill_DataTable("SELECT (CASE WHEN MD5('" & _strpassword & "') = '" & _password & "' THEN 'TRUE' ELSE 'FALSE' END)")
+
+        Dim bol As Boolean = False
+
+        If dt.Rows.Count > 0 Then
+            bol = IIf(dt.Rows(0)(0) = "TRUE", True, False)
+        End If
+
+        If bol = False Then
+            bol = _clsSecurity.validateSameText(_strpassword, _password)
+        End If
+
+        Return bol
+
+    End Function
 
     Public Sub getTrainingApplicantsUser(ByVal _id As String)
         Dim dt As New DataTable

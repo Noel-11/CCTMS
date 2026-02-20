@@ -4,65 +4,89 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
-    <div class="container-fluid mt-3">
-            <div class="d-flex">
+     <section class="section dashboard">
 
-                <!-- MAIN CONTENT -->
-                <div class="flex-fill">
+        <div class="row">
 
-                    <!-- TOP RIGHT PROFILE -->
-                    <div class="text-end mb-3">
-                        <a href="AppProfile.aspx" class="text-decoration-none text-muted">PROFILE</a>
-                    </div>
+             <!-- UPCOMING -->
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel5">
+                        <ContentTemplate>
 
-                    <!-- SUMMARY CARDS -->
-                    <div class="row mb-4">
-                        <div class="col-md-4">
-                             <div class="card-summary">
-                                     <center> UPCOMING TRAININGS <br />
-                                         <span runat="server" id="spanUpcomingCount">0</span></center>
-                             </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card-summary">
-                                <center>COMPLETED TRAININGS<br />
-                                    <span runat="server" id="spanCompleted">0</span></center>
+                            <div class="filter">
+                                <a class="icon text-dark" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <asp:DropDownList runat="server" ID="ddlUpcomingFilter" CssClass="dropdown-menu dropdown-menu-end dropdown-menu-arrow" AutoPostBack="true">
+                                    <asp:ListItem Text="Today" Value="Today"></asp:ListItem>
+                                    <asp:ListItem Text="This Month" Value="Month"></asp:ListItem>
+                                     <asp:ListItem Text="This Year" Value="Year"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- AVAILABLE TRAININGS -->
-                    <div class="section-title">AVAILABLE TRAININGS</div>
+                            <button runat="server" type="button" class="card-body bg-warning border-0 w-100 text-start rounded" id="btnUpcoming" style="cursor: pointer;">
+                                <h5 class="card-title text-dark">UPCOMING<span>|
+                                            <label runat="server" id="lblUpcomingFilter" class="text-dark"></label>
+                                </span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-exclamation-square-fill"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>
+                                            <asp:Label runat="server" ID="lblUpcomingCnt" Text="" CssClass="text-dark"></asp:Label></h6>
+                                    </div>
+                                </div>
+                            </button>
 
-                    <div class="table-responsive border rounded p-2">
-                        <asp:GridView
-                            runat="server" ID="_gvTraining"
-                            CssClass="table table-borderless align-middle"
-                            AutoGenerateColumns="False" EmptyDataText="NO TRAINING AVAILABLE">
-
-                            <Columns>
-                                <asp:BoundField HeaderText="TRAINING DATE" DataField="training_date" />
-                                <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
-                                <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
-                                <asp:BoundField HeaderText="AVAILABLE SLOTS" DataField="availableSlots" />
-
-                                <asp:TemplateField HeaderText="ACTION">
-                                    <ItemTemplate>
-                                        <asp:Button
-                                            runat="server"
-                                            Text="Register"
-                                            CssClass="btn btn-sm btn-green" trainingId='<%# Eval("trans_id")%>' />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-
-                        </asp:GridView>
-                    </div>
-
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
+            <!-- END PENDING -->
+         
+            <!-- COMPLETED -->
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel6">
+                        <ContentTemplate>
+
+                            <div class="filter">
+                                <a class="icon text-light" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <asp:DropDownList runat="server" ID="ddlCompleteFilter" CssClass="dropdown-menu dropdown-menu-end dropdown-menu-arrow" AutoPostBack="true">
+                                    <asp:ListItem Text="Today" Value="Today"></asp:ListItem>
+                                    <asp:ListItem Text="This Month" Value="Month"></asp:ListItem>
+                                     <asp:ListItem Text="This Year" Value="Year"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <button runat="server" type="button" class="card-body bg-success border-0 w-100 text-start rounded" id="btnComplete" style="cursor: pointer;">
+                                <h5 class="card-title text-light">COMPLETED <span>|
+                                            <label runat="server" id="lblCompleteFilter" class="text-light"></label>
+                                </span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-clipboard-check-fill"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>
+                                            <asp:Label runat="server" ID="lblCompleteCnt" Text="" CssClass="text-light"></asp:Label></h6>
+                                    </div>
+                                </div>
+                            </button>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+            <!-- END APPROVED -->
+
+           
+
         </div>
+
+      
+
+    </section>
 
 
 </asp:Content>

@@ -209,36 +209,56 @@
 
                 <asp:UpdatePanel runat="server" ID="UpdatePanel1">
                     <ContentTemplate>
-                        <div class="modal-header bg-danger text-light" style="text-align: center;">
-                            <asp:Label runat="server" ID="Label8" Style="font-size: 20px;" Text="Continue Registration"></asp:Label>
+                        <div class="modal-header bg-warning text-dark" style="text-align: center;">
+                            <asp:Label runat="server" ID="Label8" Style="font-size: 20px;" Text="CHANGE PASSWORD"></asp:Label>
                             <button type="button" id="btnMdlStatusClose" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <span class="input-group-addon">Current Password </span>
-                                    <asp:TextBox runat="server" ID="txtCurrentPassword" CssClass="form-control" Width="30%" data-toggle="tooltip" data-placement="top" title="Current Password" trigger="hover" TextMode="Password"></asp:TextBox>
+
+                      
+                            <div class="row" runat="server" id="pnlPin">
+                                <div class="col-md-12 mb-2">
+                                    <div >
+                                        <h3>Verification Code</h3>
+                                        <p>
+                                            Please type the verification code sent to
+                                                <asp:Label runat="server" ID="lblPinContact"></asp:Label>
+                                        </p>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="txtPinCode" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Code is Required" ValidationGroup="PIN" />
+                                        <div class="input-group">
+                                            <asp:TextBox runat="server" ID="txtPinCode" CssClass="form-control mb-3" TextMode="Number" MaxLength="6" placeholder="Payslip PIN" lenght="6" ValidationGroup="PIN"></asp:TextBox>
+                                            <span class="input-group-btn border-secondary" style="background-color: white; color: black">
+                                                <button runat="server" id="btnVerify" type="button" class="btn btn-primary mb-3" validationgroup="PIN">Verify <i class="bi bi-arrow-right"></i></button>
+                                            </span>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
 
+
+                             <div class="row">
+                                 <div class="col-md-12 mb-2">
+                                      <asp:TextBox runat="server" ID="txtCurrentPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Current Password*"></asp:TextBox>
+                                 </div>
+                             </div>
+
                             <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <span class="input-group-addon">New Password </span>
-                                    <asp:TextBox runat="server" ID="txtNewPassword" CssClass="form-control" Width="30%" data-toggle="tooltip" data-placement="top" title="New Password" trigger="hover" TextMode="Password"></asp:TextBox>
+                                <div class="col-md-12 mb-2">
+                                    <div runat="server" id="pnlPassword">
+                                        <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtRetypeRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+                                        <%--<button runat="server" id="btnRegister" type="button" class="btn btn-primary mb-3">SUBMIT <i class="bi bi-arrow-right"></i></button>--%>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <span class="input-group-addon">Re-type Password </span>
-                                    <asp:TextBox runat="server" ID="txtRetypePassword" CssClass="form-control" Width="30%" data-toggle="tooltip" data-placement="top" title="Re-type Password" trigger="hover" TextMode="Password"></asp:TextBox>
-                                </div>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" runat="server" class="btn btn-success btn-lg mb-2" id="btnSavePassword" validationgroup="SubmitStatus">Save</button>
-                            <button type="button" runat="server" class="btn btn-danger btn-lg mb-2" id="Button1" data-bs-dismiss="modal">Save</button>
+                            <button type="button" runat="server" class="btn btn-danger btn-lg mb-2" id="btnCPClose" data-bs-dismiss="modal">Save</button>
 
                         </div>
                     </ContentTemplate>
@@ -253,6 +273,7 @@
     <asp:UpdatePanel runat="server" ID="upUpdate">
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfTransId"></asp:HiddenField>
+             <asp:HiddenField runat="server" ID="hfCpNewPw"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>

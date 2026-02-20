@@ -1,6 +1,6 @@
 ﻿Imports System.Data
 Imports Microsoft.Reporting.WebForms
-Partial Class Secured_TrainingManagement_TrainingsAdd
+Partial Class Secured_TrainingManagement_TrainingTagPaymentsAdd
     Inherits cPageInit_Secured_BS
 
     Dim _clsDB As New clsDatabase
@@ -14,16 +14,6 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         If Not Page.IsPostBack Then
 
             hfTransId.Value = Session("TRAINING_ID")
-
-            _clsDB.populateDDLB(ddlTrainingTitle, "training_title", "trans_id", "tbl_ref_trainings", "training_description", " WHERE is_active = 'Y'", , "")
-
-            dtpTrainingDate.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
-            dtpTrainingDateEnd.Text = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd")
-            dtpRegistrationDateFrom.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
-            dtpRegistrationDateTo.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
-
-            isChkDateTo()
-
             flllInfo()
 
         End If
@@ -40,11 +30,10 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         If thisMsgBox.getModalType = "SAVE TRAINING" Then
             saveTraining()
-            Response.Redirect("TrainingsAdd.aspx")
+            Response.Redirect("TrainingTagPaymentsAdd.aspx")
 
         ElseIf thisMsgBox.getModalType = "SAVE STATUS" Then
-            saveStatus(hfStatus.Value)
-
+            saveStatus()
             fillGvStatus()
             loadStatus()
 
@@ -57,6 +46,14 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
             thisMsgBox.setInfo(, "Attendance Checked!")
             thisMsgBox.showConfirmBox()
 
+        ElseIf thisMsgBox.getModalType = "SAVE TAGSTATUS" Then
+            saveAppStatus()
+            fillGVAppStatus()
+            fillGvAttendees()
+            fillGvApplicantions()
+
+            thisMsgBox.setInfo(, "Status Updated!")
+            thisMsgBox.showConfirmBox()
         End If
 
     End Sub
@@ -66,67 +63,18 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
     End Sub
 
     Protected Sub btnHome_ServerClick(sender As Object, e As EventArgs) Handles btnHome.ServerClick
-        Response.Redirect("Trainings.aspx")
-    End Sub
-
-    Private Sub getTrainingTitleDetails()
-
-        If hfTransId.Value = "" Then
-            Dim _clsRefTrainings As New clsRefTrainings
-
-            With _clsRefTrainings
-                .getRefTrainings(ddlTrainingTitle.SelectedValue)
-                txtDescription.Text = .trainingDescription
-
-            End With
-
-        End If
-
-    End Sub
-
-    Protected Sub ddlTrainingTitle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTrainingTitle.SelectedIndexChanged
-        getTrainingTitleDetails()
-    End Sub
-
-    Private Sub isChkDateTo()
-
-        divTrainingDateTo.Visible = False
-        If chkTrainingDateTo.Checked Then
-            divTrainingDateTo.Visible = True
-        End If
-
-    End Sub
-
-    Protected Sub chkTrainingDateTo_CheckedChanged(sender As Object, e As EventArgs) Handles chkTrainingDateTo.CheckedChanged
-        isChkDateTo()
-    End Sub
-
-    Private Sub setStatusCtrls(ByVal _thisBol As Boolean)
-
-        ddlTrainingTitle.Enabled = _thisBol
-        chkTrainingDateTo.Enabled = _thisBol
-
-        Dim _thisBolRead As Boolean = IIf(_thisBol, False, True)
-
-        dtpTrainingDate.ReadOnly = _thisBolRead
-        dtpTrainingDateEnd.ReadOnly = _thisBolRead
-        txtDescription.ReadOnly = _thisBolRead
-        txtTrainingSlots.ReadOnly = _thisBolRead
-        txtRegistrationFee.ReadOnly = _thisBolRead
-        dtpRegistrationDateFrom.ReadOnly = _thisBolRead
-        dtpRegistrationDateTo.ReadOnly = _thisBolRead
-        txtTrainingVenue.ReadOnly = _thisBolRead
-        txtOtherDetails.ReadOnly = _thisBolRead
-
-        btnSaveTraining.Visible = _thisBol
-
+        Response.Redirect("TrainingTagPayments.aspx")
     End Sub
 
     Private Sub flllInfo()
 
         Dim _clsTraining As New clsTraining
 
-        setStatusCtrls(True)
+        dtpTrainingDate.ReadOnly = False
+        txtTrainingTitle.ReadOnly = False
+        txtDescription.ReadOnly = False
+        txtTrainingSlots.ReadOnly = False
+        txtRegistrationFee.ReadOnly = False
 
         btnStatus.Visible = False
         btnCheckAttendance.Visible = False
@@ -138,33 +86,26 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
             spanTainingHead.InnerText = "UPDATE TRAINING"
 
-            btnStatus.Visible = True
+            dtpTrainingDate.ReadOnly = True
+            txtTrainingTitle.ReadOnly = True
+            txtDescription.ReadOnly = True
+            txtTrainingSlots.ReadOnly = True
+            txtRegistrationFee.ReadOnly = True
+            txtOtherDetails.ReadOnly = True
+            'btnStatus.Visible = True
 
             With _clsTraining
                 .getTraining(hfTransId.Value)
                 dtpTrainingDate.Text = CDate(.trainingDate).ToString("yyyy-MM-dd")
-                dtpTrainingDateEnd.Text = CDate(.trainingDateTo).ToString("yyyy-MM-dd")
-
-                chkTrainingDateTo.Checked = IIf(CDate(.trainingDate).ToString("yyyy-MM-dd") = CDate(.trainingDateTo).ToString("yyyy-MM-dd"), False, True)
-
-                isChkDateTo()
-
-                dtpRegistrationDateFrom.Text = CDate(.regFrom).ToString("yyyy-MM-dd")
-                dtpRegistrationDateTo.Text = CDate(.regTo).ToString("yyyy-MM-dd")
-
-                ddlTrainingTitle.SelectedValue = .trainingId
+                txtTrainingTitle.Text = .trainingTitle
                 txtDescription.Text = .trainingDesc
                 txtTrainingSlots.Text = .trainingSlots
-                txtTrainingVenue.Text = .trainingVenue
                 txtOtherDetails.Text = .otherDetails
                 txtRegistrationFee.Text = .registrationFee
 
-                If .trainingStatus = "COMPLETED" Then
-                    btnCheckAttendance.Visible = True
-                End If
-
-                hfStatus.Value = .trainingStatus
-
+                'If .trainingStatus = "COMPLETED" Then
+                '    btnCheckAttendance.Visible = True
+                'End If
 
             End With
 
@@ -189,20 +130,14 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         dt = _clsDB.Fill_DataTable("SELECT reg_status,remarks,last_user, DATE_FORMAT(last_date,'%m/%d/%Y %h:%i %p') AS last_date FROM tbl_training_details WHERE training_id = '" & hfTransId.Value & "' ORDER BY counter DESC LIMIT 1")
 
-        setStatusCtrls(True)
         For Each dr As DataRow In dt.Rows
             lblTrainingStatus.InnerText = "Current Status : " & dr("reg_status") & " - " & dr("last_user") & " " & dr("last_date")
 
-            If dr("Reg_status") = "COMPLETED" Then
-                btnCheckAttendance.Visible = True
-            Else
-              
-                btnCheckAttendance.Visible = False
-            End If
-
-            If dr("Reg_status") <> "DRAFTING" Then
-                setStatusCtrls(False)
-            End If
+            'If dr("Reg_status") = "COMPLETED" Then
+            '    btnCheckAttendance.Visible = True
+            'Else
+            '    btnCheckAttendance.Visible = False
+            'End If
 
         Next
     End Sub
@@ -215,38 +150,34 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
             .initialize()
             .transId = hfTransId.Value
             .trainingDate = CDate(dtpTrainingDate.Text).ToString("yyyy-MM-dd")
-            .trainingDateTo = IIf(chkTrainingDateTo.Checked, CDate(dtpTrainingDateEnd.Text).ToString("yyyy-MM-dd"), CDate(dtpTrainingDate.Text).ToString("yyyy-MM-dd"))
-            .regFrom = CDate(dtpRegistrationDateFrom.Text).ToString("yyyy-MM-dd")
-            .regTo = CDate(dtpRegistrationDateTo.Text).ToString("yyyy-MM-dd")
             .trainingTime = ""
-            .trainingId = ddlTrainingTitle.SelectedValue
-            .trainingTitle = ddlTrainingTitle.SelectedItem.Text.Trim.ToUpper
+            .trainingTitle = txtTrainingTitle.Text.Trim.ToUpper
             .trainingDesc = txtDescription.Text.Trim.ToUpper
             .trainingSlots = txtTrainingSlots.Text.Trim.ToUpper
-            .trainingVenue = txtTrainingVenue.Text.Trim.ToUpper
             .otherDetails = txtOtherDetails.Text.Trim
             .registrationFee = txtRegistrationFee.Text.Trim
             .lastUser = Session("UserName")
             .saveTraining()
 
             Session("TRAINING_ID") = .transId
-
+            ' hfTransId.Value = Session("TRAINING_ID")
         End With
 
         If hfTransId.Value = "" Then
-            'Dim _clsTrainingDetails As New clsTrainingDetails
-            'With _clsTrainingDetails
-            '    .initialize()
-            '    .trainingId = Session("TRAINING_ID")
-            '    .regStatus = "UPCOMING"
-            '    .remarks = "NEW TRAINING"
-            '    .lastUser = Session("UserName")
-            '    .saveRegistrationDetails()
-            'End With
-            hfTransId.Value = Session("TRAINING_ID")
-            saveStatus("DRAFTING")
+
+            Dim _clsTrainingDetails As New clsTrainingDetails
+
+            With _clsTrainingDetails
+                .initialize()
+                .trainingId = Session("TRAINING_ID")
+                .regStatus = "UPCOMING"
+                .remarks = "NEW TRAINING"
+                .lastUser = Session("UserName")
+                .saveRegistrationDetails()
+            End With
 
         End If
+
 
     End Sub
 
@@ -255,6 +186,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         thisMsgBox.setConfirm(, "Are you sure to save Training Info?")
         thisMsgBox.showConfirmBox()
     End Sub
+
 
 #Region "ATTENDEES"
 
@@ -272,6 +204,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
     End Sub
 
 #End Region
+
 
 #Region "CHECK ATTENDANCE"
 
@@ -354,6 +287,117 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
     End Sub
 
+
+    'TAG PAYMENTS
+
+    Private Sub fillGVAppStatus()
+
+        Dim _clsAppStatus As New clsRegistrationDetails
+
+        Dim dt As New DataTable
+
+        dt = _clsAppStatus.browseRegistrationDetails(hfApplicationId.Value)
+
+        _gvAppStatus.DataSource = dt
+        _gvAppStatus.DataBind()
+
+    End Sub
+
+    Protected Sub cmdGVTagPayment(ByVal sender As Object, ByVal e As CommandEventArgs)
+
+        hfApplicationId.Value = e.CommandArgument.ToString
+        hfApplicantId.Value = CType(sender, ImageButton).Attributes("applicantId")
+
+        _clsDB.populateDDLB(ddlTagStatus, "status_desc", "trans_id", "tbl_ref_status", "sort_order", " WHERE is_active = 'Y'", , "")
+        ddlTagStatus.Items.RemoveAt(0)
+
+        lblTagTrainingDate.Text = dtpTrainingDate.Text
+        lblTagTrainingTitle.Text = txtTrainingTitle.Text
+
+        lblTagName.Text = CType(sender, ImageButton).Attributes("applicantName")
+        lblTagProfession.Text = CType(sender, ImageButton).Attributes("appProfession")
+
+        ddlTagStatus.SelectedValue = CType(sender, ImageButton).Attributes("appStatus")
+
+        divTagPayment.Visible = False
+
+        If ddlTagStatus.SelectedValue = "PAID" Then
+
+            divTagPayment.Visible = True
+
+        End If
+
+        fillGVAppStatus()
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPayment", "var myModal = new bootstrap.Modal(document.getElementById('mdlPayment'), {});  myModal.show();", True)
+
+    End Sub
+
+    Protected Sub ddlTagStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTagStatus.SelectedIndexChanged
+        divTagPayment.Visible = False
+        If ddlTagStatus.SelectedValue = "PAID" Then
+
+            divTagPayment.Visible = True
+
+        End If
+
+    End Sub
+
+    Private Sub saveAppStatus()
+
+        Dim _clsApplications As New clsTrainingApplications
+
+        With _clsApplications
+            .transId = hfApplicationId.Value
+            .applicationStatus = ddlTagStatus.SelectedValue
+            .applicationRemarks = txtTagRemarks.Text.Trim
+            .lastUser = Session("UserName")
+            .updateApplicationStatus()
+
+            If .applicationStatus = "PAID" Then
+                .applicationOr = txtTagOR.Text.Trim
+                .applicationOrDate = CDate(dtpTagORDate.Text).ToString("yyyy-MM-dd")
+                .updateApplicationPayments()
+
+
+                Dim _clsAttendance As New clsTrainingAttendance
+
+                With _clsAttendance
+                    .initialize()
+                    .deleteAttendance(hfApplicantId.Value, hfTransId.Value)
+                    .trainingId = hfTransId.Value
+                    .applicantId = hfApplicantId.Value
+                    .remarks = "PAID"
+
+                    .saveTrainingAttendance()
+                End With
+
+            End If
+
+
+        End With
+
+        Dim _clsAppStatusDetails As New clsRegistrationDetails
+
+        With _clsAppStatusDetails
+            .applicantId = hfApplicationId.Value
+            .regStatus = _clsApplications.applicationStatus
+            .remarks = _clsApplications.applicationRemarks
+            .lastUser = Session("UserName")
+            .saveRegistrationDetails()
+        End With
+
+    End Sub
+
+    Protected Sub btnTagSaveStatus_ServerClick(sender As Object, e As EventArgs) Handles btnTagSaveStatus.ServerClick
+
+        thisMsgBox.setModalType("SAVE TAGSTATUS")
+        thisMsgBox.setConfirm(, "Are you to save status to " & ddlTagStatus.SelectedItem.Text.Trim.ToUpper & " ?")
+        thisMsgBox.showConfirmBox()
+
+    End Sub
+
+   
 #End Region
 
 #Region "STATUS"
@@ -374,7 +418,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
     Protected Sub btnStatus_Click(sender As Object, e As EventArgs) Handles btnStatus.Click
 
         lblTrainingDate.Text = dtpTrainingDate.Text
-        lblTrainingTitle.Text = ddlTrainingTitle.SelectedItem.Text.ToUpper
+        lblTrainingTitle.Text = txtTrainingTitle.Text
 
         _clsDB.populateDDLB(ddlTrainingStatus, "status_desc", "trans_id", "tbl_ref_training_status", "sort_order", " WHERE is_active = 'Y'", , "")
 
@@ -384,20 +428,22 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
     End Sub
 
-    Private Sub saveStatus(ByVal _thisStatus As String)
+    Private Sub saveStatus()
 
         Dim _clsStatus As New clsTrainingDetails
 
         With _clsStatus
             .initialize()
             .trainingId = hfTransId.Value
-            .regStatus = _thisStatus
+            .regStatus = ddlTrainingStatus.SelectedValue
             .remarks = txtStatusRemarks.Text
             .lastUser = Session("UserName")
             .saveRegistrationDetails()
+
         End With
 
         Dim _clsTraining As New clsTraining
+
 
         With _clsTraining
 
@@ -409,15 +455,9 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         End With
 
-        'If _clsStatus.regStatus <> "COMPLETED" Then
-
-        'End If
-
     End Sub
 
     Protected Sub btnSaveStatus_ServerClick(sender As Object, e As EventArgs) Handles btnSaveStatus.ServerClick
-
-        hfStatus.Value = ddlTrainingStatus.SelectedValue
 
         thisMsgBox.setModalType("SAVE STATUS")
         thisMsgBox.setConfirm(, "Are you to save status to " & ddlTrainingStatus.SelectedItem.Text.Trim.ToUpper & " ?")
@@ -521,7 +561,9 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
 #End Region
 
-    
-    
+
+
+
+   
 End Class
 

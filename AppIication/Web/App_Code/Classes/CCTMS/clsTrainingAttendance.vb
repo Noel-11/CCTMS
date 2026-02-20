@@ -36,15 +36,14 @@ Public Class clsTrainingAttendance
 
 #End Region
 
-
     Public Sub initialize()
         _transId = ""
         _attendeeNo = ""
         _trainingId = ""
         _applicantId = ""
         _remarks = ""
-        _isPresent = ""
-        _isActive = ""
+        _isPresent = "N"
+        _isActive = "Y"
         _createUser = ""
         _createDate = ""
         _lastUser = ""
@@ -69,10 +68,11 @@ Public Class clsTrainingAttendance
     Public Function browseCompletedTrainings(ByVal _thisId As String) As DataTable
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training.* FROM tbl_training_attendance " & _
+        sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
+              "training_desc,training_slots, attendance, other_details, training_venue, registration_fee,training_status,is_present FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training ON tbl_training_attendance.training_id = tbl_training.trans_id " & _
-              "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.is_present = 'Y' AND " & _
-              "tbl_training_attendance.applicant_id = '" & _thisId & "' " & _
+              "WHERE tbl_training_attendance.is_active = 'Y' AND " & _
+              "tbl_training_attendance.applicant_id = '" & _thisId & "' AND training_status = 'COMPLETED' " & _
               "ORDER BY tbl_training.training_date DESC "
 
 
@@ -81,7 +81,16 @@ Public Class clsTrainingAttendance
 
 
     Public Sub saveTrainingAttendance()
-        '  If transId = "" Then
+           Dim _no As Integer = 0
+
+        Try
+            _no = _clsDB.Get_DB_Item("SELECT COUNT(*) FROM tbl_training_attendance WHERE training_id = '" & _trainingId & "'")
+        Catch ex As Exception
+            _no = 0
+        End Try
+
+        _attendeeNo = _no + 1
+
         With _clsDB.dbUtility
             .fieldItems = "trans_id,attendee_no,training_id,applicant_id,remarks,is_present,is_active,create_user,create_date"
             .sqlString = .getSQLStatement("tbl_training_attendance", "INSERT")
@@ -94,27 +103,16 @@ Public Class clsTrainingAttendance
             .ADDPARAM_CMD_String("is_present", _isPresent)
             .ADDPARAM_CMD_String("is_active", _isActive)
             .ADDPARAM_CMD_String("create_user", _lastUser)
-            .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString)
+            .ADDPARAM_CMD_String("create_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
             .executeUsingCommandFromSQL(True)
         End With
-        'Else
-        '    With _clsDB.dbUtility
-        '        .fieldItems = "attendee_no,training_id,applicant_id,remarks,is_present,is_active,last_user,last_date"
-        '        .sqlString = .getSQLStatement("tbl_training_attendance", "UPDATE", "trans_id")
-        '        .ADDPARAM_CMD_String("attendee_no", _attendeeNo)
-        '        .ADDPARAM_CMD_String("training_id", _trainingId)
-        '        .ADDPARAM_CMD_String("applicant_id", _applicantId)
-        '        .ADDPARAM_CMD_String("remarks", _remarks)
-        '        .ADDPARAM_CMD_String("is_present", _isPresent)
-        '        .ADDPARAM_CMD_String("is_active", _isActive)
-        '        .ADDPARAM_CMD_String("last_user", _lastUser)
-        '        .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString)
-        '        .ADDPARAM_CMD_String("trans_id", _transId)
-        '        .executeUsingCommandFromSQL(True)
-        '    End With
-        'End If
     End Sub
 
+    Public Sub deleteAttendance(ByVal _thisApp As String, ByVal _thisTraining As String)
+
+        _clsDB.Delete_Record("DELETE FROM tbl_training_attendance WHERE applicant_id = '" & applicantId & "' AND training_id = '" & _thisTraining & "' AND is_active = 'Y' ")
+
+    End Sub
 
     Public Sub updateAttendanceIsPresent()
 

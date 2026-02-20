@@ -18,11 +18,11 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.30319</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{d2ab728d-bdd2-40a1-ad2f-18f8abda8428}</ProjectGuid>
+    <ProjectGuid>{694dd1ef-6543-4f45-bb36-bb9d76fce6ef}</ProjectGuid>
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/Web</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <SourceWebProject>D:\Project\SeniorID_Online\github\scid\AppIication\AppIication\Web</SourceWebProject>
+    <SourceWebProject>D:\Project\CCTMS\github\CCTMS\AppIication\Web</SourceWebProject>
     <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/2/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
   <PropertyGroup>

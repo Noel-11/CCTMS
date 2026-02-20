@@ -64,7 +64,7 @@
                     <div class="col-md-3">
                         <label class="form-label">Email Address<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtEmail" />
-                          <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                     <div class="col-md-6">
                         <label class="form-label">Home Address<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtHomeAddr" />
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtHomeAddr" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtHomeAddr" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">City / Province</label>
@@ -88,7 +88,7 @@
                     <div class="col-md-4">
                         <label class="form-label">Profession / Occupation<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtProfession" />
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtProfession" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtProfession" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Highest Educational Attainment</label>
@@ -98,7 +98,7 @@
                     <div class="col-md-4">
                         <label class="form-label">Position / Job Title<span class="text-danger">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtPosition" />
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtPosition" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtPosition" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                     </div>
                 </div>
 
@@ -158,7 +158,7 @@
                         <label class="form-label">Preferred Learning Mode<span class="text-danger">*</span></label>
                         <asp:DropDownList runat="server" CssClass="form-select" ID="ddlPreferredMode">
                         </asp:DropDownList>
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="ddlPreferredMode" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="ddlPreferredMode" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                     </div>
                 </div>
 
@@ -183,7 +183,7 @@
                     <label class="form-label">How did you hear about our programs?<span class="text-danger">*</span></label>
                     <asp:DropDownList runat="server" CssClass="form-control" ID="ddlHear">
                     </asp:DropDownList>
-                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="ddlHear" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="ddlHear" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                 </div>
 
                 <!-- PRIVACY -->
@@ -191,7 +191,7 @@
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <asp:CheckBox runat="server" CssClass="form-check-input" />
+                        <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP1" />
                         <span>I certify that all information provided is true and correct.</span>
                     </label>
 
@@ -200,13 +200,17 @@
                 <div class="form-check">
 
                     <label class="form-check-label">
-                        <asp:CheckBox runat="server" CssClass="form-check-input" />
+                        <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP2" />
                         I have read and agree to the <a href="DataPrivacy.aspx" target="_blank">Data Privacy Consent</a>.
                     </label>
                 </div>
 
                 <div class="text-center mt-4">
-                    <asp:Button runat="server" Text="REGISTER" CssClass="btn btn-success px-5" ID="btnSaveRegistration" ValidationGroup="DOC" />
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                        <ContentTemplate>
+                            <asp:Button runat="server" Text="REGISTER" CssClass="btn btn-success px-5" ID="btnSaveRegistration" ValidationGroup="DOC" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
 
             </div>

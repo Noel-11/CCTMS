@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Trainings" Language="VB" AutoEventWireup="false" CodeFile="TrainingsAdd.aspx.vb"
-    Inherits="Secured_TrainingManagement_TrainingsAdd" Theme="Skins"
+﻿<%@ Page Title="Trainings" Language="VB" AutoEventWireup="false" CodeFile="TrainingTagPaymentsAdd.aspx.vb"
+    Inherits="Secured_TrainingManagement_TrainingTagPaymentsAdd" Theme="Skins"
     MasterPageFile="~/MasterPage/Admin.master" %>
 
 <%@ Register Src="~/Include/wucConfirmBoxBS5.ascx" TagName="wucConfirmBox" TagPrefix="wucConfirmBox" %>
@@ -8,12 +8,11 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-
                 <div class="col-lg-4">
                     <button runat="server" id="btnHome" class="btn btn-primary"><i class="bi bi-chevron-double-left"></i>&nbsp;Back</button>
                 </div>
-
                 <div class="col-lg-4">
+
                     <h2 class="text-success">Training Programs Details</h2>
                 </div>
 
@@ -23,7 +22,7 @@
 
         <div class="card-body" style="padding-bottom: 0px;">
 
-            <div class="container-fluid">
+            <div class="container">
                 <div class="card" runat="server" id="divTrainingInfo">
                     <div class="card-header bg-success text-light">
                         <span runat="server" id="spanTainingHead" style="font-weight: bold;">TRAINING INFO</span>
@@ -32,42 +31,27 @@
                         <asp:UpdatePanel ID="updatePanel1" runat="server">
                             <ContentTemplate>
                                 <br />
-                                <div class="row mb-1">
+                                <div class="row mb-2">
+                                    <div class="col-lg-4">
+                                        <div class="input-group">
+                                            <label class="input-group-text">Training Date</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingDate" required />
+                                        </div>
+                                    </div>
+
+                                    <%--<div class="col-lg-3">
+                                     <div class="input-group">
+                                    <label class="input-group-text">Training Time</label>
+                                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingTime" />
+                                    </div>
+                                     </div>--%>
 
                                     <div class="col-lg-6">
                                         <div class="input-group">
                                             <label class="input-group-text">Training Title</label>
-                                            <asp:DropDownList runat="server" CssClass="form-select" ID="ddlTrainingTitle" AutoPostBack="true">
-                                            </asp:DropDownList>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingTitle" required />
                                         </div>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlTrainingTitle" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Title required" ValidationGroup="DOC" />
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <label class="input-group-text">Training Date</label>
-                                                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingDate" />
-                                                    <label class="input-group-text">
-                                                        <asp:CheckBox runat="server" ID="chkTrainingDateTo" Text="&nbsp; > 1 days" ToolTip="Check if training days is more than 1 day." AutoPostBack="true" /></label>
-
-                                                </div>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="dtpTrainingDate" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Training date required" ValidationGroup="DOC" />
-                                            </div>
-
-                                            <div runat="server" id="divTrainingDateTo" class="col-lg-6">
-                                                <div class="input-group">
-                                                    <label class="input-group-text">Training Date End</label>
-                                                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpTrainingDateEnd" />
-                                                </div>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="dtpTrainingDateEnd" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Date is required" ValidationGroup="DOC" />
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
 
                                 </div>
 
@@ -76,9 +60,8 @@
                                     <div class="col-lg-12">
                                         <div class="input-group">
                                             <label class="input-group-text">Description</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" required />
                                         </div>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtDescription" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Description is required" ValidationGroup="DOC" />
                                     </div>
                                 </div>
 
@@ -87,40 +70,15 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <label class="input-group-text">No. of Slots</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingSlots" TextMode="Number" MaxLength="3" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingSlots" TextMode="Number" MaxLength="3" required />
                                         </div>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtTrainingSlots" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Slots is required" ValidationGroup="DOC" />
                                     </div>
 
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <label class="input-group-text">Registration Fee</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistrationFee" TextMode="Number" min="0.00" max="999999.99" MaxLength="9" step="any" Style="text-align: right"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistrationFee" TextMode="Number" min="0.00" max="999999.99" MaxLength="9" step="any" Style="text-align: right" required></asp:TextBox>
                                         </div>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtRegistrationFee" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Registration Fee is required" ValidationGroup="DOC" />
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="input-group">
-                                            <label class="input-group-text">Registration Period</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpRegistrationDateFrom" />
-                                            <label class="input-group-text">-</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpRegistrationDateTo" />
-                                        </div>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="dtpRegistrationDateFrom" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Date is required" ValidationGroup="DOC" />
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="dtpRegistrationDateTo" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Date end is required" ValidationGroup="DOC" />
-                                    </div>
-
-                                </div>
-
-                                <div class="row mb-2">
-
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <label class="input-group-text">Training Venue</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtTrainingVenue" Rows="2" TextMode="MultiLine" />
-                                        </div>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtTrainingVenue" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Venue is required" ValidationGroup="DOC" />
                                     </div>
                                 </div>
 
@@ -136,8 +94,8 @@
 
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <asp:Button runat="server" Text="Save Training" class="btn btn-success" ID="btnSaveTraining" ValidationGroup="DOC" />
-                                        <asp:Button runat="server" Text="Check Attendance" class="btn btn-info" ID="btnCheckAttendance" />
+                                        <asp:Button runat="server" Text="Save Training" class="btn btn-success" ID="btnSaveTraining" Visible="false" />
+                                        <asp:Button runat="server" Text="Check Attendance" class="btn btn-info" ID="btnCheckAttendance" Visible="false" />
                                     </div>
 
                                     <div class="col-lg-8">
@@ -194,6 +152,8 @@
                     <span runat="server" id="span2" style="font-weight: bold;">Training Applicants</span>
                 </div>
                 <div class="card-body" style="padding-bottom: 5px;">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel7">
+                    <ContentTemplate>
 
                     <asp:GridView runat="server" ID="_gvApplicants" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered table-success table-striped table-hover" PageSize="15" EmptyDataText="NO RECORD FOUND"
                         PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
@@ -207,16 +167,128 @@
                             <asp:BoundField DataField="email_add" HeaderText="Email Address" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
                             <asp:BoundField DataField="prc_no" HeaderText="PRC ID #" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="left" />
                             <asp:BoundField DataField="prc_expiration" HeaderText="PRC Expiration Date" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
+                            <asp:BoundField DataField="application_status" HeaderText="Status" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+
+                            <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/useredit.png" OnCommand="cmdGVTagPayment"
+                                        CommandArgument='<%# Bind("application_id")%>' applicantId='<%# Eval("applicant_id")%>' applicantName ='<%# Eval("applicantName")%>' appProfession ='<%# Eval("profession")%>' appStatus = '<%# Eval("application_status")%>' ToolTip="Click to Tag Payment" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
 
                         </Columns>
                     </asp:GridView>
-
+                    </ContentTemplate></asp:UpdatePanel>
                 </div>
 
             </div>
 
         </div>
 
+    </div>
+
+
+    <!-- TAG PAYMENT -->
+    <div id="mdlPayment" role="dialog" class="modal fade" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <asp:UpdatePanel runat="server" ID="UpdatePanel5">
+                    <ContentTemplate>
+
+                        <div class="modal-header bg-success">
+                            <h5 class="modal-title text-light" runat="server" id="H2">Tag Status</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body bg-light">
+                            <div class="row mb-1">
+                                <div class="col-md-6">
+                                    <span class="form-label fw-bold text-dark">Training Date: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTagTrainingDate"></asp:Label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="fw-bold text-dark">Training Title: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTagTrainingTitle"></asp:Label>
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-6">
+                                    <span class="form-label fw-bold text-dark">Name: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTagName"></asp:Label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="fw-bold text-dark">Profession: </span>
+                                    <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblTagProfession"></asp:Label>
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-6">
+                                    <span class="fw-bold text-dark">Status: </span>
+                                    <asp:DropDownList runat="server" ID="ddlTagStatus" CssClass="form-select" AutoPostBack="true" >
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-12">
+                                    <span class="fw-bold text-dark">Remarks: </span>
+                                    <asp:TextBox runat="server" ID="txtTagRemarks" CssClass="form-control" TextMode="MultiLine" Rows="3" ></asp:TextBox>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-1" runat="server" id="divTagPayment">
+
+                                <div class="col-md-6">
+                                    <span class="fw-bold text-dark">Payment OR: </span>
+                                    <asp:TextBox runat="server" ID="txtTagOR" CssClass="form-control" ></asp:TextBox>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="fw-bold text-dark">OR DATE: </span>
+                                    <asp:TextBox runat="server" ID="dtpTagORDate" CssClass="form-control" TextMode="Date" ></asp:TextBox>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-g">
+                                    <button runat="server" class="btn btn-success" id="btnTagSaveStatus" tooltip="Click to Save" validationgroup="DOCSTAGTATUS"><i class="bi bi-printer-check"></i>&nbsp;Save Status</button>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <span>Status List</span>
+                            <asp:GridView runat="server" ID="_gvAppStatus" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered table-striped table-hover" PageSize="15" EmptyDataText="NO RECORD"
+                                PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
+                                GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="false">
+                                <Columns>
+
+                                    <asp:BoundField DataField="counter" HeaderText="#" ItemStyle-Width="5%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
+                                    <asp:BoundField DataField="reg_status" HeaderText="Status" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="remarks" HeaderText="Remarks" ItemStyle-Width="20%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="last_user" HeaderText="User" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="last_date" HeaderText="User" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
+
+                                </Columns>
+                            </asp:GridView>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" runat="server" id="Button3" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
     </div>
 
     <%-- CHECK ATTENDANCE --%>
@@ -404,7 +476,8 @@
     <asp:UpdatePanel ID="updatePanel3" runat="server">
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfTransId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfStatus"></asp:HiddenField>
+             <asp:HiddenField runat="server" ID="hfApplicationId"></asp:HiddenField>
+             <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>

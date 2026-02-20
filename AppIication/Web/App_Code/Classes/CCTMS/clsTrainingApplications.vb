@@ -30,6 +30,10 @@ Public Class clsTrainingApplications
 
     Public Property applicationFee As String
 
+    Public Property applicationOr As String
+
+    Public Property applicationOrDate As String
+
     Public Property validationDatetime As String
 
     Public Property isActive As String
@@ -44,7 +48,6 @@ Public Class clsTrainingApplications
 
 #End Region
 
-
     Public Sub initialize()
         _transId = ""
         _appCode = ""
@@ -56,6 +59,8 @@ Public Class clsTrainingApplications
         _applicationRemarks = ""
         _applicationDatetime = Nothing
         _applicationFee = "0"
+        _applicationOr = ""
+        _applicationOrDate = Nothing
         _validationDatetime = Nothing
         _isActive = ""
         _createUser = ""
@@ -68,7 +73,7 @@ Public Class clsTrainingApplications
     Public Function browseTrainingApplications(ByVal _thisId As String) As DataTable
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training_applicants.*, CONCAT(lname,', ',fname,' ',fname,' ',mname) AS applicantName " & _
+        sql = "SELECT tbl_training_applications.trans_id AS application_id,tbl_training_applications.applicant_id, tbl_training_applicants.*, CONCAT(lname,', ',fname,' ',fname,' ',mname) AS applicantName,application_status " & _
               "FROM tbl_training_applications " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_applications.applicant_id = tbl_training_applicants.trans_id " & _
               "LEFT JOIN tbl_training_attendance ON tbl_training_applicants.trans_id = tbl_training_attendance.applicant_id AND " & _
@@ -85,10 +90,10 @@ Public Class clsTrainingApplications
         Dim sql As String = ""
 
         sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
-              "training_desc,training_slots AS availableSlots, other_details FROM tbl_training_applications " & _
+              "training_desc,training_slots AS availableSlots, training_venue, other_details, application_status FROM tbl_training_applications " & _
               "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
               "WHERE tbl_training_applications.applicant_id = '" & _thisAppId & "' AND " & _
-              "tbl_training_applications.is_active = 'Y' AND tbl_training.training_date > '" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' " & _
+              "tbl_training_applications.is_active = 'Y' AND training_status = 'UPCOMING' AND tbl_training.training_date >= '" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' " & _
               "ORDER BY tbl_training.training_date "
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training_applications")
@@ -152,6 +157,54 @@ Public Class clsTrainingApplications
         '    End With
         'End If
     End Sub
+
+
+    Public Sub updateApplicationPayments()
+
+        With _clsDB.dbUtility
+            .fieldItems = "application_or,application_or_date,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("application_or", _applicationOr)
+            .ADDPARAM_CMD_String("application_or_date", _applicationOrDate)
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    Public Sub updateApplicationStatus()
+
+        With _clsDB.dbUtility
+            .fieldItems = "application_status,application_remarks,validation_datetime,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("application_status", _applicationStatus)
+            .ADDPARAM_CMD_String("application_remarks", _applicationRemarks)
+            .ADDPARAM_CMD_String("validation_datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    'Public Sub updateApplicationStatus()
+
+    '    With _clsDB.dbUtility
+    '        .fieldItems = "application_status,application_remarks,validation_datetime,last_user,last_date"
+    '        .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+    '        .ADDPARAM_CMD_String("application_status", _applicationStatus)
+    '        .ADDPARAM_CMD_String("application_remarks", _applicationRemarks)
+    '        .ADDPARAM_CMD_String("validation_datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+    '        .ADDPARAM_CMD_String("last_user", _lastUser)
+    '        .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+    '        .ADDPARAM_CMD_String("trans_id", _transId)
+    '        .executeUsingCommandFromSQL(True)
+    '    End With
+
+    'End Sub
 
     Public Sub getTrainingApplications(ByVal _id As String)
         Dim dt As New DataTable

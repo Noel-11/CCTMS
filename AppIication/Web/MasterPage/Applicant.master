@@ -55,13 +55,13 @@
             <header class="app-header">
                 <div class="header-left">
                     <button type="button" class="menu-toggle" onclick="toggleMenu()">☰</button>
-                    <img src="images/citycollege-logo.png" alt="City College Logo" class="header-logo">
+                    <img src="<%=ResolveClientUrl("~/Images/CCLogo.png")%>" alt="City College Logo" class="header-logo">
                     <div class="header-title">
                         <h1>City College Training Online Application</h1>
                         <span>City College of Cagayan de Oro City</span>
                     </div>
                 </div>
-
+               
                 <div class="header-right">
                     <nav class="navbar navbar-expand-lg">
                         <div class="container-fluid">
@@ -101,9 +101,11 @@
                 <!-- LEFT SIDEBAR -->
 
                 <div runat="server" id="divMenu" class="sidebar me-4" >
-                    <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard"  />
-                    <asp:Button runat="server" Text="COMPLETED TRAININGS" ID="btnComplete"  />
+                    <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard" Visible="false"  />
+                    <asp:Button runat="server" Text="AVAILABLE TRAININGS" ID="btnAvailable"  />
                     <asp:Button runat="server" Text="UPCOMING TRAININGS" ID="btnUpcoming"  />
+                    <asp:Button runat="server" Text="COMPLETED TRAININGS" ID="btnComplete"  />
+                   
                 </div>
                   
                 <!-- MAIN CONTENT -->

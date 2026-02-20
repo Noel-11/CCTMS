@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Trainings" Language="VB" AutoEventWireup="false" CodeFile="Trainings.aspx.vb"
-    Inherits="Secured_TrainingManagement_Trainings" Theme="Skins"
+﻿<%@ Page Title="Trainings" Language="VB" AutoEventWireup="false" CodeFile="RefTrainings.aspx.vb"
+    Inherits="Secured_Reference_RefTrainings" Theme="Skins"
     MasterPageFile="~/MasterPage/Admin.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
@@ -9,17 +9,15 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-lg-4">
-                    
                 </div>
                 <div class="col-lg-4">
 
-                    <h2 class="text-success">Training Programs</h2>
+                    <h2 class="text-success">Reference Training Title List</h2>
                 </div>
 
                 <div class="col-lg-4">
-                   <button runat="server" class="btn btn-success float-end" id="btnAdd"><i class="bi bi-plus-square"></i>&nbsp;Add New Training</button>
+                    <button runat="server" class="btn btn-success float-end" id="btnAdd"><i class="bi bi-plus-square"></i>&nbsp;Add</button>
                 </div>
-
             </div>
 
         </div>
@@ -50,13 +48,11 @@
                         GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="true">
                         <Columns>
 
-                            <asp:BoundField DataField="training_date" HeaderText="Training Date" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:MMM dd, yyyy}" />
-                            <asp:BoundField DataField="training_title" HeaderText="Title" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="training_desc" HeaderText="Description" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="other_details" HeaderText="Other Details" ItemStyle-Width="30%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="training_slots" HeaderText="Slots" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="attendance" HeaderText="Applications" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="registration_fee" HeaderText="Fee" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N}" />
+
+                            <asp:BoundField DataField="training_title" HeaderText="Title" ItemStyle-Width="40%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="training_description" HeaderText="Description" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="learning_mode" HeaderText="Learning Mode" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="is_active" HeaderText="Is Active" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
 
                             <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>

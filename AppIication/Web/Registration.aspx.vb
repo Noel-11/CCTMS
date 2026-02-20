@@ -47,7 +47,6 @@ Partial Class _Registration
 
         _clsDB.populateDDLB(ddlGender, "description", "trans_id", "tbl_ref_gender", "description", " WHERE is_active = 'Y'", , "")
 
-
         _clsDB.populateDDLB(ddlCivilStatus, "description", "trans_id", "tbl_ref_civil_status", "description", " WHERE is_active = 'Y'", , "")
 
         _clsDB.populateDDLB(ddlCityAddr, "description", "trans_id", "tbl_ref_city_province", "description", " WHERE is_active = 'Y'", , "")
@@ -161,8 +160,51 @@ Partial Class _Registration
 
     Protected Sub btnSaveRegistration_Click(sender As Object, e As EventArgs) Handles btnSaveRegistration.Click
 
-        thisMsgBox.setModalType("SAVE")
-        thisMsgBox.setConfirm(, "Are you sure to submit Registration?")
+        Dim dtCheckExist As New DataTable
+
+
+        Dim sql As String = ""
+
+        'CHECK NAME DUPLICATE
+
+        sql = "SELECT trans_id, lname, fname, mname, ename FROM tbl_training_applicants " &
+              "WHERE lname = '" & txtLName.Text.Trim.ToUpper & "' AND fname = '" & txtFName.Text.Trim.ToUpper & "' AND  " & _
+              "ename = '" & ddlEName.SelectedValue & "' LIMIT 1"
+
+        dtCheckExist = _clsDB.Fill_DataTable(sql)
+
+        thisMsgBox.setModalType("SAVEXX")
+
+        If dtCheckExist.Rows.Count > 0 Then
+            thisMsgBox.setError("Cannot Save", "Name already registered! <br/> " & _
+                                               "Last Name: " & dtCheckExist.Rows(0)("lname") & "<br/>" & _
+                                               "First Name: " & dtCheckExist.Rows(0)("fname") & "<br/>" & _
+                                               "Middle Name: " & dtCheckExist.Rows(0)("mname") & "<br/>" & _
+                                               "Ext. Name: " & dtCheckExist.Rows(0)("ename"))
+        Else
+
+            sql = "SELECT trans_id,email_add FROM tbl_training_applicants " &
+            "WHERE email_add = '" & txtEmail.Text.Trim & "' LIMIT 1"
+
+            dtCheckExist = _clsDB.Fill_DataTable(sql)
+
+            If dtCheckExist.Rows.Count > 0 Then
+                thisMsgBox.setError("Cannot Save", "Email Add already registered! <br/> " & _
+                                               "Email Address: " & dtCheckExist.Rows(0)("email_add"))
+
+            ElseIf chkDP1.Checked = False Or chkDP2.Checked = False Then
+                thisMsgBox.setError("Cannot Save", "Just Kindly check the verification and consent to proceed")
+
+            Else
+                thisMsgBox.setModalType("SAVE")
+                thisMsgBox.setConfirm(, "Are you sure to submit Registration?")
+            End If
+
+        End If
+
+
+
+
         thisMsgBox.showConfirmBox()
 
     End Sub

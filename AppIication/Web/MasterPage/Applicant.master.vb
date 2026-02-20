@@ -24,7 +24,7 @@ Partial Class MasterPage_Applicant
 
     Private Sub setMenuActiveCSS()
 
-        Dim _activeMenu As String = "btnDashboard"
+        Dim _activeMenu As String = "btnAvailable"
 
         If Not IsNothing(Session("ACTIVEMENU")) Then
             _activeMenu = Session("ACTIVEMENU")
@@ -55,6 +55,11 @@ Partial Class MasterPage_Applicant
         Session("ACTIVEMENU") = CType(sender, Button).ID
         Response.Redirect("~/Secured/Applicant/AppDashBoard.aspx")
 
+    End Sub
+
+    Protected Sub btnAvailable_Click(sender As Object, e As EventArgs) Handles btnAvailable.Click
+        Session("ACTIVEMENU") = CType(sender, Button).ID
+        Response.Redirect("~/Secured/Applicant/AppAvailable.aspx")
     End Sub
 
     Protected Sub btnComplete_Click(sender As Object, e As EventArgs) Handles btnComplete.Click

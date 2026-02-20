@@ -31,6 +31,12 @@ Partial Class Secured_Applicant_AppProfile
             thisMsgBox.setInfo(, "Profile Saved!")
             thisMsgBox.showConfirmBox()
 
+        ElseIf thisMsgBox.getModalType = "CHANGE PASSWORD" Then
+            changePassword()
+            thisMsgBox.setInfo(, "Password Changed!")
+            thisMsgBox.showConfirmBox()
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "btnCPClose", "document.getElementById('ctl00_cpConTent_btnCPClose').click();", True)
+
         End If
     End Sub
 
@@ -200,6 +206,59 @@ Partial Class Secured_Applicant_AppProfile
     End Sub
 
 
+#Region "PASSWORD"
+
+    Protected Sub btnChangePassword_Click(sender As Object, e As EventArgs) Handles btnChangePassword.Click
+        txtPinCode.Text = ""
+        txtRegPasword.Text = ""
+        txtRetypeRegPasword.Text = ""
+        pnlPin.Visible = False
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPassword", "var myModal = new bootstrap.Modal(document.getElementById('mdlPassword'), {});  myModal.show();", True)
+    End Sub
+
+    Protected Sub btnRegSave_Click(sender As Object, e As EventArgs) Handles btnSavePassword.ServerClick
+
+        If txtRegPasword.Text <> txtRetypeRegPasword.Text Then
+            thisMsgBox.setError("Invalid", "Password not match!")
+        Else
+
+            Dim _clsApplicant As New clsTrainingApplicants
+
+            With _clsApplicant
+                .getTrainingApplicants(hfTransId.Value)
+            End With
+
+            thisMsgBox.setModalType("CHANGE PASSWORDXX")
+            If _clsApplicant.validateLogin(_clsApplicant.userName, txtCurrentPassword.Text.Trim) = False Then
+
+                thisMsgBox.setError("Wrong Password", "Invalid Current Password!")
+
+            Else
+                hfCpNewPw.Value = txtRegPasword.Text.Trim
+                thisMsgBox.setModalType("CHANGE PASSWORD")
+                thisMsgBox.setConfirm(, "Are you sure to change your Password?")
+
+            End If
+
+        End If
+
+        thisMsgBox.showConfirmBox()
+
+    End Sub
+
+    Private Sub changePassword()
+        Dim _clsEmpInfo As New clsTrainingApplicants
+
+        With _clsEmpInfo
+            .transId = hfTransId.Value
+            .password = hfCpNewPw.Value
+            .updateApplicantPassword()
+        End With
+
+    End Sub
 
 
+#End Region
+
+  
 End Class

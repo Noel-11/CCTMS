@@ -7,7 +7,7 @@ Partial Class Secured_Applicant_AppComplete
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
-            hfTransId.Value = Session("UserId")
+            hfTransId.Value = Session("APPLICANTID")
             fillGVTrainings()
 
         End If
@@ -34,7 +34,9 @@ Partial Class Secured_Applicant_AppComplete
         lblTrainingDate.Text = CType(sender, Button).Attributes("trainingDate")
         lblTrainingTitle.Text = CType(sender, Button).Attributes("title")
         lblDescription.Text = CType(sender, Button).Attributes("description")
+        lblVenue.Text = CType(sender, Button).Attributes("venue")
         lblOtherDescription.Text = CType(sender, Button).Attributes("otherDetails")
+        lblIsPresent.Text = CType(sender, Button).Attributes("isPresent")
 
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlView", "var myModal = new bootstrap.Modal(document.getElementById('mdlView'), {});  myModal.show();", True)
 
