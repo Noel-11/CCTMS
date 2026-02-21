@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `tbl_cms_menu` (
   `last_date` varchar(30) DEFAULT NULL,
   `module` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_cms_menu: ~16 rows (approximately)
+-- Dumping data for table db_cctms.tbl_cms_menu: ~18 rows (approximately)
 INSERT INTO `tbl_cms_menu` (`menu_id`, `parent_id`, `menu_name`, `page_url`, `menu_level`, `sort_order`, `menu_icon`, `is_public`, `is_active`, `system_module`, `last_user`, `last_date`, `module`) VALUES
 	(1, 0, 'Administration', '', 1, 99, '', 'N', 'Y', 1, 'System Administrator', '8/25/2015 11:42:14 PM', 'CCTMS'),
 	(2, 1, 'User Account', '~/Secured/SystemAdministration/UserEntry.aspx', 2, 1, '', 'N', 'Y', 1, 'AUTO', '4/17/2014 10:29:54 AM', NULL),
@@ -75,10 +75,12 @@ INSERT INTO `tbl_cms_menu` (`menu_id`, `parent_id`, `menu_name`, `page_url`, `me
 	(60, 0, 'DashBoard', '~/Secured/DashBoard.aspx', 1, 0, '', 'N', 'Y', 1, 'System Administrator', '10/21/2025 3:06:07 PM', 'CCTMS'),
 	(61, 0, 'Trainings', '', 1, 1, '', 'N', 'Y', 1, 'scadmin', '2/5/2026 1:52:23 PM', 'CCTMS'),
 	(63, 61, 'List', '~/Secured/TrainingManagement/Trainings.aspx', 2, 1, '', 'N', 'Y', NULL, 'scadmin', '2/5/2026 1:51:17 PM', NULL),
-	(64, 61, 'Report', '~/Secured/TrainingManagement/TrainingReport.aspx', 2, 2, '', 'N', 'N', NULL, 'System Administrator', '2/10/2026 9:03:25 AM', NULL),
+	(64, 61, 'Tag Payments', '~/Secured/TrainingManagement/TrainingTagPayments.aspx', 2, 2, '', 'N', 'Y', NULL, 'System Administrator', '2/12/2026 1:08:58 PM', NULL),
 	(65, 0, 'Report', '', 1, 2, '', 'N', 'Y', NULL, 'System Administrator', '2/10/2026 9:03:04 AM', 'CCTMS'),
 	(66, 65, 'Training', '~/Secured/TrainingManagement/TrainingReport.aspx', 2, 1, '', 'N', 'Y', NULL, 'System Administrator', '2/10/2026 2:10:52 PM', NULL),
-	(67, 65, 'Registration List', '~/Secured/TrainingManagement/RegistrationReport.aspx', 2, 2, '', 'N', 'Y', NULL, 'System Administrator', '2/10/2026 4:03:07 PM', NULL);
+	(67, 65, 'Registration List', '~/Secured/TrainingManagement/RegistrationReport.aspx', 2, 2, '', 'N', 'Y', NULL, 'System Administrator', '2/10/2026 4:03:07 PM', NULL),
+	(68, 0, 'Reference', '', 1, 3, '', 'N', 'Y', NULL, 'System Administrator', '2/19/2026 10:20:03 AM', 'CCTMS'),
+	(69, 68, 'Training Title', '~/Secured/Reference/RefTrainings.aspx', 2, 1, '', 'N', 'Y', NULL, 'System Administrator', '2/19/2026 11:19:22 AM', NULL);
 
 -- Dumping structure for table db_cctms.tbl_comments
 CREATE TABLE IF NOT EXISTS `tbl_comments` (
@@ -94,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `tbl_comments` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_comments: ~0 rows (approximately)
+-- Dumping data for table db_cctms.tbl_comments: ~1 rows (approximately)
 INSERT INTO `tbl_comments` (`trans_id`, `comment_name`, `comment_contactno`, `comment`, `reply`, `reply_count`, `comment_ip`, `comment_date`, `comment_datetime`) VALUES
 	('120320251109195CA0631666F6498D8CB697D82', 'ZCZXCZX', '09758202587', 'zxczxczxczxczxc', '\r\nrewrewtrretertetr <12/3/2025 9:11:53 AM><System Administrator>', 1, '192.168.88.208', '2025-12-03', '2025-12-03 09:11:19 AM');
 
@@ -148,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `tbl_login_log` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_login_log: ~104 rows (approximately)
+-- Dumping data for table db_cctms.tbl_login_log: ~221 rows (approximately)
 INSERT INTO `tbl_login_log` (`trans_id`, `user_id`, `login_ip`, `login_datetime`, `login_status`) VALUES
 	('011920260502522692B49C96DB4D2FAD225BB68', 'scadmi', '::1', '2026-01-19 14:05:52', 'FAIL'),
 	('0119202636032227F9E4BFBA29434F9AEB6E597', 'admin', '::1', '2026-01-19 15:36:22', 'FAIL'),
@@ -233,6 +235,122 @@ INSERT INTO `tbl_login_log` (`trans_id`, `user_id`, `login_ip`, `login_datetime`
 	('0211202644014611A81872AEA44FCCB9A737BEB', 'JAMESLEBRON', '::1', '2026-02-11 13:44:46', 'FAIL'),
 	('02112026570315D1EC5FFBE20D474AB6C4AB77A', 'JAMESLEBRON', '::1', '2026-02-11 15:57:15', 'FAIL'),
 	('02112026580332529E3AE5AB324DA38F5A33B63', 'JAMESLEBRON', '::1', '2026-02-11 15:58:32', 'FAIL'),
+	('021220260004587DEE7519D482476C925CB5F4E', 'gomez_77', '192.168.88.23', '2026-02-12 16:00:58', 'FAILED'),
+	('02122026000458B9CC99F35C9B449C915BD838D', '02092026201210E46ECF01F2364A5899023DBE0', '192.168.88.23', '2026-02-12 16:00:58', 'SUCCESSFULL'),
+	('0212202600122417F0028812E943E59DB922F81', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 12:00:24', 'SUCCESSFULL'),
+	('02122026001224A2129B2838B44DC8B798D084C', 'GOMEZ_77', '::1', '2026-02-12 12:00:24', 'FAILED'),
+	('021220260104134611F210C5A346ADAB87806E3', '02122026360319DBC94', '192.168.88.23', '2026-02-12 16:01:13', 'SUCCESSFULL'),
+	('02122026010414C131B21681634E62B22FB6DC6', 'jordanss', '192.168.88.23', '2026-02-12 16:01:14', 'FAILED'),
+	('021220260611498EF7A723F29745B7B14E9074D', 'DELACRUZ_B7', '::1', '2026-02-12 11:06:49', 'FAILED'),
+	('02122026061157BA569A0F95B8420380D1DA805', 'GOMEZ_77', '::1', '2026-02-12 11:06:57', 'FAILED'),
+	('02122026071101E3D93FFF27EF44E6887A76074', 'GOMEZ_77', '::1', '2026-02-12 11:07:01', 'FAILED'),
+	('02122026071157EB2F6A1DAF92490BA26C6EE40', 'GOMEZ_77', '::1', '2026-02-12 11:07:57', 'FAILED'),
+	('021220260811045C61B747B77F4B349E99B754D', 'GOMEZ_77', '::1', '2026-02-12 11:08:04', 'FAILED'),
+	('021220260811424EF786A2AD1142E2928F2281D', 'gomez_77', '::1', '2026-02-12 11:08:42', 'FAILED'),
+	('0212202609115930A78CC472534F5D89F1EB310', NULL, '::1', '2026-02-12 11:09:59', 'FAILED'),
+	('0212202611110407B499DDD9544ECF899181119', 'GOMEZ_77', '::1', '2026-02-12 11:11:04', 'FAILED'),
+	('02122026111104B1B7AB5A71634DDDAE3530DF8', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:11:04', 'SUCCESSFULL'),
+	('02122026111258995DD7CDF82F49C7BFD6C219D', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 12:11:58', 'SUCCESSFULL'),
+	('02122026111258EBFD90BE5FD348628AEA95DF8', 'gomez_77', '::1', '2026-02-12 12:11:58', 'FAILED'),
+	('02122026131201B1CA2B60804D407098A890DEE', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 12:13:01', 'SUCCESSFULL'),
+	('02122026131202173679A53D624F1E9CF4D2C21', 'gomez_77', '::1', '2026-02-12 12:13:02', 'FAILED'),
+	('02122026151225AE2E2FB579C6436A8F5B49CF5', 'GOMEZ_77', '::1', '2026-02-12 12:15:25', 'FAILED'),
+	('02122026151225CE583D5BD2124AF89C95CEA7F', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 12:15:25', 'SUCCESSFULL'),
+	('021220262010506ECB3EA45A044BAAA36A33CFB', 'JAMESLEBRON', '::1', '2026-02-12 10:20:50', 'FAIL'),
+	('021220262304381E6E5D31470A4D009010FE3E0', 'deguzmanjuan', '192.168.88.23', '2026-02-12 16:23:38', 'FAILED'),
+	('021220262304389005E025A09E4B24938BC9651', '02122026530351A02E4', '192.168.88.23', '2026-02-12 16:23:38', 'SUCCESSFULL'),
+	('021220262511316CF71DC0A6874BB8BC7FE5080', NULL, '::1', '2026-02-12 11:25:31', 'FAILED'),
+	('02122026251136F532AFAEA74B420CACE583A20', NULL, '::1', '2026-02-12 11:25:36', 'FAILED'),
+	('0212202626115278D089FFFD404164AD0228E9D', NULL, '::1', '2026-02-12 11:26:52', 'FAILED'),
+	('0212202627043982A966DB9CA44B74B414B2FF0', NULL, '192.168.88.23', '2026-02-12 16:27:39', 'FAILED'),
+	('021220262704437EEF49747A55460C83EBC7B66', '02092026201210E46ECF01F2364A5899023DBE0', '192.168.88.23', '2026-02-12 16:27:43', 'SUCCESSFULL'),
+	('02122026270443B1F4223FB42543CEB061D5EBB', 'gomez_77', '192.168.88.23', '2026-02-12 16:27:43', 'FAILED'),
+	('02122026300442E622EB54CB1A45969BC2D4B23', NULL, '192.168.88.76', '2026-02-12 16:30:42', 'FAILED'),
+	('02122026300447C48F8B4B4C2143CCAF3B8695D', '02122026440304458FD', '192.168.88.76', '2026-02-12 16:30:47', 'SUCCESSFULL'),
+	('02122026300448F4FD03BC26A24C1BAD3FEC267', 'DWEQWEQWEQW', '192.168.88.76', '2026-02-12 16:30:48', 'FAILED'),
+	('02122026301055E37720987BDE40E1894C443EA', 'gomez_77', '::1', '2026-02-12 10:30:55', 'FAIL'),
+	('021220263103163D53F258FEED433F94A3E2BCA', 'cdaguplo722@gmail.com', '192.168.88.76', '2026-02-12 15:31:16', 'FAILED'),
+	('02122026320302FB19470C4A8845C6B201AE6F6', 'admin', '192.168.88.76', '2026-02-12 15:32:02', 'FAILED'),
+	('0212202632031203E87C3896B2438EB742EBA1D', 'admin', '192.168.88.76', '2026-02-12 15:32:12', 'FAILED'),
+	('021220263203194BA5EC308253474FB7AF74A32', 'admin', '192.168.88.76', '2026-02-12 15:32:19', 'FAILED'),
+	('021220263211330853F0420CA444FBB022F6C37', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:32:33', 'SUCCESSFULL'),
+	('021220263211348D712F285E6848E1A011CC91D', 'GOMEZ_77', '::1', '2026-02-12 11:32:34', 'FAILED'),
+	('021220263511552C4FDB1B691640BAAA8ECEB36', 'GOMEZ_77', '::1', '2026-02-12 11:35:55', 'FAILED'),
+	('02122026351155FF8BE3959FFB4924BB5B22BE1', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:35:55', 'SUCCESSFULL'),
+	('0212202637032324EC262FB99B45C5A4400C3CA', 'admin', '192.168.88.23', '2026-02-12 15:37:23', 'FAILED'),
+	('021220263703571DDC01D311494D899E34089D0', '02122026360319DBC94', '192.168.88.23', '2026-02-12 15:37:57', 'SUCCESSFULL'),
+	('02122026370357EF9CE35637EC462E86829C579', 'jordanss', '192.168.88.23', '2026-02-12 15:37:57', 'FAILED'),
+	('0212202638113034BD50BFA46A41938C30AA5EB', 'gomez_77', '::1', '2026-02-12 11:38:30', 'FAILED'),
+	('0212202638113094F31AA60407498CB9543ADFC', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:38:30', 'SUCCESSFULL'),
+	('02122026390356D3DCAA62130D49DD9D375782D', 'jordans', '192.168.88.23', '2026-02-12 15:39:56', 'FAILED'),
+	('021220264003033EEF500616B74987B974E6FE4', 'jordans', '192.168.88.23', '2026-02-12 15:40:03', 'FAILED'),
+	('0212202640031215EF7A0655CB4DF1B32BFD07D', 'jordanss', '192.168.88.23', '2026-02-12 15:40:12', 'FAILED'),
+	('021220264003123D89F2B463E64F91B61EC16B2', '02122026360319DBC94', '192.168.88.23', '2026-02-12 15:40:12', 'SUCCESSFULL'),
+	('021220264012351D3E8CD94FF54F2BA725E2713', 'admin', '::1', '2026-02-12 12:40:35', 'FAIL'),
+	('02122026411133B6AEA29F13E04BBEA28A1ECCB', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:41:33', 'SUCCESSFULL'),
+	('02122026411133D3DA5632AB574DECB89219DA0', 'gomez_77', '::1', '2026-02-12 11:41:33', 'FAILED'),
+	('021220264211039D1AEC6CD4EB40EAB5BCDD024', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:42:03', 'SUCCESSFULL'),
+	('02122026421103D6348B57A8D447CAA497E841C', 'gomez_77', '::1', '2026-02-12 11:42:03', 'FAILED'),
+	('0212202644032948E365DEA3104A21B6A38391E', 'DWEQWEQWEQW', '192.168.88.76', '2026-02-12 15:44:29', 'FAILED'),
+	('02122026440329B9205E29E34047719D5B46889', '02122026440304458FD', '192.168.88.76', '2026-02-12 15:44:29', 'SUCCESSFULL'),
+	('02122026520201A6C8204E8E69406A87695246E', '0212202651023144116', '::1', '2026-02-12 14:52:01', 'SUCCESSFULL'),
+	('02122026520201FC1CCBC89EEF46F58EBEB5665', 'SADASDSD', '::1', '2026-02-12 14:52:01', 'FAILED'),
+	('02122026521155611C06A23F1D442098DFD02B0', 'gomez_77', '::1', '2026-02-12 11:52:55', 'FAILED'),
+	('021220265211557AB04300BC0D435B9E3F5A68E', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:52:55', 'SUCCESSFULL'),
+	('021220265611177C899DEA9FC346219B74545AA', NULL, '::1', '2026-02-12 11:56:17', 'FAILED'),
+	('021220265611232423612649C8400188FA3D9E5', '02092026201210E46ECF01F2364A5899023DBE0', '::1', '2026-02-12 11:56:23', 'SUCCESSFULL'),
+	('02122026561123ECFB38B1BB47443BA55501A10', 'gomez_77', '::1', '2026-02-12 11:56:23', 'FAILED'),
+	('02122026580319B6623D4F81B74A37BD361FE79', '02122026530351A02E4', '192.168.88.23', '2026-02-12 15:58:19', 'SUCCESSFULL'),
+	('02122026580319BB4C1663B5B94536A91EBB7CC', 'deguzmanjuan', '192.168.88.23', '2026-02-12 15:58:19', 'FAILED'),
+	('021920260810112D8F8F4D627247A9A40CFA194', 'admin', '::1', '2026-02-19 10:08:11', 'FAIL'),
+	('02192026581134CD95DBD712E44F5F8381AB6D8', 'admin', '::1', '2026-02-19 11:58:34', 'FAIL'),
+	('0220202600111194DAF74441094A8FAA04C2CA4', '022020265909305C2C8', '::1', '2026-02-20 11:00:11', 'SUCCESSFULL'),
+	('02202026001111D083E497508743A7AA10ACE01', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:00:11', 'FAILED'),
+	('022020260111406DB00264C73A486594E63C369', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:01:40', 'FAILED'),
+	('022020260111407F773F3CC48545C9A1689054A', '022020265909305C2C8', '::1', '2026-02-20 11:01:40', 'SUCCESSFULL'),
+	('02202026031104A885EBC59B3E42B1A818E5E7E', '022020265909305C2C8', '::1', '2026-02-20 11:03:04', 'SUCCESSFULL'),
+	('02202026031104AD44B20B9A5845E0A0737BBD3', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:03:04', 'FAILED'),
+	('022020260811044BF0585B32AB48219F5D0B092', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:08:04', 'FAILED'),
+	('02202026081104C24AC6BEFCD14674BC9341C34', '022020265909305C2C8', '::1', '2026-02-20 11:08:04', 'SUCCESSFULL'),
+	('0220202612114580DA89F3C6BC4398B86E4A081', '022020265909305C2C8', '::1', '2026-02-20 11:12:45', 'SUCCESSFULL'),
+	('022020261211458E739558D23E4379B03120DC1', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:12:45', 'FAILED'),
+	('0220202613105876913E1DB9D4451E9B92810B1', '022020265909305C2C8', '::1', '2026-02-20 10:13:58', 'SUCCESSFULL'),
+	('02202026131058B2865B6636D842BD9ED14E842', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 10:13:58', 'FAILED'),
+	('022020261811033AEC068D5D2445E2BDBFF1F8C', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:18:03', 'FAILED'),
+	('022020261811036B4E371F025D42C2B6A1323D9', '022020265909305C2C8', '::1', '2026-02-20 11:18:03', 'SUCCESSFULL'),
+	('022020262211064FD1A29BB5844DA19B8D25D6B', '022020265909305C2C8', '::1', '2026-02-20 11:22:06', 'SUCCESSFULL'),
+	('022020262211079825A567138C42CAAA67C61CD', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:22:07', 'FAILED'),
+	('022020263101113A29F85017E54C77ADE8F2482', '022020265909305C2C8', '::1', '2026-02-20 13:31:11', 'SUCCESSFULL'),
+	('02202026310111B979F30C1DB04E67BB57B632D', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:31:11', 'FAILED'),
+	('022020263301038F16E764CA6248AAAC8F37AC2', '022020265909305C2C8', '::1', '2026-02-20 13:33:03', 'SUCCESSFULL'),
+	('022020263301039F760ADC95FA430DAF99B982A', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:33:03', 'FAILED'),
+	('02202026330118DEBA0B6EFDBE4CA09B1712EA9', NULL, '::1', '2026-02-20 13:33:18', 'FAILED'),
+	('02202026330126FC46257A8FDD4A5991DC4D453', NULL, '::1', '2026-02-20 13:33:26', 'FAILED'),
+	('02202026330131517DE5BD0C81468FAF2C98FE2', '022020265909305C2C8', '::1', '2026-02-20 13:33:31', 'SUCCESSFULL'),
+	('02202026330131AEE6E343DCDA4F9081952CF0C', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:33:31', 'FAILED'),
+	('022020263511212CBCD979863D4F0DB7F0DDC08', '022020265909305C2C8', '::1', '2026-02-20 11:35:21', 'SUCCESSFULL'),
+	('02202026351121576DE200314D462BBC2E6B5C0', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:35:21', 'FAILED'),
+	('0220202639123465BD5AD0FC704AF5944AC5C71', '022020265909305C2C8', '::1', '2026-02-20 12:39:34', 'SUCCESSFULL'),
+	('02202026391234F3D97D47864F452BA06845668', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 12:39:34', 'FAILED'),
+	('02202026460222809B05818381442E85438D1E3', 'admin', '127.0.0.1', '2026-02-20 14:46:22', 'FAIL'),
+	('0220202646105826259EAB962843E39D9DD78D3', '022020265909305C2C8', '::1', '2026-02-20 10:46:58', 'SUCCESSFULL'),
+	('02202026461058A65329B1C6184B06943F8DE6B', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 10:46:58', 'FAILED'),
+	('02202026481157866A24675BBF4A14AC430BBFB', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 11:48:57', 'FAILED'),
+	('02202026481157C8FC659CA8C54E3CA71A3763F', '022020265909305C2C8', '::1', '2026-02-20 11:48:57', 'SUCCESSFULL'),
+	('02202026521035015394A000574ED785EC972ED', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 10:52:35', 'FAILED'),
+	('02202026521035D58E00C6D0EA48C3AB7D3D2BB', '022020265909305C2C8', '::1', '2026-02-20 10:52:35', 'SUCCESSFULL'),
+	('02202026530143565A35632090409A8DD83ACC2', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:53:43', 'FAILED'),
+	('02202026530143CE901B0EF39D47A3BC75A55E3', '022020265909305C2C8', '::1', '2026-02-20 13:53:43', 'SUCCESSFULL'),
+	('02202026560153B62D91EDBF63434EB846843D1', '022020265909305C2C8', '::1', '2026-02-20 13:56:53', 'SUCCESSFULL'),
+	('022020265601544AE8841DAF2144E893FCFF76D', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:56:54', 'FAILED'),
+	('02202026580147022AB7FCFE44477EA4D8FD613', '022020265909305C2C8', '::1', '2026-02-20 13:58:47', 'SUCCESSFULL'),
+	('02202026580147E5DDEF7CA66B4A8E9AA8056B8', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 13:58:47', 'FAILED'),
+	('02202026581025C33E9BAC8BF64DF5BDA936588', '022020265909305C2C8', '::1', '2026-02-20 10:58:25', 'SUCCESSFULL'),
+	('02202026581026FF5F667BF29340C3B0BF015E3', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 10:58:26', 'FAILED'),
+	('0220202659015951D7B6D3D3F94A54A81422CCA', 'noel.sierra.moreddno@gmail.com', '::1', '2026-02-20 13:59:59', 'FAILED'),
+	('02202026590159C2C7EBC34D94412685C26BFA3', '022020263912118E3BD', '::1', '2026-02-20 13:59:59', 'SUCCESSFULL'),
+	('0220202659095620F49070AD5046F4A40418AA3', '022020265909305C2C8', '::1', '2026-02-20 09:59:56', 'SUCCESSFULL'),
+	('022020265909565952AAA4954F40B289E8E7FEB', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-20 09:59:56', 'FAILED'),
 	('06132023310900815CBE6CEC954A0591221F542', 'asdsad', '::1', '2023-06-13 09:31:00', 'FAIL'),
 	('0619202317041889D4D8AD88734361A8CD1FCA2', 'admin', '::1', '2023-06-19 16:17:18', 'FAIL'),
 	('06222023220857D0F243F76F03480898E3C9355', 'admin', '::1', '2023-06-22 08:22:57', 'FAIL'),
@@ -261,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `tbl_notify_sms` (
   `cel_numbers` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_notify_sms: ~0 rows (approximately)
+-- Dumping data for table db_cctms.tbl_notify_sms: ~1 rows (approximately)
 INSERT INTO `tbl_notify_sms` (`cel_numbers`) VALUES
 	('09359828145,09069044808,09261277653,09453669413');
 
@@ -422,7 +540,32 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_status` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_ref_status: ~0 rows (approximately)
+-- Dumping data for table db_cctms.tbl_ref_status: ~3 rows (approximately)
+INSERT INTO `tbl_ref_status` (`trans_id`, `status_desc`, `sort_order`, `is_active`) VALUES
+	('FOR PAYMENT', 'FOR PAYMENT', 1, 'Y'),
+	('INACTIVE', 'INACTIVE', 3, 'Y'),
+	('PAID', 'PAID', 2, 'Y');
+
+-- Dumping structure for table db_cctms.tbl_ref_trainings
+CREATE TABLE IF NOT EXISTS `tbl_ref_trainings` (
+  `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `training_title` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `training_description` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `learning_mode` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `learning_tracks` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `learning_tracks_other` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `last_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `last_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`trans_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_ref_trainings: ~2 rows (approximately)
+INSERT INTO `tbl_ref_trainings` (`trans_id`, `training_title`, `training_description`, `learning_mode`, `learning_tracks`, `learning_tracks_other`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
+	('02192026401132CA2CE', 'SAMPLE TRAINING TITLE', 'SAMPLE TRAINING DESCRIPTION', 'ONLINE', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-19 11:40:32', 'System Administrator', '2026-02-19 11:48:46'),
+	('02202026050924DF483', 'SAMPLE TRAINING 2', 'SAMPLE DESCRIPTION 2', 'ONLINE', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'System Administrator', '2026-02-20 09:05:24', NULL, NULL);
 
 -- Dumping structure for table db_cctms.tbl_ref_training_speakers
 CREATE TABLE IF NOT EXISTS `tbl_ref_training_speakers` (
@@ -445,11 +588,24 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_training_status` (
   PRIMARY KEY (`trans_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_ref_training_status: ~3 rows (approximately)
+-- Dumping data for table db_cctms.tbl_ref_training_status: ~4 rows (approximately)
 INSERT INTO `tbl_ref_training_status` (`trans_id`, `status_desc`, `sort_order`, `is_active`) VALUES
 	('COMPLETED', 'COMPLETED', 3, 'Y'),
+	('DRAFTING', 'DRAFTING', 0, 'Y'),
 	('ONGOING', 'ON-GOING', 2, 'Y'),
 	('UPCOMING', 'UPCOMING', 1, 'Y');
+
+-- Dumping structure for table db_cctms.tbl_ref_training_venue
+CREATE TABLE IF NOT EXISTS `tbl_ref_training_venue` (
+  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `venue_desc` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `is_active` varchar(1) COLLATE latin1_general_ci DEFAULT 'Y',
+  `create_user` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`trans_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_ref_training_venue: ~0 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_registration_comments
 CREATE TABLE IF NOT EXISTS `tbl_registration_comments` (
@@ -478,14 +634,9 @@ CREATE TABLE IF NOT EXISTS `tbl_registration_details` (
   KEY `senior_id` (`applicant_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_registration_details: ~6 rows (approximately)
+-- Dumping data for table db_cctms.tbl_registration_details: ~1 rows (approximately)
 INSERT INTO `tbl_registration_details` (`trans_id`, `applicant_id`, `reg_status`, `remarks`, `last_user`, `last_date`, `counter`) VALUES
-	('020920260004420F7E44B7F3E14C698B19783EC', '02092026180148DABEA9D8AEC2488B87B419D2E', 'PAID', 'PAID IN FINANCE: ONLINE', 'FINANCE WS', '02/09/2026 4:00:42 pm', 3),
-	('020920260104559B7D399F00814E2A887274A78', '0209202619012392E3BAF8B22B4B53A8E3CEF81', 'PAID', 'PAID IN FINANCE: ONLINE', 'FINANCE WS', '02/09/2026 4:01:55 pm', 1),
-	('02092026530355F04C38D5328140C5831BEC06B', '02092026180122C4739E5DB7B44F64B31CAB2D3', 'PAID', 'PAID IN FINANCE: WALKIN', 'FINANCE WS', '02/09/2026 3:53:55 pm', 1),
-	('02092026550302E803BFE2AFDA4C91B956B1029', '02092026180148DABEA9D8AEC2488B87B419D2E', 'PAID', 'PAID IN FINANCE: ONLINE', 'FINANCE WS', '02/09/2026 3:55:02 pm', 1),
-	('020920265503395696101C6B8A4CCA922A42C24', '02092026180148DABEA9D8AEC2488B87B419D2E', 'FOR PAYMENT', 'Cancelled From Finance Payment System', 'FINANCE WS', '02/09/2026 3:55:39 pm', 2),
-	('020920265803332142F9F45D2248FD9E070997E', '02092026180122C4739E5DB7B44F64B31CAB2D3', 'PAID', 'PAID IN FINANCE: ONLINE', 'FINANCE WS', '02/09/2026 3:58:33 pm', 2);
+	('0220202611112011FCEE9375634273A047D4EFB', '02202026321028A7A3A07F2F924E959E816D6D6', 'PAID', 'hhh', 'System Administrator', '2/20/2026 11:11:20 AM', 1);
 
 -- Dumping structure for table db_cctms.tbl_system_default
 CREATE TABLE IF NOT EXISTS `tbl_system_default` (
@@ -505,10 +656,15 @@ INSERT INTO `tbl_system_default` (`default_desc`, `default_value`) VALUES
 CREATE TABLE IF NOT EXISTS `tbl_training` (
   `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `training_date` date DEFAULT NULL,
+  `training_date_to` date DEFAULT NULL,
+  `reg_from` date DEFAULT NULL,
+  `reg_to` date DEFAULT NULL,
   `training_time` time DEFAULT NULL,
+  `training_id` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
   `training_title` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `training_desc` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `training_slots` int(11) DEFAULT '0',
+  `training_venue` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
   `other_details` longtext CHARACTER SET latin1 COLLATE latin1_general_ci,
   `attendance` int(11) DEFAULT '0',
   `registration_fee` decimal(10,2) DEFAULT '0.00',
@@ -522,12 +678,10 @@ CREATE TABLE IF NOT EXISTS `tbl_training` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training: ~4 rows (approximately)
-INSERT INTO `tbl_training` (`trans_id`, `training_date`, `training_time`, `training_title`, `training_desc`, `training_slots`, `other_details`, `attendance`, `registration_fee`, `training_status`, `training_remarks`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('0205202652034383463E6FBAA24D258095A17F6', '2026-02-16', '00:00:00', 'SAMPLE TITLE', 'SAMPLE DESCRIPTION', 14, 'other details\nsample links and others assadg jdgjha gdjhagd djh dga\nad asjdhgjhd kjadd\ndhjasdjahdksahd', 2, 500.00, NULL, '', 'Y', 'scadmin', '2026-02-05 15:52:00', NULL, NULL),
-	('02092026390547557FA', '2026-02-25', '00:00:00', 'SAMPLE TRAINING 2', 'SAMPLE TRAINING 2 DESCRIPTION', 25, 'Finding the answers to these questions isn’t difficult, but getting any kind of new tool set up can be time-consuming. And that can be a barrier to moving forward, even if you know it would be beneficial for your business.', 4, 500.00, 'COMPLETED', '', 'Y', 'scadmin', '2026-02-09 05:39:00', 'System Administrator', '2026-02-10 16:56:42'),
-	('02102026351220E206E', '2025-02-28', '00:00:00', 'ABC TRAINING', 'BAA BAA BLACK SHEEP', 26, 'others specified', 0, 150.15, '', '', 'Y', 'System Administrator', '2026-02-10 12:35:20', NULL, NULL),
-	('02102026381212DF96C', '2026-02-19', '00:00:00', 'SAMPLE TRAINING 8233', 'TRAINING DESCRIPTION', 35, 'others details for training 8233', 1, 485.65, 'COMPLETED', 'sssd', 'Y', 'System Administrator', '2026-02-10 12:38:12', 'System Administrator', '2026-02-10 13:20:58');
+-- Dumping data for table db_cctms.tbl_training: ~2 rows (approximately)
+INSERT INTO `tbl_training` (`trans_id`, `training_date`, `training_date_to`, `reg_from`, `reg_to`, `training_time`, `training_id`, `training_title`, `training_desc`, `training_slots`, `training_venue`, `other_details`, `attendance`, `registration_fee`, `training_status`, `training_remarks`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
+	('02202026470903EC7F4', '2026-02-20', '2026-02-21', '2026-02-20', '2026-02-20', '00:00:00', '02202026050924DF483', 'SAMPLE TRAINING 2', 'SAMPLE DESCRIPTION 2', 550, 'SS', 'ddd', 1, 4500.00, 'COMPLETED', 'sdfd', 'Y', 'System Administrator', '2026-02-20 09:47:03', 'System Administrator', '2026-02-20 11:44:24'),
+	('02202026530105BD0A2', '2026-02-20', '2026-02-22', '2026-02-20', '2026-02-22', '00:00:00', '02192026401132CA2CE', 'SAMPLE TRAINING TITLE', 'SAMPLE TRAINING DESCRIPTION', 1, 'SDS', 'dsd', 1, 450.00, 'UPCOMING', 'open for registration', 'Y', 'System Administrator', '2026-02-20 13:53:05', 'System Administrator', '2026-02-20 13:54:37');
 
 -- Dumping structure for table db_cctms.tbl_training_applicants
 CREATE TABLE IF NOT EXISTS `tbl_training_applicants` (
@@ -556,20 +710,17 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applicants` (
   `program_discovered` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
   `user_name` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `password` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `is_active` varchar(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Y',
   `create_user` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applicants: ~5 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_applicants: ~2 rows (approximately)
 INSERT INTO `tbl_training_applicants` (`trans_id`, `lname`, `fname`, `mname`, `ename`, `gender`, `civil_status`, `contact_no`, `email_add`, `home_addr`, `city_province`, `profession`, `educ_attain`, `workplace`, `position`, `prc_no`, `prc_expiration`, `pref_learn_tracks`, `pref_learn_tracks_others`, `pref_learn_mode`, `pref_sched`, `topic_interest`, `program_discovered`, `registration_date`, `user_name`, `password`, `is_active`, `create_user`, `create_date`) VALUES
-	('02092026181206C161AEB2900E4A6B8FDB757C1', 'DELA CRUZ', 'JUAN', 'LAPA', 'Jr.', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CARMEN, CDO', 'CAGAYAN DE ORO_D1', 'office incharge', 'BACHELOR', 'LGU-CDO', 'ADMINISTRATIVE OFFICER', '223365', '2027-11-13', '', 'tracks sample others', 'F2F', 'WEEKDAYS', 'specific sample topic', 'specific sample topic', '2026-02-09 12:18:00', 'DELACRUZ_B7', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-09 12:18:00'),
-	('02092026201210E46ECF01F2364A5899023DBE0', 'GOMEZ', 'PEDRO', 'SDD', 'Jr.', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CARMEN', 'CAGAYAN DE ORO_D1', 'sad', 'DOCTORAL', 'SDFSDFWER', 'SFF', '6691456456', '2027-05-06', '', '', 'F2F', 'WEEKDAYS', 'specific topic', 'WEBSITE', '2026-02-09 12:20:00', 'GOMEZ_77', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-09 12:20:00'),
-	('02092026271238647D365DD8AA40AA8F5ABBF99', 'DE GUZMAN', 'JHON', 'KAKA', 'Jr.', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CARMEN, CDO', 'CAGAYAN DE ORO_D1', 'profession', 'BACHELOR', 'AFFILIATION', 'POSITION', '552635654', '2027-02-16', '', 'tracks other description', 'F2F', 'WEEKDAYS', 'specific topic interest', 'specific topic interest', '2026-02-09 12:27:00', 'DEGUZMAN_E7', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-09 12:27:00'),
-	('021120261802145FF2C', 'WADE', 'DWYANE', 'HAWW', 'Sr.', 'MALE', 'MARRIED', '09354488220', 'noel.sierra.moreno@gmail.com', 'BRGY PATAG', 'CAGAYAN DE ORO_D1', 'Athlete', 'DOCTORAL', 'MIAMI HEAT', 'NBA PROF. PLAYER', '22365', '2027-02-05', '', '', 'ONLINE', 'WEEKDAYS', 'sss', 'sss', '2026-02-11 14:18:00', 'WADEDWYANE', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-11 14:18:00'),
-	('0211202644010119CC6', 'JAMES', 'LEBRON', 'J', 'Jr.', 'MALE', 'MARRIED', '09354486546', 'noel.sierra.moreno@gmail.com', '123 ST, CARMEN, CDO', 'CAGAYAN DE ORO_D1', 'BasketBall Player', 'BACHELOR', 'MIAMI', 'PROFESSIONAL BB PLAYER', '223564', '2027-04-08', '', '', 'HYBRID', 'WEEKDAYS', 'basketball for life', 'SOCMED', '2026-02-11 13:44:00', 'JAMESLEBRON', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-11 13:44:00');
+	('022020263912118E3BD', 'MORENOSS', 'NOELS', 'SIERRA', 'Jr.', 'MALE', 'SEPARATED', '09354488220', 'noel.sierra.moreddno@gmail.com', 'ADSAD', 'CAGAYAN DE ORO_D1', 'adsad', 'BACHELOR', 'ADAS', 'ADASD', 'dasdasd', '2027-02-23', '', '', 'ONLINE', 'WEEKDAYS', 'ssd asdasd', 'WEBSITE', '2026-02-20 12:39:00', 'noel.sierra.moreddno@gmail.com', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', NULL, '2026-02-20 12:39:00'),
+	('022020265909305C2C8', 'MORENO', 'NOEL', 'SIERRA', 'Jr.', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CDO CARMEN', 'CAGAYAN DE ORO_D1', 'Teacher', 'BACHELOR', 'CDO SCHOOLS', 'TEACHER I', '123456', '2027-02-20', '', '', 'HYBRID', 'WEEKDAYS', 'ssd', 'WEBSITE', '2026-02-20 09:59:00', 'noel.sierra.moreno@gmail.com', 'f29e6389f42f9d0edd2f173c19520b58', 'Y', NULL, '2026-02-20 09:59:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applicants_learning_tracks
 CREATE TABLE IF NOT EXISTS `tbl_training_applicants_learning_tracks` (
@@ -584,21 +735,14 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applicants_learning_tracks` (
   KEY `applicant_id` (`applicant_id`,`tracks_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applicants_learning_tracks: ~13 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_applicants_learning_tracks: ~6 rows (approximately)
 INSERT INTO `tbl_training_applicants_learning_tracks` (`trans_id`, `applicant_id`, `tracks_id`, `tracks_other`, `is_active`, `create_user`, `create_date`) VALUES
-	('02092026091216A82E5', '02092026091215FF6FE0A0292E41A0B0E9F10D9', 'OTHER', 'tracks other description', 'Y', NULL, '2026-02-09 12:09:00'),
-	('02092026181206675DC', '02092026181206C161AEB2900E4A6B8FDB757C1', 'OTHER', 'tracks sample others', 'Y', NULL, '2026-02-09 12:18:00'),
-	('0209202627123893335', '02092026271238647D365DD8AA40AA8F5ABBF99', 'ENTREPRENEURSHIP_TECH', '', 'Y', NULL, '2026-02-09 12:27:00'),
-	('02092026271238D8DB2', '02092026271238647D365DD8AA40AA8F5ABBF99', 'DIGITAL_IT', '', 'Y', NULL, '2026-02-09 12:27:00'),
-	('02092026271239B2C6D', '02092026271238647D365DD8AA40AA8F5ABBF99', 'OTHER', 'tracks other description', 'Y', NULL, '2026-02-09 12:27:00'),
-	('02092026271239C841D', '02092026271238647D365DD8AA40AA8F5ABBF99', 'PUBLIC_GOVERNANCE', '', 'Y', NULL, '2026-02-09 12:27:00'),
-	('02112026250434E1DCA', '02092026201210E46ECF01F2364A5899023DBE0', 'OTHER', '', 'Y', 'GOMEZ, PEDRO', '2026-02-11 16:25:00'),
-	('021120264703040275F', '021120261802145FF2C', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'WADE, DWYANE', '2026-02-11 15:47:00'),
-	('021120264703048D315', '021120261802145FF2C', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'WADE, DWYANE', '2026-02-11 15:47:00'),
-	('021120265903173C34E', '0211202644010119CC6', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'JAMES, LEBRON', '2026-02-11 15:59:00'),
-	('021120265903174447C', '0211202644010119CC6', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'JAMES, LEBRON', '2026-02-11 15:59:00'),
-	('0211202659031796F93', '0211202644010119CC6', 'DIGITAL_IT', '', 'Y', 'JAMES, LEBRON', '2026-02-11 15:59:00'),
-	('02112026590317D1047', '0211202644010119CC6', 'PUBLIC_GOVERNANCE', '', 'Y', 'JAMES, LEBRON', '2026-02-11 15:59:00');
+	('02202026180100A117E', '02202026180100D768C', 'ENTREPRENEURSHIP_TECH', '', 'Y', NULL, '2026-02-20 13:18:00'),
+	('022020263912117EC96', '022020263912118E3BD', 'EDUC_LEAD_PEDAGOGY', '', 'Y', NULL, '2026-02-20 12:39:00'),
+	('02202026391212C8F81', '022020263912118E3BD', 'PUBLIC_GOVERNANCE', '', 'Y', NULL, '2026-02-20 12:39:00'),
+	('0220202653093314EAE', '022020265309334C7B8', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-20 09:53:00'),
+	('0220202653093489C60', '022020265309334C7B8', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'System Administrator', '2026-02-20 09:53:00'),
+	('022020265909308872A', '022020265909305C2C8', 'DIGITAL_IT', '', 'Y', NULL, '2026-02-20 09:59:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applications
 CREATE TABLE IF NOT EXISTS `tbl_training_applications` (
@@ -627,15 +771,10 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applications` (
   KEY `training_id` (`training_id`,`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applications: ~4 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_applications: ~2 rows (approximately)
 INSERT INTO `tbl_training_applications` (`trans_id`, `app_code`, `training_id`, `applicant_id`, `applicant_name`, `applicant_contact`, `application_remarks`, `application_datetime`, `validation_datetime`, `application_status`, `application_fee`, `application_or`, `application_or_date`, `is_finance_paid`, `finance_mode`, `finance_datetime`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('02092026180122C4739E5DB7B44F64B31CAB2D3', '202602A09A', '02092026390547557FA', '02092026181206C161AEB2900E4A6B8FDB757C1', NULL, NULL, 'PAID IN FINANCE: ONLINE', '2026-02-09 13:18:00', '2026-02-09 15:58:33', 'PAID', 0.00, '564654', '2026-02-09', 'Y', 'ONLINE', '2026-02-09 15:58:33', 'Y', 'DELA CRUZ, JUAN', '2026-02-09 13:18:00', 'FINANCE WS', '2026-02-09 15:58:33'),
-	('02092026180148DABEA9D8AEC2488B87B419D2E', '2026020151', '02092026390547557FA', '02092026201210E46ECF01F2364A5899023DBE0', NULL, NULL, 'PAID IN FINANCE: ONLINE', '2026-02-09 13:18:00', '2026-02-09 16:00:42', 'PAID', 0.00, '996688', '2026-02-09', 'Y', 'ONLINE', '2026-02-09 16:00:42', 'Y', 'GOMEZ, PEDRO', '2026-02-09 13:18:00', 'FINANCE WS', '2026-02-09 16:00:42'),
-	('02092026190116CE3F8BDAE639440DB56557A53', '202602DA97', '0205202652034383463E6FBAA24D258095A17F6', '02092026271238647D365DD8AA40AA8F5ABBF99', NULL, NULL, 'Pay to secure slot', '2026-02-09 13:19:00', NULL, 'FOR PAYMENT', 0.00, NULL, NULL, 'N', 'WALKIN', NULL, 'Y', 'DE GUZMAN, JHON', '2026-02-09 13:19:00', NULL, NULL),
-	('0209202619012392E3BAF8B22B4B53A8E3CEF81', '202602D8EC', '02092026390547557FA', '02092026271238647D365DD8AA40AA8F5ABBF99', NULL, NULL, 'PAID IN FINANCE: ONLINE', '2026-02-09 13:19:00', '2026-02-09 16:01:55', 'PAID', 0.00, '345353', '2026-02-09', 'Y', 'ONLINE', '2026-02-09 16:01:54', 'Y', 'DE GUZMAN, JHON', '2026-02-09 13:19:00', 'FINANCE WS', '2026-02-09 16:01:55'),
-	('0211202611051200B5AE91DEBA461790A2FD458', '20260220EE', '02092026390547557FA', '0211202644010119CC6', 'JAMES, LEBRON Jr. J', '09354486546', 'Pay to secure slot', '2026-02-11 17:11:00', NULL, 'FOR PAYMENT', 500.00, NULL, NULL, 'N', 'WALKIN', NULL, 'Y', 'JAMES, LEBRON', '2026-02-11 17:11:00', NULL, NULL),
-	('02112026560404EA1E9BF630AA45A194039C905', '20260269A6', '0205202652034383463E6FBAA24D258095A17F6', '02092026201210E46ECF01F2364A5899023DBE0', NULL, NULL, 'Pay to secure slot', '2026-02-11 16:56:00', NULL, 'FOR PAYMENT', 0.00, NULL, NULL, 'N', 'WALKIN', NULL, 'Y', 'GOMEZ, PEDRO', '2026-02-11 16:56:00', NULL, NULL),
-	('021120265704218FD7101D02DF4572BB9072C96', '202602C677', '02102026381212DF96C', '02092026201210E46ECF01F2364A5899023DBE0', NULL, NULL, 'Pay to secure slot', '2026-02-11 16:57:00', NULL, 'FOR PAYMENT', 0.00, NULL, NULL, 'N', 'WALKIN', NULL, 'Y', 'GOMEZ, PEDRO', '2026-02-11 16:57:00', NULL, NULL);
+	('02202026321028A7A3A07F2F924E959E816D6D6', '2026027EC9', '02202026470903EC7F4', '022020265909305C2C8', 'MORENO, NOEL Jr. SIERRA', '09354488220', 'hhh', '2026-02-20 10:32:00', '2026-02-20 11:11:00', 'PAID', 4500.00, '5554', '2026-02-20', 'N', 'WALKIN', NULL, 'Y', 'MORENO, NOEL', '2026-02-20 10:32:00', 'System Administrator', '2026-02-20 11:11:00'),
+	('02202026580152051EB3484A7A4FA180CF6D759', '20260245BA', '02202026530105BD0A2', '022020265909305C2C8', 'MORENO, NOEL Jr. SIERRA', '09354488220', 'Pay to secure slot', '2026-02-20 13:58:00', NULL, 'FOR PAYMENT', 450.00, NULL, NULL, 'N', 'WALKIN', NULL, 'Y', 'MORENO, NOEL', '2026-02-20 13:58:00', NULL, NULL);
 
 -- Dumping structure for table db_cctms.tbl_training_attendance
 CREATE TABLE IF NOT EXISTS `tbl_training_attendance` (
@@ -654,11 +793,9 @@ CREATE TABLE IF NOT EXISTS `tbl_training_attendance` (
   KEY `training_id` (`training_id`,`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_attendance: ~3 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_attendance: ~1 rows (approximately)
 INSERT INTO `tbl_training_attendance` (`trans_id`, `attendee_no`, `training_id`, `applicant_id`, `remarks`, `is_present`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('0209202600044296BFEADE746E4206922572E94', 1, '02092026390547557FA', '02092026201210E46ECF01F2364A5899023DBE0', '', 'Y', 'Y', 'FINANCE WS', '2026-02-09 16:00:42', '', '2026-02-10 13:55:55'),
-	('02092026010455C125E2CED66C4AA58BD78701E', 3, '02092026390547557FA', '02092026271238647D365DD8AA40AA8F5ABBF99', '', 'Y', 'Y', 'FINANCE WS', '2026-02-09 16:01:55', '', '2026-02-10 13:55:55'),
-	('02092026580333AE70EE0E5D214C0986FAA3B87', 2, '02092026390547557FA', '02092026181206C161AEB2900E4A6B8FDB757C1', '', 'N', 'Y', 'FINANCE WS', '2026-02-09 15:58:33', '', '2026-02-10 13:55:55');
+	('0220202611112099819A822C954693AC228F9CF', 1, '02202026470903EC7F4', '022020265909305C2C8', 'PAID', 'Y', 'Y', '', '2026-02-20 11:11:20', '', '2026-02-20 11:46:57');
 
 -- Dumping structure for table db_cctms.tbl_training_details
 CREATE TABLE IF NOT EXISTS `tbl_training_details` (
@@ -673,19 +810,18 @@ CREATE TABLE IF NOT EXISTS `tbl_training_details` (
   KEY `senior_id` (`training_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_details: ~11 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_details: ~10 rows (approximately)
 INSERT INTO `tbl_training_details` (`trans_id`, `training_id`, `reg_status`, `remarks`, `last_user`, `last_date`, `counter`) VALUES
-	('021020261912209D9A6BBB64384DBAAFEA2D582', '02092026390547557FA', 'ONGOING', 'started saksk ada dasd', 'System Administrator', '2026-02-10 12:19:20', 1),
-	('02102026200158E1E3E981C6FB4D43B567D218A', '02102026381212DF96C', 'COMPLETED', 'sssd', 'System Administrator', '2026-02-10 13:20:58', 2),
-	('0210202627123806F43607E6644E3E801CF448C', '02092026390547557FA', 'ONGOING', 'ssdd', 'System Administrator', '2026-02-10 12:27:38', 2),
-	('02102026271247D8C2DD530F1A4A3886609D937', '02092026390547557FA', 'ONGOING', 'ssdddasd', 'System Administrator', '2026-02-10 12:27:47', 3),
-	('02102026281249C32E741E2B1245CBA12C3CEE8', '02092026390547557FA', 'ONGOING', 'dsdf', 'System Administrator', '2026-02-10 12:28:49', 4),
-	('0210202629121824BA2039C55449C1A6A21E449', '02092026390547557FA', 'COMPLETED', 'ssdds', 'System Administrator', '2026-02-10 12:29:18', 5),
-	('02102026301223414BD55E543341CA8145F1FF3', '02092026390547557FA', 'UPCOMING', 'sdsdsdwwdss', 'System Administrator', '2026-02-10 12:30:23', 6),
-	('02102026340155A19D6768149F4B079C3FD3F11', '02092026390547557FA', 'COMPLETED', '', 'System Administrator', '2026-02-10 13:34:55', 7),
-	('0210202638121211625066ACA4426DAE8996F2B', '02102026381212DF96C', 'UPCOMING', 'NEW Added training', 'System Administrator', '2026-02-10 12:38:12', 1),
-	('0210202656011695455DABC87048D5B86E18CE8', '02092026390547557FA', 'ONGOING', 'sss', 'System Administrator', '2026-02-10 13:56:16', 8),
-	('0210202656044256DBEA5AD30046ADBD9F14EA7', '02092026390547557FA', 'COMPLETED', '', 'System Administrator', '2026-02-10 16:56:42', 9);
+	('02202026141040BBE0D9E220434000B4C73059D', '02202026470903EC7F4', 'UPCOMING', '', 'System Administrator', '2026-02-20 10:14:40', 4),
+	('02202026141051E5C975911770447EAD9C77A03', '02202026470903EC7F4', 'DRAFTING', '', 'System Administrator', '2026-02-20 10:14:51', 5),
+	('02202026151017CE591BA6D5F947D7B0C8D82F2', '02202026470903EC7F4', 'UPCOMING', 'sdsdsdfdsf', 'System Administrator', '2026-02-20 10:15:17', 6),
+	('02202026390900CC157EBF07634BDB95968B6AE', '022020263809594F6B3', 'DRAFTING', '', 'System Administrator', '2026-02-20 09:39:00', 1),
+	('02202026441124ECB4C01471EC4EF891924E8A4', '02202026470903EC7F4', 'COMPLETED', 'sdfd', 'System Administrator', '2026-02-20 11:44:24', 7),
+	('022020264709032A17D5A982DB4E75AE41C120C', '02202026470903EC7F4', 'DRAFTING', '', 'System Administrator', '2026-02-20 09:47:03', 1),
+	('02202026480930B1118D8204494AC58D5259C59', '02202026470903EC7F4', 'UPCOMING', '', 'System Administrator', '2026-02-20 09:48:30', 2),
+	('02202026490908BD92407FEC5B48E4A0A2D0518', '02202026470903EC7F4', 'DRAFTING', 'lll', 'System Administrator', '2026-02-20 09:49:08', 3),
+	('02202026530105B90E7B03023C42428D4EF0278', '02202026530105BD0A2', 'DRAFTING', '', 'System Administrator', '2026-02-20 13:53:05', 1),
+	('022020265401379D3063244FDD449B850C53667', '02202026530105BD0A2', 'UPCOMING', 'open for registration', 'System Administrator', '2026-02-20 13:54:37', 2);
 
 -- Dumping structure for table db_cctms.tbl_training_speakers
 CREATE TABLE IF NOT EXISTS `tbl_training_speakers` (
@@ -717,17 +853,10 @@ CREATE TABLE IF NOT EXISTS `tbl_user_access_permission` (
   `last_user` varchar(50) DEFAULT NULL,
   `last_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_permission_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5570 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5621 DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_user_access_permission: ~200 rows (approximately)
+-- Dumping data for table db_cctms.tbl_user_access_permission: ~203 rows (approximately)
 INSERT INTO `tbl_user_access_permission` (`user_permission_id`, `user_role_id`, `user_id`, `menu_id`, `page_url`, `can_access`, `can_create`, `can_update`, `can_delete`, `can_report`, `can_export`, `last_user`, `last_date`) VALUES
-	(497, '4', '', 1, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(498, '4', '', 2, 'UserEntry.aspx', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(499, '4', '', 3, 'UserRole.aspx', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(500, '4', '', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(501, '4', '', 5, 'RolePermission.aspx', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(502, '4', '', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'System Administrator', '6/24/2014 2:18:01 PM'),
-	(503, '4', '', 35, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '6/24/2014 2:18:01 PM'),
 	(857, '7', '00370', 7, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '1/29/2015 1:27:18 PM'),
 	(858, '7', '00370', 8, 'PDSList.aspx', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '1/29/2015 1:27:18 PM'),
 	(859, '7', '00370', 25, '&nbsp;', 'N', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '1/29/2015 1:27:18 PM'),
@@ -906,21 +1035,24 @@ INSERT INTO `tbl_user_access_permission` (`user_permission_id`, `user_role_id`, 
 	(5512, '4', 'scadmin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
 	(5513, '4', 'scadmin', 5, 'RolePermission.aspx', 'N', 'N', 'N', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
 	(5514, '4', 'scadmin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'scadmin', '2/5/2026 1:52:39 PM'),
-	(5555, '1', 'admin', 60, 'DashBoard.aspx', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5556, '1', 'admin', 61, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5557, '1', 'admin', 63, 'Trainings.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5558, '1', 'admin', 65, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5559, '1', 'admin', 66, 'TrainingReport.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5560, '1', 'admin', 67, 'RegistrationReport.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5561, '1', 'admin', 57, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5562, '1', 'admin', 58, 'adminUserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5563, '1', 'admin', 59, 'adminUserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:24 PM'),
-	(5564, '1', 'admin', 1, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM'),
-	(5565, '1', 'admin', 2, 'UserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM'),
-	(5566, '1', 'admin', 3, 'UserRole.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM'),
-	(5567, '1', 'admin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM'),
-	(5568, '1', 'admin', 5, 'RolePermission.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM'),
-	(5569, '1', 'admin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/10/2026 4:03:25 PM');
+	(5603, '1', 'admin', 60, 'DashBoard.aspx', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:33 AM'),
+	(5604, '1', 'admin', 61, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5605, '1', 'admin', 63, 'Trainings.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5606, '1', 'admin', 64, 'TrainingTagPayments.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5607, '1', 'admin', 65, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5608, '1', 'admin', 66, 'TrainingReport.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5609, '1', 'admin', 67, 'RegistrationReport.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5610, '1', 'admin', 68, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5611, '1', 'admin', 69, 'RefTrainings.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5612, '1', 'admin', 57, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5613, '1', 'admin', 58, 'adminUserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5614, '1', 'admin', 59, 'adminUserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5615, '1', 'admin', 1, '&nbsp;', 'Y', 'N', 'N', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5616, '1', 'admin', 2, 'UserEntry.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5617, '1', 'admin', 3, 'UserRole.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5618, '1', 'admin', 4, 'UserPermission.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5619, '1', 'admin', 5, 'RolePermission.aspx', 'N', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM'),
+	(5620, '1', 'admin', 6, 'cmsMenu.aspx', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'System Administrator', '2/19/2026 11:19:34 AM');
 
 -- Dumping structure for table db_cctms.tbl_user_info
 CREATE TABLE IF NOT EXISTS `tbl_user_info` (
@@ -937,6 +1069,28 @@ CREATE TABLE IF NOT EXISTS `tbl_user_info` (
 INSERT INTO `tbl_user_info` (`user_id`, `user_name`, `user_role_id`, `user_password`, `is_active`, `last_user`, `last_date`) VALUES
 	('scadmin', 'scadmin', 4, 'Vw6ttcqROO4c4edd6202aaf1420f', 'Y', '', '9/10/2015 2:37:16 PM'),
 	('admin', 'System Administrator', 1, 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', 'INITIALIZED', '4/17/2014 10:29:54 AM');
+
+-- Dumping structure for table db_cctms.tbl_user_pin
+CREATE TABLE IF NOT EXISTS `tbl_user_pin` (
+  `trans_id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT '',
+  `pin_code` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT '',
+  `ip_address` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT '',
+  `status` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'SENT',
+  `create_user` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT '',
+  `create_date` datetime DEFAULT (now()),
+  `expiration_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`trans_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5002 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_user_pin: ~6 rows (approximately)
+INSERT INTO `tbl_user_pin` (`trans_id`, `user_id`, `pin_code`, `ip_address`, `status`, `create_user`, `create_date`, `expiration_date`) VALUES
+	(4996, '022020265909305C2C8', '622234', '::1', 'NOT SENT', '', '2026-02-20 13:14:14', '2026-02-21 13:14:14'),
+	(4997, '02202026180100D768C', '888436', '::1', 'NOT SENT', '', '2026-02-20 13:18:54', '2026-02-21 13:18:54'),
+	(4998, '022020265909305C2C8', '675480', '::1', 'SENT', '', '2026-02-20 13:21:47', '2026-02-21 13:21:47'),
+	(4999, '022020265909305C2C8', '612093', '::1', 'SENT', '', '2026-02-20 13:21:50', '2026-02-21 13:21:50'),
+	(5000, '022020265909305C2C8', '934025', '::1', 'SENT', '', '2026-02-20 13:27:35', '2026-02-21 13:27:35'),
+	(5001, '022020265909305C2C8', '933850', '::1', 'SENT', '', '2026-02-20 13:30:24', '2026-02-21 13:30:24');
 
 -- Dumping structure for table db_cctms.tbl_user_role
 CREATE TABLE IF NOT EXISTS `tbl_user_role` (
