@@ -152,7 +152,8 @@ Partial Class _Registration
         msg = "Good day," & _
                "Use this credential to login to City College Online Training Application <br/>" & _
                "User: " & _clsRecord.userName & "<br/>" & _
-               "Password: password"
+               "Password: password <br/>" & _
+               "Click this Link to login: https://services.cagayandeoro.gov.ph/cctms/Login.aspx"
 
         sendEmail(_clsRecord.emailAdd, msg)
 
@@ -202,9 +203,6 @@ Partial Class _Registration
 
         End If
 
-
-
-
         thisMsgBox.showConfirmBox()
 
     End Sub
@@ -217,4 +215,10 @@ Partial Class _Registration
     End Sub
 
    
+    Protected Sub chkDP1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDP1.CheckedChanged
+
+        thisMsgBox.setInfo(, "DPN " & chkDP1.Checked)
+        thisMsgBox.showConfirmBox()
+
+    End Sub
 End Class

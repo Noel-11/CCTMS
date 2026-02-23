@@ -7,7 +7,7 @@ $(document).ready(function () {
 function showBlock() {
     //$.ajax({ url: 'wait.php', cache: false });
 
-    var myModal = new bootstrap.Modal(document.getElementById('domMessage'), {}); myModal.show();
+    //var myModal = new bootstrap.Modal(document.getElementById('domMessage'), {}); myModal.show();
 }
 
 function OnBeginRequest(sender, args) {

@@ -10,13 +10,13 @@ Public Class clsCommunicate
             Dim client As New SmtpClient("smtp.gmail.com", 587)
             client.EnableSsl = True
             client.UseDefaultCredentials = False
-            Dim [from] As New MailAddress("obbServiceEmail@gmail.com", "[CITY COLLEGE APPLICATION]")
+            Dim [from] As New MailAddress("cctmscdo@gmail.com", "[CITY COLLEGE ONLINE TRAINING APPLICATION]")
             Dim [to] As New MailAddress(thisRecipient, thisRecipient)
             Dim message As New MailMessage([from], [to])
             message.Body = thisMessage & "<br/><br/>" & " This is a system generated email, please do not reply."
             message.IsBodyHtml = True
             message.Subject = thisSubject
-            Dim myCreds As New NetworkCredential("bpmsservice2024@gmail.com", "xpnh gztv ydyt fqoi")
+            Dim myCreds As New NetworkCredential("cctmscdo@gmail.com", "uyoi tnhu ncgu pkeo")
             client.Credentials = myCreds
 
             client.Send(message)

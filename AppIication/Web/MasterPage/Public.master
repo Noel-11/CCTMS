@@ -32,7 +32,8 @@
 
         <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js")%>"></script>
 
-          <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
+        <script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/jquery.min.js")%>"></script>
+        <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
 
          <!-- Template Main JS File -->
     <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
@@ -96,17 +97,16 @@
 
          <asp:ContentPlaceHolder ID="cpConTent" runat="server">
 
-
         </asp:ContentPlaceHolder>
-
-           <div id="domMessage" style="display: none;">
-               <div class="loader"></div>
-                                 
-         </div>
 
         <!-- Footer -->
         <uc3:sFooter ID="sFooter1" runat="server" />
         <!-- End Footer -->
+
+         <div id="domMessage" class="loader-overlay">
+              <div class="custom-loader"></div>
+                                 
+         </div>
 
     </form>
 

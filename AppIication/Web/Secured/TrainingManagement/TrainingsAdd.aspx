@@ -328,6 +328,7 @@
                                 <div class="col-md-6 mb-1">
                                     <span class="fw-bold text-dark">Status: </span>
                                     <asp:DropDownList runat="server" ID="ddlTrainingStatus" CssClass="form-select" ValidationGroup="DOCSTATUS"></asp:DropDownList>
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="ddlTrainingStatus" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Status is required" ValidationGroup="DOCSTATUS" />
                                 </div>
                             </div>
 
