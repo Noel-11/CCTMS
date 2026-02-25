@@ -84,6 +84,36 @@
 
         </div>
 
+
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   Training Application Chart
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text border-secondary" style="color:black;">Year</span>
+                                         <asp:DropDownList runat="server" ID="ddlChartYear" CssClass="form-select border-secondary float-start" AutoPostBack="true">
+                                    </asp:DropDownList>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Column Chart -->
+                        <div id="columnChart"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
       
 
     </section>

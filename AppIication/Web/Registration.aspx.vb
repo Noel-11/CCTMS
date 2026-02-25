@@ -215,10 +215,10 @@ Partial Class _Registration
     End Sub
 
    
-    Protected Sub chkDP1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDP1.CheckedChanged
+    'Protected Sub chkDP1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDP1.CheckedChanged
 
-        thisMsgBox.setInfo(, "DPN " & chkDP1.Checked)
-        thisMsgBox.showConfirmBox()
+    '    thisMsgBox.setInfo(, "DPN " & chkDP1.Checked)
+    '    thisMsgBox.showConfirmBox()
 
-    End Sub
+    'End Sub
 End Class

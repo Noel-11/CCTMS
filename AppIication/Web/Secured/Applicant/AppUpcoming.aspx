@@ -19,7 +19,7 @@
                         <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
                         <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
                         <asp:BoundField HeaderText="VENUE" DataField="training_venue" />
-                        <asp:BoundField HeaderText="STATUS" DataField="application_status" />
+                        <asp:BoundField HeaderText="STATUS" DataField="training_status" />
 
                         <asp:TemplateField HeaderText="ACTION">
                             <ItemTemplate>

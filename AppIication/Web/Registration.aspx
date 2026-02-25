@@ -193,7 +193,7 @@
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP1" AutoPostBack="true" />
+                                <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP1" />
                                 <span>I certify that all information provided is true and correct.</span>
                             </label>
 

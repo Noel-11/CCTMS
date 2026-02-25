@@ -22,6 +22,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
             dtpRegistrationDateFrom.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
             dtpRegistrationDateTo.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
 
+
             isChkDateTo()
 
             flllInfo()

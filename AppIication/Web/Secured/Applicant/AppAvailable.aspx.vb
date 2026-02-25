@@ -12,6 +12,11 @@ Partial Class Secured_Applicant_AppAvailable
 
         If Not Page.IsPostBack Then
             hfApplicantId.Value = Session("APPLICANTID")
+
+            Dim _clsApplications As New clsTrainingApplications
+
+            _clsApplications.getExpiredApplications(24, hfApplicantId.Value)
+
             fillCounts()
             fillGVTrainings()
 
@@ -33,6 +38,7 @@ Partial Class Secured_Applicant_AppAvailable
             generateReport()
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
             fillGVTrainings()
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlViewClose", "document.getElementById('ctl00_cpConTent_btnCloseView').click();", True)
             ' Response.Redirect("AppDashBoard.aspx")
         End If
 
@@ -133,12 +139,6 @@ Partial Class Secured_Applicant_AppAvailable
             dtExist = _clsDB.Fill_DataTable("SELECT trans_id, DATE_FORMAT(application_datetime,'%m/%d/%Y %h:%i %p') AS application_datetime,application_status FROM tbl_training_applications " & _
                                             "WHERE training_id = '" & hfTrainingId.Value & "' AND applicant_id = '" & hfApplicantId.ID & "' AND is_active = 'Y' LIMIT 1")
 
-
-
-
-
-
-
             If dtExist.Rows.Count > 0 Then
                 thisMsgBox.setError("REGISTERED", "You're already applied on this training!" & _
                                                   "Schedule: " & lblTrainingDate.Text & "<br/>" & _
@@ -160,8 +160,6 @@ Partial Class Secured_Applicant_AppAvailable
             End If
 
         End If
-
-   
 
         thisMsgBox.showConfirmBox()
 
@@ -206,6 +204,12 @@ Partial Class Secured_Applicant_AppAvailable
     '    lblReportHeadName.Text = "TRAINING ATTENDANCE"
     '    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
     'End Sub
+
+    Protected Sub cmdGVPrintBill(ByVal sender As Object, ByVal e As CommandEventArgs)
+        hfTrainingId.Value = e.CommandArgument.ToString
+        generateReport()
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
+    End Sub
 
     Public Sub generateReport()
         Try

@@ -48,11 +48,11 @@ Partial Class _Login
                     Session("APPLICANTID") = .transId
                     Session("UserId") = .transId
                     Session("USERNAME") = .lname & ", " & .fname
-
                 End With
+
                 saveLoginLog("SUCCESSFULL")
 
-                Response.Redirect("Secured/Applicant/AppAvailable.aspx")
+                Response.Redirect("Secured/Applicant/AppDashBoard.aspx")
 
             Else
 
@@ -83,6 +83,7 @@ Partial Class _Login
                 '        End If
                 '    End If
                 'End If
+
                 saveLoginLog("FAILED")
 
             End If

@@ -3,14 +3,26 @@ Partial Class Secured_DashBoard
     Inherits cPageInit_Secured_BS
 
     Dim _clsDB As New clsDatabase
-   
+
     Dim _dtGVForInspection As New DataTable
     Dim _dtGVReturnInspection As New DataTable
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
+
+            Dim thisYear As Integer = DateTime.Now.Year + 1
+
+            For i = thisYear To (thisYear - 5) Step -1
+                ddlChartYear.Items.Add(New ListItem(i, i))
+            Next
+
+            ddlChartYear.SelectedValue = DateTime.Now.Year
+
             getDetails()
+
+            getColumnChart()
+
         End If
 
     End Sub
@@ -78,5 +90,104 @@ Partial Class Secured_DashBoard
         Session("TAGSTATUS") = "UPCOMING"
         Response.Redirect("/Secured/TrainingManagement/Trainings.aspx")
     End Sub
+
+#Region "CHART"
+
+    Private Sub getColumnChart()
+
+        Dim sql As String = ""
+        Dim dt As New DataTable
+
+        Dim trainMonth As String = ""
+        Dim cntApp As String = ""
+        Dim cntReg As String = ""
+
+
+        sql = "SELECT tbl_training.training_date, " & _
+              "COUNT(DISTINCT IF(tbl_training_applications.application_status <> 'INACTIVE' ,tbl_training_applications.trans_id,NULL)) AS cntApplied, " & _
+              "COUNT(DISTINCT IF(tbl_training_applications.application_status = 'PAID' ,tbl_training_applications.trans_id,NULL)) AS cntPaid " & _
+              "FROM tbl_training_applications " & _
+              "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+              "WHERE tbl_training_applications.is_active = 'Y' AND YEAR(tbl_training.training_date) = '" & ddlChartYear.SelectedValue & "' " & _
+              "GROUP BY MONTH(training_date) " & _
+              "ORDER BY MONTH(training_date)"
+
+        dt = _clsDB.Fill_DataTable(sql)
+
+        Dim cnt As Integer = 0
+        Dim prefix As String = ""
+
+        For Each dr As DataRow In dt.Rows
+
+            If cnt > 0 Then
+                prefix = ","
+            Else
+                prefix = ""
+            End If
+
+            trainMonth += prefix & "'" & CDate(dr("training_date")).ToString("MMM") & "'"
+            cntApp += prefix & dr("cntApplied")
+            cntReg += prefix & dr("cntPaid")
+          
+            cnt += 1
+        Next
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "columnChart", "" & _
+                                                                  "document.addEventListener('DOMContentLoaded', () => { " & _
+                                                                  "new ApexCharts(document.querySelector('#columnChart'), { " & _
+                                                                  "series: [{" & _
+                                                                  "name: 'Applied'," & _
+                                                                  "data: [" & cntApp & "] " & _
+                                                                  "}, { " & _
+                                                                  "name: 'Registered (Paid)', " & _
+                                                                  "data: [" & cntReg & "] " & _
+                                                                  "}], " & _
+                                                                  "chart: { " & _
+                                                                  "type: 'bar', " & _
+                                                                  "height: 350 " & _
+                                                                  "}, " & _
+                                                                  "plotOptions:{ " & _
+                                                                  "bar: { " & _
+                                                                  "horizontal: false, " & _
+                                                                  "columnWidth: '55%', " & _
+                                                                  "endingShape: 'rounded' " & _
+                                                                  "} " & _
+                                                                  "}, " & _
+                                                                  "dataLabels: { " & _
+                                                                  "enabled: false " & _
+                                                                  "}, " & _
+                                                                  "stroke: { " & _
+                                                                  "show: true, " & _
+                                                                  "width: 2, " & _
+                                                                  "colors: ['transparent'] " & _
+                                                                  "}, " & _
+                                                                  "xaxis: { " & _
+                                                                  "categories: [" & trainMonth & "] " & _
+                                                                  "}, " & _
+                                                                  "yaxis: { " & _
+                                                                  "title: { " & _
+                                                                  "text: 'Training Application Counts' " & _
+                                                                  "} " & _
+                                                                  "}, " & _
+                                                                  "fill: { " & _
+                                                                  "opacity: 1 " & _
+                                                                  "}, " & _
+                                                                  "tooltip: { " & _
+                                                                  "y: { " & _
+                                                                  "formatter: function(val) { " & _
+                                                                  "return val; " & _
+                                                                  "} " & _
+                                                                  "} " & _
+                                                                  "} " & _
+                                                                  "}).render();" & _
+                                                                  "});", True)
+
+    End Sub
+
+    Protected Sub ddlChartYear_TextChanged(sender As Object, e As EventArgs) Handles ddlChartYear.TextChanged
+        getColumnChart()
+    End Sub
+
+#End Region
 
 End Class

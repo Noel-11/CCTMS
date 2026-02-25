@@ -28,7 +28,6 @@ Public Class Finance
 
     End Sub
 
-
     Private Function checkWsKey(ByVal _thisKey As String) As Boolean
         Dim _wsKey As String = ""
         Dim _bol As Boolean = False

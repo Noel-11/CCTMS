@@ -14,7 +14,7 @@ Partial Class Secured_Applicant_AppDashBoard
             hfApplicantId.Value = Session("APPLICANTID")
             fillCounts()
             fillGVTrainings()
-
+            fillCalendar()
         End If
 
         _btnOK = thisMsgBox.FindControl("btnMsgBoxYes")
@@ -59,7 +59,7 @@ Partial Class Secured_Applicant_AppDashBoard
             sql = "SELECT tbl_training.trans_id FROM tbl_training " & _
              "INNER JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
              "tbl_training_applications.applicant_id = '" & _thisApplicant & "' AND tbl_training_applications.is_active = 'Y' " & _
-             "WHERE tbl_training.is_active = 'Y' AND tbl_training.training_status = '" & _thisStatus & "' " & _
+             "WHERE tbl_training.is_active = 'Y' AND tbl_training.training_status = '" & _thisStatus & "' AND tbl_training_applications.application_status = 'PAID' " & _
              "GROUP BY tbl_training.trans_id "
         ElseIf _thisStatus = "COMPLETED" Then
             sql = "SELECT tbl_training.trans_id FROM tbl_training " & _
@@ -68,8 +68,6 @@ Partial Class Secured_Applicant_AppDashBoard
            "WHERE tbl_training.is_active = 'Y' AND tbl_training.training_status = '" & _thisStatus & "' " & _
            "GROUP BY tbl_training.trans_id "
         End If
-
-       
 
         _dt = _clsDB.Fill_DataTable(sql)
 
@@ -81,15 +79,26 @@ Partial Class Secured_Applicant_AppDashBoard
 
         Dim dt As New DataTable
 
-        Dim _clsRecord As New clsTraining
+        'Dim _clsRecord As New clsTraining
 
-        dt = _clsRecord.browseTrainingApplicant(hfApplicantId.Value)
+        Dim sql As String = ""
+
+        sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
+              "training_desc,(training_slots - attendance) AS availableSlots,training_venue, other_details, registration_fee, " & _
+              "(CASE WHEN COALESCE(tbl_training_applications.trans_id,'') = '' THEN 'FALSE' ELSE 'TRUE' END) AS isAppAplied, " & _
+              "COALESCE(app_code,'') AS app_code, " & _
+              "(CASE WHEN application_status = 'PAID' THEN 'UPCOMING' ELSE application_status END) AS application_status FROM tbl_training " & _
+              "INNER JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
+              "tbl_training_applications.applicant_id = '" & hfApplicantId.Value & "' AND tbl_training_applications.is_active = 'Y' " & _
+              "WHERE tbl_training.is_active = 'Y' AND training_status <> 'DRAFTING' " & _
+              "ORDER BY training_date ASC "
+
+        dt = _clsDB.Fill_DataTable(sql)
 
         _gvTraining.DataSource = dt
         _gvTraining.DataBind()
 
     End Sub
-
 
 
 #Region "REGISTER"
@@ -232,6 +241,135 @@ Partial Class Secured_Applicant_AppDashBoard
         Return dt
 
     End Function
+
+#End Region
+
+
+
+#Region "CALENDAR"
+
+
+    Private Sub fillCalendar()
+
+        Dim dt As New DataTable
+
+        Dim sql As String = ""
+
+        sql = "SELECT tbl_training.trans_id,training_title,DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date, " & _
+              "(CASE WHEN COALESCE(tbl_training_applications.trans_id,'') <> '' THEN tbl_training.training_date ELSE '' END) AS appliedTraining, " & _
+              "COALESCE(tbl_training_applications.application_status,'') AS application_status, " & _
+              "(CASE WHEN COALESCE(tbl_training_attendance.trans_id,'') <> '' THEN tbl_training.training_date ELSE '' END) AS upcomingTraining FROM tbl_training " & _
+              "LEFT JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
+              "tbl_training_applications.applicant_id = '" & hfApplicantId.Value & "' AND tbl_training_applications.is_active = 'Y' " & _
+              "LEFT JOIN tbl_training_attendance ON tbl_training.trans_id = tbl_training_attendance.training_id AND " & _
+              "tbl_training_attendance.applicant_id = '" & hfApplicantId.Value & "' AND tbl_training_attendance.is_active = 'Y' " & _
+              "WHERE tbl_training.is_active = 'Y' AND  tbl_training.training_status <> 'DRAFTING' "
+
+        dt = _clsDB.Fill_DataTable(sql)
+
+        Session("DTCALENDAR") = dt
+
+    End Sub
+
+
+    Protected Sub calInspection_DayRender(sender As Object, e As DayRenderEventArgs) Handles calInspection.DayRender
+
+        ' Highlight TODAY
+        If e.Day.Date = Date.Today Then
+            e.Cell.CssClass &= " today-highlight"
+        End If
+
+        Dim dt As New DataTable
+
+        dt = Session("DTCALENDAR")
+
+        Dim drTraining() As DataRow
+        Dim drUpcoming() As DataRow
+        Dim drForPayment() As DataRow
+
+        drTraining = dt.Select("training_date = '" & e.Day.Date.ToString("MM/dd/yyyy") & "' AND upcomingTraining = '' AND application_status = ''  ")
+        drUpcoming = dt.Select("upcomingTraining = '" & e.Day.Date.ToString("yyyy-MM-dd") & "'")
+        drForPayment = dt.Select("training_date = '" & e.Day.Date.ToString("MM/dd/yyyy") & "' AND application_status = 'FOR PAYMENT' ")
+
+        Dim conStr As String = " "
+        Dim ctr As Integer = 0
+
+        If drUpcoming.Length > 0 Then
+
+            For i As Integer = 0 To drUpcoming.Length - 1
+
+                If ctr > 0 Then
+                    conStr += ", " & drUpcoming(i).Item("training_title")
+                Else
+                    conStr += drUpcoming(i).Item("training_title")
+                End If
+                ctr += 1
+
+            Next
+
+            Dim lbl As New Label()
+
+            lbl.Text = "<div class='badge bg-success text-sm'>" & conStr & "</div>"
+
+            e.Cell.Controls.Add(lbl)
+
+        End If
+
+        conStr = ""
+
+        ctr = 0
+
+        If drTraining.Length > 0 Then
+
+            For i As Integer = 0 To drTraining.Length - 1
+                If ctr > 0 Then
+                    conStr += ", " & drTraining(i).Item("training_title")
+                Else
+                    conStr += drTraining(i).Item("training_title")
+                End If
+                ctr += 1
+            Next
+
+
+            Dim lbl As New Label()
+
+            lbl.Text = "<div class='badge bg-info text-dark text-sm'>" & conStr & "</div>"
+
+            e.Cell.Controls.Add(lbl)
+
+        End If
+
+        conStr = ""
+        ctr = 0
+        If drForPayment.Length > 0 Then
+
+            For i As Integer = 0 To drForPayment.Length - 1
+
+                If ctr > 0 Then
+                    conStr += ", " & drForPayment(i).Item("training_title")
+                Else
+                    conStr += drForPayment(i).Item("training_title")
+                End If
+                ctr += 1
+
+            Next
+
+            Dim lbl As New Label()
+
+            lbl.Text = "<div class='badge bg-warning text-dark text-sm'>" & conStr & "</div>"
+
+            e.Cell.Controls.Add(lbl)
+
+        End If
+
+        'conStr = ""
+        'ctr = 0
+
+    End Sub
+
+    Protected Sub calInspection_SelectionChanged(sender As Object, e As EventArgs) Handles calInspection.SelectionChanged
+
+    End Sub
 
 #End Region
 

@@ -24,7 +24,7 @@ Partial Class MasterPage_Applicant
 
     Private Sub setMenuActiveCSS()
 
-        Dim _activeMenu As String = "btnAvailable"
+        Dim _activeMenu As String = "btnDashboard"
 
         If Not IsNothing(Session("ACTIVEMENU")) Then
             _activeMenu = Session("ACTIVEMENU")

@@ -8,7 +8,6 @@ Public Class clsTrainingApplications
         initialize()
     End Sub
 
-
 #Region "Properties"
     Public Property transId As String
 
@@ -79,7 +78,7 @@ Public Class clsTrainingApplications
               "LEFT JOIN tbl_training_attendance ON tbl_training_applicants.trans_id = tbl_training_attendance.applicant_id AND " & _
               "tbl_training_attendance.training_id = '" & _thisId & "' " & _
               "WHERE tbl_training_applicants.is_active = 'Y' AND COALESCE(tbl_training_attendance.trans_id,'') = '' AND " & _
-              "tbl_training_applications.training_id = '" & _thisId & "' " & _
+              "tbl_training_applications.training_id = '" & _thisId & "' AND tbl_training_applications.is_active = 'Y' " & _
               "ORDER BY lname,fname;"
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training_applications")
@@ -89,12 +88,21 @@ Public Class clsTrainingApplications
     Public Function browseTrainingApplicationsUpcoming(ByVal _thisAppId As String) As DataTable
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
-              "training_desc,training_slots AS availableSlots, training_venue, other_details, application_status FROM tbl_training_applications " & _
-              "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
-              "WHERE tbl_training_applications.applicant_id = '" & _thisAppId & "' AND " & _
-              "tbl_training_applications.is_active = 'Y' AND training_status = 'UPCOMING' AND tbl_training.training_date >= '" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' " & _
-              "ORDER BY tbl_training.training_date "
+        'sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
+        '      "training_desc,training_slots AS availableSlots, training_venue, other_details, application_status FROM tbl_training_applications " & _
+        '      "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+        '      "INNER JOIN tbl_training_attendance ON tbl_training_applications.trans_id = tbl_training_attendance.applicant_id " & _
+        '      "WHERE tbl_training_applications.applicant_id = '" & _thisAppId & "' AND " & _
+        '      "tbl_training_applications.is_active = 'Y' AND training_status IN ('UPCOMING','ONGOING') AND tbl_training.training_date >= '" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' " & _
+        '      "ORDER BY tbl_training.training_date "
+
+        sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, training_desc,training_slots AS availableSlots, " & _
+              "training_venue, other_details, training_status " & _
+              "FROM tbl_training_attendance " & _
+              "INNER JOIN tbl_training ON tbl_training_attendance.training_id = tbl_training.trans_id " & _
+              "WHERE tbl_training_attendance.applicant_id = '" & _thisAppId & "' AND tbl_training_attendance.is_active = 'Y' AND " & _
+              "training_status IN ('UPCOMING','ONGOING') AND  tbl_training.training_date >= '" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' " & _
+              "ORDER BY tbl_training.training_date"
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training_applications")
 
@@ -156,6 +164,7 @@ Public Class clsTrainingApplications
         '        .executeUsingCommandFromSQL(True)
         '    End With
         'End If
+
     End Sub
 
 
@@ -182,6 +191,20 @@ Public Class clsTrainingApplications
             .ADDPARAM_CMD_String("application_status", _applicationStatus)
             .ADDPARAM_CMD_String("application_remarks", _applicationRemarks)
             .ADDPARAM_CMD_String("validation_datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+            .ADDPARAM_CMD_String("last_user", _lastUser)
+            .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
+            .ADDPARAM_CMD_String("trans_id", _transId)
+            .executeUsingCommandFromSQL(True)
+        End With
+
+    End Sub
+
+    Public Sub updateApplicationIsActive()
+
+        With _clsDB.dbUtility
+            .fieldItems = "is_active,last_user,last_date"
+            .sqlString = .getSQLStatement("tbl_training_applications", "UPDATE", "trans_id")
+            .ADDPARAM_CMD_String("is_active", _isActive)
             .ADDPARAM_CMD_String("last_user", _lastUser)
             .ADDPARAM_CMD_String("last_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm"))
             .ADDPARAM_CMD_String("trans_id", _transId)
@@ -221,6 +244,54 @@ Public Class clsTrainingApplications
         Else
             initialize()
         End If
+    End Sub
+
+    Public Sub getExpiredApplications(ByVal _thisHourLimit As Integer, Optional _thisApplicant As String = "", Optional _thisTraining As String = "")
+
+        Dim dt As New DataTable
+
+        Dim sql As String = ""
+        Dim sqlWhere As String = ""
+
+        If _thisApplicant <> "" Then
+            sqlWhere += "AND applicant_id = '" & _thisApplicant & "' "
+        End If
+
+        If _thisTraining <> "" Then
+            sqlWhere += "AND training_id = '" & _thisTraining & "' "
+        End If
+
+        sql = "SELECT trans_id,training_id,tbl_training_applications.application_datetime,NOW(), TIMESTAMPDIFF(HOUR,application_datetime,NOW()) AS diffHour FROM tbl_training_applications " & _
+              "WHERE tbl_training_applications.is_active = 'Y' AND tbl_training_applications.application_status = 'FOR PAYMENT' AND " & _
+              "TIMESTAMPDIFF(HOUR,application_datetime,NOW()) >= '" & _thisHourLimit & "' " & sqlWhere
+
+        dt = _clsDB.Fill_DataTable(sql)
+
+        Dim _clsAppStatus As New clsRegistrationDetails
+        Dim _clsTraining As New clsTraining
+
+        For Each dr As DataRow In dt.Rows
+            transId = dr("trans_id")
+            applicationStatus = "INACTIVE"
+            applicationRemarks = "Expired Application"
+            lastUser = "System Update"
+            updateApplicationStatus()
+            isActive = "N"
+            updateApplicationIsActive()
+
+            _clsTraining.updateAttendance(dr("training_id"))
+
+            With _clsAppStatus
+                .applicantId = transId
+                .regStatus = applicationStatus
+                .remarks = applicationRemarks
+                .lastUser = lastUser
+                .saveRegistrationDetails()
+            End With
+
+        Next
+
+
     End Sub
 
 End Class

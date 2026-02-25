@@ -22,14 +22,16 @@
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/Applicant.css")%>" rel="stylesheet" />
 
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/AppHeader.css")%>" rel="stylesheet" />
-       
+
         <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js")%>"></script>
-        <%--<script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/jquery.min.js")%>"></script>--%>
+           <link href="<%=ResolveClientUrl("~/Scripts/mycss/mycss.css")%>" rel="stylesheet" />
+
+        <script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/jquery.min.js")%>"></script>
         <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
 
     </asp:ContentPlaceHolder>
 
-    
+
     <script>
         function toggleMenu() {
             document.getElementById("ctl00_divMenu").classList.toggle("show");
@@ -61,7 +63,7 @@
                         <span>City College of Cagayan de Oro City</span>
                     </div>
                 </div>
-               
+
                 <div class="header-right">
                     <nav class="navbar navbar-expand-lg">
                         <div class="container-fluid">
@@ -101,7 +103,7 @@
                 <!-- LEFT SIDEBAR -->
 
                 <div runat="server" id="divMenu" class="sidebar me-4" >
-                    <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard" Visible="false"  />
+                    <asp:Button runat="server" Text="DASHBOARD" ID="btnDashboard" />
                     <asp:Button runat="server" Text="AVAILABLE TRAININGS" ID="btnAvailable"  />
                     <asp:Button runat="server" Text="UPCOMING TRAININGS" ID="btnUpcoming"  />
                     <asp:Button runat="server" Text="COMPLETED TRAININGS" ID="btnComplete"  />
@@ -119,12 +121,12 @@
         </main>
 
             <!-- FOOTER -->
-           <uc3:sFooter ID="sFooter1" runat="server" />
+            <uc3:sFooter ID="sFooter1" runat="server" />
 
         </div>
 
-        <div id="domMessage" style="display: none;">
-            <div class="loader"></div>
+        <div id="domMessage" class="loader-overlay">
+            <div class="custom-loader"></div>
 
         </div>
 

@@ -124,9 +124,9 @@ Public Class clsTraining
               "(CASE WHEN COALESCE(tbl_training_applications.trans_id,'') = '' THEN 'FALSE' ELSE 'TRUE' END) AS isAppAplied, " & _
               "COALESCE(app_code,'') AS app_code FROM tbl_training " & _
               "LEFT JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
-              "tbl_training_applications.applicant_id = '" & _thisApplicant & "'  " & _
+              "tbl_training_applications.applicant_id = '" & _thisApplicant & "' AND tbl_training_applications.is_active = 'Y'  " & _
               "WHERE tbl_training.is_active = 'Y' AND " & _
-              "training_status = 'UPCOMING' AND ('" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' BETWEEN reg_from AND reg_to ) AND COALESCE(tbl_training_applications.application_status,'') <> 'PAID' " & _
+              "training_status = 'UPCOMING' AND ('" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' BETWEEN reg_from AND reg_to ) AND (COALESCE(tbl_training_applications.application_status,'') NOT IN ('PAID','INACTIVE')) " & _
               "ORDER BY training_date ASC "
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training")

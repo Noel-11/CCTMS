@@ -6,11 +6,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
     <!-- SUMMARY CARDS -->
-    <div class="row mb-4">
+    <div class="row mb-2">
         <div class="col-md-4">
             <div class="card-summary">
-                <center> UPCOMING TRAININGS <br />
-                                         <span runat="server" id="spanUpcomingCount">0</span></center>
+                <center> UPCOMING TRAININGS<br />
+                                     <span runat="server" id="spanUpcomingCount">0</span></center>
             </div>
 
         </div>
@@ -22,8 +22,61 @@
         </div>
     </div>
 
+
+    <%-- CALENDAR --%>
+    <div class="row mb-2">
+        <div class="col-lg-12">
+
+            <asp:UpdatePanel ID="updatePanel5" runat="server">
+                <ContentTemplate>
+
+                    <%--   <asp:Calendar runat="server" ID="calInspection" BorderStyle="Solid" ShowGridLines="true" DayStyle-BorderColor="Black" SelectedDayStyle-BackColor="steelblue"
+                            NextMonthText="Next &amp;gt;" PrevMonthText="&amp;lt; Previous" Style="width: 100%; height: 600px">
+                            <DayStyle BackColor="#CCFFFF" Font-Size="Large" BorderColor="Black" BorderWidth="1" />
+                            <OtherMonthDayStyle BackColor="White" />
+                            <SelectedDayStyle BackColor="#00CCFF"></SelectedDayStyle>
+                            <TitleStyle Font-Bold="True" Font-Names="Arial Rounded MT Bold" Font-Size="X-Large" ForeColor="#336600" />
+                            <TodayDayStyle BackColor="#CCCCCC" />
+                        </asp:Calendar>--%>
+
+                    <div class="container-fluid">
+
+                        <div class="mt-3 small">
+                            <span class="badge bg-info text-dark">Trainings</span> &nbsp;
+
+                            <span class="badge bg-warning text-dark">For Payment</span> &nbsp;
+   
+                            <span class="badge bg-success text-light">Upcoming Trainings</span> &nbsp;
+   
+                            <%--<span class="badge bg-primary">Today</span>--%>
+                        </div>
+
+                        <div class="card shadow-lg border-0 rounded-4">
+                            <div class="card-body p-0">
+                                <asp:Calendar
+                                    ID="calInspection"
+                                    runat="server"
+                                    CssClass="modern-calendar"
+                                    ShowGridLines="false"
+                                    NextMonthText="Next >" PrevMonthText="< Previous">
+                                    <TitleStyle CssClass="title" Height="50" />
+
+                                </asp:Calendar>
+                                   
+                            </div>
+                        </div>
+
+                    </div>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+        </div>
+    </div>
+
+    <hr />
     <!-- AVAILABLE TRAININGS -->
-    <div class="section-title">AVAILABLE TRAININGS</div>
+    <div class="section-title">YOUR TRAININGS</div>
 
     <div class="table-responsive border rounded p-2">
         <asp:UpdatePanel runat="server" ID="UpdatePanel1">
@@ -37,15 +90,15 @@
                         <asp:BoundField HeaderText="TRAINING DATE" DataField="training_date" />
                         <asp:BoundField HeaderText="TRAINING TITLE" DataField="training_title" />
                         <asp:BoundField HeaderText="DESCRIPTION" DataField="training_desc" />
-                        <asp:BoundField HeaderText="AVAILABLE SLOTS" DataField="availableSlots" />
+                        <asp:BoundField HeaderText="STATUS" DataField="application_status" />
 
-                        <asp:TemplateField HeaderText="ACTION">
+                        <%--  <asp:TemplateField HeaderText="ACTION">
                             <ItemTemplate>
 
                                 <asp:Button
                                     runat="server"
-                                    Text="Register"
-                                    ID="btnRegister" CommandArgument='<%# Bind("trans_id")%>'
+                                    Text="View"
+                                    ID="btnView" CommandArgument='<%# Bind("trans_id")%>'
                                     CssClass="btn btn-sm btn-green" OnCommand="cmdGVRegister"
                                     trainingDate='<%# Eval("training_date")%>'
                                     title='<%# Eval("training_title")%>'
@@ -56,7 +109,8 @@
                                     ToolTip="Click to Register" />
 
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
+
                     </Columns>
 
                 </asp:GridView>
@@ -65,7 +119,7 @@
     </div>
 
 
-    <div id="mdlView" role="dialog" class="modal fade"  aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+    <div id="mdlView" role="dialog" class="modal fade" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <asp:UpdatePanel runat="server" ID="UpdatePanel9">
@@ -122,7 +176,7 @@
                         </div>
 
                         <div class="modal-footer">
-                             <button type="button" class="btn btn-success" runat="server" id="btnApply">Apply</button>
+                            <button type="button" class="btn btn-success" runat="server" id="btnApply">Apply</button>
                             <button type="button" class="btn btn-danger" runat="server" id="btnCloseView" data-bs-dismiss="modal">Close</button>
                         </div>
 
@@ -132,7 +186,7 @@
         </div>
     </div>
 
-        <!-- Modal PRINT REPORT-->
+    <!-- Modal PRINT REPORT-->
 
     <div id="mdlPrintReport" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
@@ -165,7 +219,7 @@
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
             <asp:HiddenField runat="server" ID="hfTrainingId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfTrainingFee"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfTrainingFee"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>

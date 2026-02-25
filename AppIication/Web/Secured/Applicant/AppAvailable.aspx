@@ -27,17 +27,17 @@
 
     <div class="p-3 bg-white shadow-sm rounded-3">
         <span class="fs-6">
-            <strong>Pay online</strong> 
-            (<a href="http://citytreasurer.cagayandeoro.gov.ph/$/" 
-                target="_blank" 
+            <strong>Pay online</strong>
+            (<a href="http://citytreasurer.cagayandeoro.gov.ph/$/"
+                target="_blank"
                 class="link-primary text-decoration-none fw-semibold">
                 http://citytreasurer.cagayandeoro.gov.ph/$/
             </a>) 
             or 
-            <span class="text-success fw-semibold" 
-                  role="button"
-                  onclick="alert('Please proceed to City Finance Office for payment.')">
-                Pay at City Finance
+           
+            <span class="text-success fw-semibold"
+                role="button"
+                onclick="alert('Please proceed to City Finance Office for payment.')">Pay at City Finance
             </span>
         </span>
     </div>
@@ -61,7 +61,6 @@
 
                                 <asp:Button
                                     runat="server"
-                                    
                                     ID="btnRegister" CommandArgument='<%# Bind("trans_id")%>'
                                     OnCommand="cmdGVRegister"
                                     CssClass='<%# IIf(Eval("availableSlots") = "0", "btn btn-sm btn-danger", "btn btn-sm btn-green")%>'
@@ -70,7 +69,6 @@
                                     title='<%# Eval("training_title")%>'
                                     description='<%# Eval("training_desc")%>'
                                     availableSlots='<%# Eval("availableSlots")%>'
-
                                     venue='<%# Eval("training_venue")%>'
                                     otherDetails='<%# Eval("other_details")%>'
                                     registrationFee='<%# Eval("registration_fee")%>'
@@ -81,23 +79,24 @@
 
                                 </asp:Label>
 
-                                <asp:Label runat="server" ID="lblPaymentCode" Text='<%# "(Code: " & Eval("app_code") & ")"%>' Font-Size="Medium" CssClass="text-dark"  Font-Italic="true" Visible='<%# Eval("isAppAplied")%>'>
+                                <asp:Label runat="server" ID="lblPaymentCode" Text='<%# "(Code: " & Eval("app_code") & ")"%>' Font-Size="Medium" CssClass="text-dark" Font-Italic="true" Visible='<%# Eval("isAppAplied")%>'>
 
                                 </asp:Label>
 
-<%--                                <asp:Button
+                              <asp:Button
                                     runat="server"
-                                    Text="Register"
-                                    ID="btnPay" CommandArgument='<%# Bind("trans_id")%>'
-                                    CssClass="btn btn-sm btn-green" OnCommand="cmdGVRegister"
+                                    ID="btnPrintBill" CommandArgument='<%# Bind("trans_id")%>'
+                                    OnCommand="cmdGVPrintBill"
+                                    CssClass="btn btn-sm btn-primary"
+                                    Text='<%# IIf(Eval("availableSlots") = "0", "NO SLOTS", "PRINT BILL")%>'
                                     trainingDate='<%# Eval("training_date")%>'
                                     title='<%# Eval("training_title")%>'
                                     description='<%# Eval("training_desc")%>'
                                     availableSlots='<%# Eval("availableSlots")%>'
+                                    venue='<%# Eval("training_venue")%>'
                                     otherDetails='<%# Eval("other_details")%>'
                                     registrationFee='<%# Eval("registration_fee")%>'
-                                    ToolTip="Click to Pay" />--%>
-
+                                    ToolTip="Click to Print Billing" Visible='<%# IIf(Eval("isAppAplied"), True, False)%>' />
 
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -109,7 +108,7 @@
     </div>
 
 
-    <div id="mdlView" role="dialog" class="modal fade"  aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
+    <div id="mdlView" role="dialog" class="modal fade" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <asp:UpdatePanel runat="server" ID="UpdatePanel9">
@@ -143,7 +142,7 @@
                             </div>
 
 
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12 mb-1">
                                     <span class="fw-bold text-dark">Venue: </span>
                                     <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblVenue"></asp:Label>
@@ -151,7 +150,7 @@
 
                             </div>
 
-                            <div class="row">
+                            <div class="row" runat="server" visible="false">
                                 <div class="col-md-12 mb-1">
                                     <span class="fw-bold text-dark">Other Details (Links & Credentials): </span>
                                     <asp:Label runat="server" CssClass="form-control text-dark" Style="background-color: white" ID="lblOtherDescription"></asp:Label>
@@ -175,8 +174,8 @@
                         </div>
 
                         <div class="modal-footer">
-                             <button type="button" class="btn btn-success" runat="server" id="btnApply">Apply</button>
-                            <button type="button" class="btn btn-danger" runat="server" id="btnCloseView" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" runat="server" id="btnApply">Apply</button>
+                            <button type="button" class="btn btn-danger" runat="server" id="btnCloseView"  data-bs-dismiss="modal">Close</button>
                         </div>
 
                     </ContentTemplate>
@@ -185,7 +184,7 @@
         </div>
     </div>
 
-        <!-- Modal PRINT REPORT-->
+    <!-- Modal PRINT REPORT-->
 
     <div id="mdlPrintReport" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
@@ -203,11 +202,13 @@
                         <div class="modal-body">
                             <asp:Literal ID="ltEmbed" runat="server" />
                         </div>
+
                         <div class="modal-footer">
-                            <button type="button" id="Button4" runat="server" class="btn btn-danger " data-bs-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>&nbsp;Close</button>
+                            <button type="button" id="btnMdlPrintClose" runat="server" class="btn btn-danger " data-bs-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>&nbsp;Close</button>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
+
             </div>
 
         </div>
@@ -218,8 +219,8 @@
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
             <asp:HiddenField runat="server" ID="hfTrainingId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfTrainingFee"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfAvailableSlots"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfTrainingFee"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfAvailableSlots"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>
