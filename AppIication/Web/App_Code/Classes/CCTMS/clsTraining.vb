@@ -13,6 +13,8 @@ Public Class clsTraining
 #Region "Properties"
     Public Property transId As String
 
+    Public Property trainingType As String
+
     Public Property trainingDate As String
 
     Public Property trainingDateTo As String
@@ -55,6 +57,7 @@ Public Class clsTraining
 
     Public Sub initialize()
         _transId = ""
+        _trainingType = "INDIVIDUAL"
         _trainingDate = ""
         _trainingTime = ""
         _trainingId = ""
@@ -117,8 +120,15 @@ Public Class clsTraining
         Return _clsDB.Fill_DataTable(sql, "tbl_training")
     End Function
 
-    Public Function browseTrainingApplicant(ByVal _thisApplicant As String) As DataTable
+    Public Function browseTrainingApplicant(ByVal _thisApplicant As String, Optional _thisTrainingType As String = "") As DataTable
         Dim sql As String = ""
+
+        Dim _sqlWhere As String = ""
+
+        If _thisTrainingType <> "" Then
+            _sqlWhere += "AND training_type = '" & _thisTrainingType & "' "
+        End If
+
         sql = "SELECT tbl_training.trans_id, DATE_FORMAT(training_date,'%m/%d/%Y') AS training_date,training_time,training_title, " & _
               "training_desc,(training_slots - attendance) AS availableSlots,training_venue, other_details, registration_fee, " & _
               "(CASE WHEN COALESCE(tbl_training_applications.trans_id,'') = '' THEN 'FALSE' ELSE 'TRUE' END) AS isAppAplied, " & _
@@ -126,7 +136,7 @@ Public Class clsTraining
               "LEFT JOIN tbl_training_applications ON tbl_training.trans_id = tbl_training_applications.training_id AND " & _
               "tbl_training_applications.applicant_id = '" & _thisApplicant & "' AND tbl_training_applications.is_active = 'Y'  " & _
               "WHERE tbl_training.is_active = 'Y' AND " & _
-              "training_status = 'UPCOMING' AND ('" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' BETWEEN reg_from AND reg_to ) AND (COALESCE(tbl_training_applications.application_status,'') NOT IN ('PAID','INACTIVE')) " & _
+              "training_status = 'UPCOMING' AND ('" & DateTime.Now.Date.ToString("yyyy-MM-dd") & "' BETWEEN reg_from AND reg_to ) AND (COALESCE(tbl_training_applications.application_status,'') NOT IN ('PAID','INACTIVE')) " & _sqlWhere & _
               "ORDER BY training_date ASC "
 
         Return _clsDB.Fill_DataTable(sql, "tbl_training")
@@ -136,10 +146,11 @@ Public Class clsTraining
     Public Sub saveTraining()
         If transId = "" Then
             With _clsDB.dbUtility
-                .fieldItems = "trans_id,training_date,training_date_to,reg_from,reg_to,training_time,training_id,training_title,training_desc,training_slots,training_venue,other_details,attendance,registration_fee,training_status,is_active,create_user,create_date"
+                .fieldItems = "trans_id,training_type,training_date,training_date_to,reg_from,reg_to,training_time,training_id,training_title,training_desc,training_slots,training_venue,other_details,attendance,registration_fee,training_status,is_active,create_user,create_date"
                 .sqlString = .getSQLStatement("tbl_training", "INSERT")
                 _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 5).ToUpper
                 .ADDPARAM_CMD_String("trans_id", _transId)
+                .ADDPARAM_CMD_String("training_type", _trainingType)
                 .ADDPARAM_CMD_String("training_date", _trainingDate)
                 .ADDPARAM_CMD_String("training_date_to", _trainingDateTo)
                 .ADDPARAM_CMD_String("reg_from", _regFrom)
@@ -161,8 +172,9 @@ Public Class clsTraining
             End With
         Else
             With _clsDB.dbUtility
-                .fieldItems = "training_date,training_date_to,reg_from,reg_to,training_time,training_id,training_title,training_desc,training_slots,training_venue,other_details,registration_fee"
+                .fieldItems = "training_type,training_date,training_date_to,reg_from,reg_to,training_time,training_id,training_title,training_desc,training_slots,training_venue,other_details,registration_fee"
                 .sqlString = .getSQLStatement("tbl_training", "UPDATE", "trans_id")
+                .ADDPARAM_CMD_String("training_type", _trainingType)
                 .ADDPARAM_CMD_String("training_date", _trainingDate)
                 .ADDPARAM_CMD_String("training_date_to", _trainingDateTo)
                 .ADDPARAM_CMD_String("reg_from", _regFrom)
@@ -219,6 +231,7 @@ Public Class clsTraining
         dt = _clsDB.Fill_DataTable("SELECT * FROM tbl_training WHERE trans_id='" & _id & "' LIMIT 1")
         If dt.Rows.Count > 0 Then
             _transId = dt.Rows(0)("trans_id").ToString
+            _trainingType = dt.Rows(0)("training_type").ToString
             _trainingDate = dt.Rows(0)("training_date").ToString
             _trainingDateTo = dt.Rows(0)("training_date_to").ToString
             _regFrom = dt.Rows(0)("reg_from").ToString

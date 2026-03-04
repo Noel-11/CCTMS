@@ -16,6 +16,8 @@
     <meta name="author" content="" />
     <title>CCTMS</title>
 
+    <link rel="Shortcut Icon" href="~/Images/favicon.ico" type="image/x-icon" />
+
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3"></script>
 
     <asp:ContentPlaceHolder ID="cpHead" runat="server">
@@ -37,7 +39,8 @@
 
          <!-- Template Main JS File -->
     <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
-
+        <script src="<%=ResolveClientUrl("~/Scripts/myJS/myJs.js")%>"></script>
+        
     </asp:ContentPlaceHolder>
 
     <!-- Google tag (gtag.js) -->

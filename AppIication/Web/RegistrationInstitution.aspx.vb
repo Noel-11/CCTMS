@@ -1,5 +1,5 @@
 ﻿Imports System.Data
-Partial Class _Registration
+Partial Class _RegistrationInstitution
     Inherits System.Web.UI.Page
 
     Dim _clsDB As New clsDatabase
@@ -10,10 +10,9 @@ Partial Class _Registration
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
+
             hfTransId.Value = ""
-            dtpPRCExpiration.Text = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd")
             getDll()
-            getRegTypeForm()
         End If
 
         _btnOK = thisMsgBox.FindControl("btnMsgBoxYes")
@@ -30,6 +29,7 @@ Partial Class _Registration
             thisMsgBox.setModalType("OKSAVE")
             thisMsgBox.setInfo(, "Submitted Succesfully! Check your email for your login credentials.")
             thisMsgBox.showConfirmBox()
+
         End If
     End Sub
 
@@ -39,37 +39,11 @@ Partial Class _Registration
         End If
     End Sub
 
-    Private Sub getRegTypeForm()
-
-        divPersonal.Visible = False
-        divInstitution.Visible = False
-        divProfession.Visible = False
-        divPreferences.Visible = False
-
-        If ddlRegType.SelectedValue = "INDIVIDUAL" Then
-            divPersonal.Visible = True
-            divProfession.Visible = True
-            divPreferences.Visible = True
-
-        ElseIf ddlRegType.SelectedValue = "INSTITUTION" Then
-            divInstitution.Visible = True
-        End If
-
-
-    End Sub
-
-    Protected Sub ddlRegType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRegType.SelectedIndexChanged
-        getRegTypeForm()
-    End Sub
-
     'Protected Sub btnHome_ServerClick(sender As Object, e As EventArgs) Handles btnHome.ServerClick
     '    Response.Redirect("Default.aspx")
     'End Sub
 
     Private Sub getDll()
-
-        _clsDB.populateDDLB(ddlRegType, "type_desc", "trans_id", "tbl_ref_training_applicant_type", "type_desc", " WHERE is_active = 'Y'", , "")
-        ddlRegType.Items.RemoveAt(0)
 
         _clsDB.populateDDLB(ddlGender, "description", "trans_id", "tbl_ref_gender", "description", " WHERE is_active = 'Y'", , "")
 
@@ -107,16 +81,14 @@ Partial Class _Registration
         With _clsRecord
             .initialize()
             .transId = hfTransId.Value
-            .applicantType = ddlRegType.SelectedValue
-            .institutionName = txtInstitutionName.Text.Trim.ToUpper
             .lname = txtLName.Text.Trim.ToUpper
             .fname = txtFName.Text.Trim.ToUpper
             .mname = txtMName.Text.Trim.ToUpper
             .ename = ddlEName.SelectedValue
             .gender = ddlGender.SelectedValue
             .civilStatus = ddlCivilStatus.SelectedValue
-            .contactNo = IIf(.applicantType = "INDIVIDUAL", txtContactNo.Text.Trim, txtInstContact.Text.Trim)
-            .emailAdd = IIf(.applicantType = "INDIVIDUAL", txtEmail.Text.Trim, txtInstEmail.Text.Trim)
+            .contactNo = txtContactNo.Text.Trim
+            .emailAdd = txtEmail.Text.Trim
             .homeAddr = txtHomeAddr.Text.Trim.ToUpper
             .cityProvince = ddlCityAddr.SelectedValue
             .profession = txtProfession.Text.Trim
@@ -131,8 +103,6 @@ Partial Class _Registration
             .prefSched = ddlPreferredSched.SelectedValue
             .topicInterest = txtSpecificTopic.Text.Trim
             .programDiscovered = ddlHear.SelectedValue
-
-            .lastUser = .lname & ", " & .fname
             '.userName = .lname
             .saveTrainingApplicants()
 
@@ -179,48 +149,11 @@ Partial Class _Registration
 
         Dim msg As String = ""
 
-        msg = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #ffffff;'>" & _
-              "<h2 style='color: #2c3e50; text-align: center;'>" & _
-              "Registration Successful" & _
-              "</h2> " & _
-              "<p style='font-size: 15px; color: #555;'>" & _
-              "Thank you for successfully registering for our program. We are pleased to confirm that we have received your registration details." & _
-              "</p>" & _
-              "<p style='font-size: 15px; color: #555;'>" & _
-              "Please expect further updates regarding the schedule, venue/platform, and other important instructions to be sent to you via email. " & _
-              "Kindly ensure that your contact details are active and regularly checked to avoid missing any announcements." & _
-              "</p>" & _
-              "<p style='font-size: 15px; color: #555;'>" & _
-              "Should you have questions or concerns in the meantime, feel free to reach out to us at " & _
-              "<a href='mailto:citycollegecdo.llpd@gmail.com' style='color: #0d6efd; text-decoration: none;'>" & _
-              "citycollegecdo.llpd@ gmail.com" & _
-              "</a>." & _
-              "</p>" & _
-              "<p style='font-size: 15px; color: #555;'> " & _
-              "We look forward to your participation and hope you have a meaningful learning experience with us." & _
-              "</p>" & _
-              "<hr style='margin-top: 30px;'>" & _
-              "<p style='text-align: center; font-size: 13px; color: #999;'>" & _
-              "City College Training Management System" & _
-              "</p>" & _
-              "</hr>" & _
+        msg = "Good day," & _
                "Use this credential to login to City College Online Training Application <br/>" & _
                "User: " & _clsRecord.userName & "<br/>" & _
                "Password: password <br/>" & _
-               "Click this Link to login: https://services.cagayandeoro.gov.ph/cctms/Login.aspx" & _
-               "<table width='100%' cellpadding='10'>" & _
-                           " <tr>" & _
-                               " <td align='center'>" & _
-                                    "<img src='https://services.cagayandeoro.gov.ph/cctms/Images/ccLogo.png' width='100' alt='Logo 1'>" & _
-                                    "</img>" & _
-                               " <td align='center'>" & _
-                                    "<img src='https://services.cagayandeoro.gov.ph/cctms/Images/CDOSeal.jpg' width='100' alt='Logo 1'>" & _
-                                    "</img>" & _
-                                "<td align='center'>" & _
-                                    "<img src='https://services.cagayandeoro.gov.ph/cctms/Images/ICTLogo.png' width='100' alt='Logo 2'>" & _
-                                    "</img>" & _
-                            "</tr>" & _
-                        "</table>"
+               "Click this Link to login: https://services.cagayandeoro.gov.ph/cctms/Login.aspx"
 
         sendEmail(_clsRecord.emailAdd, msg)
 
@@ -229,6 +162,7 @@ Partial Class _Registration
     Protected Sub btnSaveRegistration_Click(sender As Object, e As EventArgs) Handles btnSaveRegistration.Click
 
         Dim dtCheckExist As New DataTable
+
 
         Dim sql As String = ""
 
@@ -280,12 +214,11 @@ Partial Class _Registration
 
     End Sub
 
+
     'Protected Sub chkDP1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDP1.CheckedChanged
 
     '    thisMsgBox.setInfo(, "DPN " & chkDP1.Checked)
     '    thisMsgBox.showConfirmBox()
 
     'End Sub
-
-
 End Class

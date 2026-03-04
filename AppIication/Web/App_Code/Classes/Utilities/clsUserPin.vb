@@ -64,7 +64,7 @@ Public Class clsUserPin
     End Function
 
 
-    Public Sub savePayCheckPin()
+    Public Sub savePin()
         ' If transId = "" Then
         ' _pinCode = getPin()
 

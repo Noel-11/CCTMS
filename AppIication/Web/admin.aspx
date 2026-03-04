@@ -108,7 +108,7 @@
                             <form>
                                 <div class="form-outline mb-4">
                                     <div class="form-group text-center">
-                                        <img src="<%=ResolveClientUrl("~/Images/login_1.png")%>" class="img-fluid img-thumbnail" alt="LOGIN IMAGE" />
+                                        <img src="<%=ResolveClientUrl("~/Images/login.png")%>" class="img-fluid img-thumbnail" alt="LOGIN IMAGE" />
                                     </div>
                                 </div>
 

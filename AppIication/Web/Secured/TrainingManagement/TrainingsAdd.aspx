@@ -73,12 +73,21 @@
 
                                 <div class="row mb-2">
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-8">
                                         <div class="input-group">
                                             <label class="input-group-text">Description</label>
                                             <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" />
                                         </div>
                                          <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtDescription" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Description is required" ValidationGroup="DOC" />
+                                    </div>
+
+                                      <div class="col-lg-4">
+                                        <div class="input-group">
+                                            <label class="input-group-text">Training For</label>
+                                             <asp:DropDownList runat="server" CssClass="form-select" ID="ddlTrainingType">
+                                        </asp:DropDownList>
+                                        </div>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtDescription" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Description is required" ValidationGroup="DOC" />
                                     </div>
                                 </div>
 

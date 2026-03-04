@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `tbl_login_log` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_login_log: ~236 rows (approximately)
+-- Dumping data for table db_cctms.tbl_login_log: ~288 rows (approximately)
 INSERT INTO `tbl_login_log` (`trans_id`, `user_id`, `login_ip`, `login_datetime`, `login_status`) VALUES
 	('011920260502522692B49C96DB4D2FAD225BB68', 'scadmi', '::1', '2026-01-19 14:05:52', 'FAIL'),
 	('0119202636032227F9E4BFBA29434F9AEB6E597', 'admin', '::1', '2026-01-19 15:36:22', 'FAIL'),
@@ -413,6 +413,21 @@ INSERT INTO `tbl_login_log` (`trans_id`, `user_id`, `login_ip`, `login_datetime`
 	('022520265910460E00DAEA593B448DAA6A00901', NULL, '::1', '2026-02-25 10:59:46', 'FAILED'),
 	('0225202659105535E9EBF849804CBD9E234B5CA', '022520261910532B9C3', '::1', '2026-02-25 10:59:55', 'SUCCESSFULL'),
 	('02252026591055C68DDC99651E4052A20D7760A', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-25 10:59:55', 'FAILED'),
+	('022720260710336EC51EFEB6F1489D9E6E4EC04', 'noelnolex11@gmail.com', '::1', '2026-02-27 10:07:33', 'FAILED'),
+	('02272026071033E380B38AF0474825AFE87F562', '02272026300907A8DBB', '::1', '2026-02-27 10:07:33', 'SUCCESSFULL'),
+	('02272026091011699798567F234219BA5418FEE', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-27 10:09:11', 'FAILED'),
+	('02272026091011B56143DD5AE84F7595063562E', '022720262009293CD4D', '::1', '2026-02-27 10:09:11', 'SUCCESSFULL'),
+	('022720262009564F482C3762D94F0096FCC0D64', 'noel.sierra.moreno@gmail.com', '::1', '2026-02-27 09:20:56', 'FAILED'),
+	('02272026200956CC732CF81339466FADE874D33', '022720262009293CD4D', '::1', '2026-02-27 09:20:56', 'SUCCESSFULL'),
+	('0227202621081972FE0EA39C4F4B5482152B33B', 'admin', '::1', '2026-02-27 08:21:19', 'FAIL'),
+	('0227202630093370D3078CDCC74455B7D83A50E', '02272026300907A8DBB', '::1', '2026-02-27 09:30:33', 'SUCCESSFULL'),
+	('02272026300933D29E69351D2B4D2AB6AA01790', 'noelnolex11@gmail.com', '::1', '2026-02-27 09:30:33', 'FAILED'),
+	('022720263909386473E06981074669B86A2EA82', '02272026300907A8DBB', '::1', '2026-02-27 09:39:38', 'SUCCESSFULL'),
+	('02272026390938AB5869E8144F44D8918C527D3', 'noelnolex11@gmail.com', '::1', '2026-02-27 09:39:38', 'FAILED'),
+	('02272026430916B15984889AF345F3B222E6058', '02272026300907A8DBB', '::1', '2026-02-27 09:43:16', 'SUCCESSFULL'),
+	('02272026430916DCA12E637CF14A7D8FF409F0F', 'noelnolex11@gmail.com', '::1', '2026-02-27 09:43:16', 'FAILED'),
+	('022720265609525894FE95A1404BC18ACC4E4D5', '02272026300907A8DBB', '::1', '2026-02-27 09:56:52', 'SUCCESSFULL'),
+	('022720265609528D65DD57A94F4C4AA0565192F', 'noelnolex11@gmail.com', '::1', '2026-02-27 09:56:52', 'FAILED'),
 	('06132023310900815CBE6CEC954A0591221F542', 'asdsad', '::1', '2023-06-13 09:31:00', 'FAIL'),
 	('0619202317041889D4D8AD88734361A8CD1FCA2', 'admin', '::1', '2023-06-19 16:17:18', 'FAIL'),
 	('06222023220857D0F243F76F03480898E3C9355', 'admin', '::1', '2023-06-22 08:22:57', 'FAIL'),
@@ -624,12 +639,26 @@ CREATE TABLE IF NOT EXISTS `tbl_ref_trainings` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_ref_trainings: ~3 rows (approximately)
+-- Dumping data for table db_cctms.tbl_ref_trainings: ~4 rows (approximately)
 INSERT INTO `tbl_ref_trainings` (`trans_id`, `training_title`, `training_description`, `learning_mode`, `learning_tracks`, `learning_tracks_other`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
 	('02192026401132CA2CE', 'SAMPLE TRAINING TITLE', 'SAMPLE TRAINING DESCRIPTION', 'ONLINE', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-19 11:40:32', 'System Administrator', '2026-02-19 11:48:46'),
 	('02202026050924DF483', 'SAMPLE TRAINING 2', 'SAMPLE DESCRIPTION 2', 'ONLINE', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'System Administrator', '2026-02-20 09:05:24', NULL, NULL),
 	('022420264301526D82E', 'TEACHER FUNDAMENTALS', 'TEACHER FUNDAMENTALS AND CLASS MANAGEMENT', 'F2F', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-24 13:43:52', NULL, NULL),
-	('022520262410485B5C5', 'STUDENT MANAGEMENT TRAINING', 'STUDENT MANAGEMENT TRAINING', 'F2F', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-25 10:24:48', NULL, NULL);
+	('022520262410485B5C5', 'STUDENT MANAGEMENT TRAINING', 'STUDENT MANAGEMENT TRAINING', 'F2F', 'EDUC_LEAD_PEDAGOGY', '', 'Y', 'System Administrator', '2026-02-25 10:24:48', NULL, NULL),
+	('02272026550906218A5', 'INSTITUTIONAL MANAGEMENT', 'MANAGEMENT FUNDAMENTALS', 'ONLINE', 'ENTREPRENEURSHIP_TECH', '', 'Y', 'System Administrator', '2026-02-27 09:55:06', NULL, NULL);
+
+-- Dumping structure for table db_cctms.tbl_ref_training_applicant_type
+CREATE TABLE IF NOT EXISTS `tbl_ref_training_applicant_type` (
+  `trans_id` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `type_desc` varchar(50) COLLATE latin1_general_ci DEFAULT '',
+  `is_active` char(1) COLLATE latin1_general_ci DEFAULT 'Y',
+  PRIMARY KEY (`trans_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Dumping data for table db_cctms.tbl_ref_training_applicant_type: ~0 rows (approximately)
+INSERT INTO `tbl_ref_training_applicant_type` (`trans_id`, `type_desc`, `is_active`) VALUES
+	('INDIVIDUAL', 'INDIVIDUAL', 'Y'),
+	('INSTITUTION', 'INSTITUTION', 'Y');
 
 -- Dumping structure for table db_cctms.tbl_ref_training_speakers
 CREATE TABLE IF NOT EXISTS `tbl_ref_training_speakers` (
@@ -698,13 +727,7 @@ CREATE TABLE IF NOT EXISTS `tbl_registration_details` (
   KEY `senior_id` (`applicant_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_registration_details: ~1 rows (approximately)
-INSERT INTO `tbl_registration_details` (`trans_id`, `applicant_id`, `reg_status`, `remarks`, `last_user`, `last_date`, `counter`) VALUES
-	('022520260711146B1B1963594C4B63B8DDA1B15', '022520260011271711EAC93D1645E9A3172624A', 'INACTIVE', 'Expired Application', 'System Update', '2/25/2026 11:07:14 AM', 1),
-	('022520261311363B5D08C4450E482A8C3961F9A', '022520260011271711EAC93D1645E9A3172624A', 'INACTIVE', 'Expired Application', 'System Update', '2/25/2026 11:13:36 AM', 2),
-	('02252026221054894E9CECFBBF4ECC835E1C10F', '0225202621103607AEBFFAACFB45419FA719FB1', 'PAID', 'Paid', 'System Administrator', '2/25/2026 10:22:54 AM', 1),
-	('0225202649112511D593633D4C43A1B841CCB73', '02252026481153E345B6A317734DD4AFDBEFF38', 'INACTIVE', 'Expired Application', 'System Update', '2/25/2026 11:49:25 AM', 1),
-	('02252026571136547CBE8B2FFC4629A7072962D', '02252026521135A8B14A823F5B4ED4BA172AEFA', 'PAID', 'paid', 'System Administrator', '2/25/2026 11:57:36 AM', 1);
+-- Dumping data for table db_cctms.tbl_registration_details: ~5 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_system_default
 CREATE TABLE IF NOT EXISTS `tbl_system_default` (
@@ -712,7 +735,7 @@ CREATE TABLE IF NOT EXISTS `tbl_system_default` (
   `default_value` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_cctms.tbl_system_default: ~4 rows (approximately)
+-- Dumping data for table db_cctms.tbl_system_default: ~5 rows (approximately)
 INSERT INTO `tbl_system_default` (`default_desc`, `default_value`) VALUES
 	('default password', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a'),
 	('notify_sms', 'Y'),
@@ -723,6 +746,7 @@ INSERT INTO `tbl_system_default` (`default_desc`, `default_value`) VALUES
 -- Dumping structure for table db_cctms.tbl_training
 CREATE TABLE IF NOT EXISTS `tbl_training` (
   `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `training_type` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'INDIVIDUAL',
   `training_date` date DEFAULT NULL,
   `training_date_to` date DEFAULT NULL,
   `reg_from` date DEFAULT NULL,
@@ -746,14 +770,18 @@ CREATE TABLE IF NOT EXISTS `tbl_training` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training: ~2 rows (approximately)
-INSERT INTO `tbl_training` (`trans_id`, `training_date`, `training_date_to`, `reg_from`, `reg_to`, `training_time`, `training_id`, `training_title`, `training_desc`, `training_slots`, `training_venue`, `other_details`, `attendance`, `registration_fee`, `training_status`, `training_remarks`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('02252026181001499FA', '2026-03-10', '2026-03-13', '2026-02-25', '2026-03-13', '00:00:00', '022420264301526D82E', 'TEACHER FUNDAMENTALS', 'TEACHER FUNDAMENTALS AND CLASS MANAGEMENT', 50, 'CDO HALL', 'zoom links and training details', 1, 550.00, 'UPCOMING', 'Set for registration', 'Y', 'System Administrator', '2026-02-25 10:18:01', 'System Administrator', '2026-02-25 10:21:09'),
-	('0225202626100906D77', '2026-04-07', '2026-04-07', '2026-02-25', '2026-04-07', '00:00:00', '022520262410485B5C5', 'STUDENT MANAGEMENT TRAINING', 'STUDENT MANAGEMENT TRAINING', 15, 'CITY COLLEGE ROOM 1', 'Must bring ur on laptop and 1 ballpen', 1, 1500.00, 'UPCOMING', 'Set for registration', 'Y', 'System Administrator', '2026-02-25 10:26:09', 'System Administrator', '2026-02-25 10:26:22');
+-- Dumping data for table db_cctms.tbl_training: ~4 rows (approximately)
+INSERT INTO `tbl_training` (`trans_id`, `training_type`, `training_date`, `training_date_to`, `reg_from`, `reg_to`, `training_time`, `training_id`, `training_title`, `training_desc`, `training_slots`, `training_venue`, `other_details`, `attendance`, `registration_fee`, `training_status`, `training_remarks`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
+	('02252026181001499FA', 'INDIVIDUAL', '2026-03-10', '2026-03-13', '2026-02-25', '2026-03-13', '00:00:00', '022420264301526D82E', 'TEACHER FUNDAMENTALS', 'TEACHER FUNDAMENTALS AND CLASS MANAGEMENT', 50, 'CDO HALL', 'zoom links and training details', 1, 550.00, 'DRAFTING', '', 'Y', 'System Administrator', '2026-02-25 10:18:01', 'System Administrator', '2026-02-27 09:54:12'),
+	('0225202626100906D77', 'INDIVIDUAL', '2026-04-07', '2026-04-07', '2026-02-25', '2026-04-07', '00:00:00', '022520262410485B5C5', 'STUDENT MANAGEMENT TRAINING', 'STUDENT MANAGEMENT TRAINING', 15, 'CITY COLLEGE ROOM 1', 'Must bring ur on laptop and 1 ballpen', 1, 1500.00, 'UPCOMING', '', 'Y', 'System Administrator', '2026-02-25 10:26:09', 'System Administrator', '2026-02-27 10:09:25'),
+	('0227202604101026300', 'INSTITUTION', '2026-03-16', '2026-03-16', '2026-02-27', '2026-03-16', '00:00:00', '022420264301526D82E', 'TEACHER FUNDAMENTALS', 'TEACHER FUNDAMENTALS AND CLASS MANAGEMENT', 1, 'SSS', 'ddds', 0, 10000.00, 'UPCOMING', 'ss', 'Y', 'System Administrator', '2026-02-27 10:04:10', 'System Administrator', '2026-02-27 10:07:13'),
+	('022720265609322E953', 'INSTITUTION', '2026-03-09', '2026-03-09', '2026-02-27', '2026-03-09', '00:00:00', '02272026550906218A5', 'INSTITUTIONAL MANAGEMENT', 'MANAGEMENT FUNDAMENTALS FOR NMMC ONLY', 1, 'ZOOM LINK', 'Zoom link Details aghasjasgdjhas djasg djk', 0, 5000.00, 'UPCOMING', 'df', 'Y', 'System Administrator', '2026-02-27 09:56:32', 'System Administrator', '2026-02-27 10:08:42');
 
 -- Dumping structure for table db_cctms.tbl_training_applicants
 CREATE TABLE IF NOT EXISTS `tbl_training_applicants` (
   `trans_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `applicant_type` varchar(50) COLLATE latin1_general_ci DEFAULT 'INDIVIDUAL',
+  `institution_name` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `lname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `fname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `mname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
@@ -785,9 +813,10 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applicants` (
   PRIMARY KEY (`trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applicants: ~1 rows (approximately)
-INSERT INTO `tbl_training_applicants` (`trans_id`, `lname`, `fname`, `mname`, `ename`, `gender`, `civil_status`, `contact_no`, `email_add`, `home_addr`, `city_province`, `profession`, `educ_attain`, `workplace`, `position`, `prc_no`, `prc_expiration`, `pref_learn_tracks`, `pref_learn_tracks_others`, `pref_learn_mode`, `pref_sched`, `topic_interest`, `program_discovered`, `registration_date`, `user_name`, `password`, `is_active`, `create_user`, `create_date`) VALUES
-	('022520261910532B9C3', 'MORENO', 'NOEL', 'S', '', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CDO CARMEN STREET', 'CAGAYAN DE ORO_D1', 'Teacher', 'BACHELOR', 'CDO SCHOOLS', 'TEACHER I', '12364458', '2027-02-25', '', '', 'F2F', 'WEEKDAYS', 'Specific interest ajaja', 'WEBSITE', '2026-02-25 10:19:00', 'noel.sierra.moreno@gmail.com', '522cfb3dcca8669cfc96e98b344ea5bf', 'Y', NULL, '2026-02-25 10:19:00');
+-- Dumping data for table db_cctms.tbl_training_applicants: ~2 rows (approximately)
+INSERT INTO `tbl_training_applicants` (`trans_id`, `applicant_type`, `institution_name`, `lname`, `fname`, `mname`, `ename`, `gender`, `civil_status`, `contact_no`, `email_add`, `home_addr`, `city_province`, `profession`, `educ_attain`, `workplace`, `position`, `prc_no`, `prc_expiration`, `pref_learn_tracks`, `pref_learn_tracks_others`, `pref_learn_mode`, `pref_sched`, `topic_interest`, `program_discovered`, `registration_date`, `user_name`, `password`, `is_active`, `create_user`, `create_date`) VALUES
+	('022720262009293CD4D', 'INDIVIDUAL', '', 'DELA CRUZ', 'JUAN', 'S', 'Jr.', 'MALE', 'SINGLE', '09354488220', 'noel.sierra.moreno@gmail.com', 'CDO ASD', 'CAGAYAN DE ORO_D1', 'teacher', 'BACHELOR', 'CDO COLLEGE', 'TEACHER I', '1235454', '2027-02-27', '', '', 'F2F', 'WEEKDAYS', 'sss sshhss', 'WEBSITE', '2026-02-27 09:20:00', 'noel.sierra.moreno@gmail.com', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', 'DELA CRUZ, JUAN', '2026-02-27 09:20:00'),
+	('02272026300907A8DBB', 'INSTITUTION', 'NORTHERN MINDANAO MEDICAL CENTERSSS', '', '', '', '', '', '', '09354488220', 'noelnolex11@gmail.com', 'CDO CENTER', 'CAGAYAN DE ORO_D1', '', 'BACHELOR', '', '', '', '2027-02-27', '', '', 'F2F', 'WEEKDAYS', 'Specific topic details', 'SOCMED', '2026-02-27 09:30:00', 'noelnolex11@gmail.com', 'tl9UUtoyQm2uzSorsCfAEg=e0ea150034825421a', 'Y', ', ', '2026-02-27 09:30:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applicants_learning_tracks
 CREATE TABLE IF NOT EXISTS `tbl_training_applicants_learning_tracks` (
@@ -802,10 +831,11 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applicants_learning_tracks` (
   KEY `applicant_id` (`applicant_id`,`tracks_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applicants_learning_tracks: ~6 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_applicants_learning_tracks: ~2 rows (approximately)
 INSERT INTO `tbl_training_applicants_learning_tracks` (`trans_id`, `applicant_id`, `tracks_id`, `tracks_other`, `is_active`, `create_user`, `create_date`) VALUES
-	('02252026191053680F5', '022520261910532B9C3', 'PUBLIC_GOVERNANCE', '', 'Y', NULL, '2026-02-25 10:19:00'),
-	('02252026191053D1A76', '022520261910532B9C3', 'DIGITAL_IT', '', 'Y', NULL, '2026-02-25 10:19:00');
+	('0227202620092901F33', '022720262009293CD4D', 'ENTREPRENEURSHIP_TECH', '', 'Y', NULL, '2026-02-27 09:20:00'),
+	('02272026200929B269D', '022720262009293CD4D', 'EDUC_LEAD_PEDAGOGY', '', 'Y', NULL, '2026-02-27 09:20:00'),
+	('0227202643093935A13', '02272026300907A8DBB', 'DIGITAL_IT', '', 'Y', ', ', '2026-02-27 09:43:00');
 
 -- Dumping structure for table db_cctms.tbl_training_applications
 CREATE TABLE IF NOT EXISTS `tbl_training_applications` (
@@ -834,12 +864,7 @@ CREATE TABLE IF NOT EXISTS `tbl_training_applications` (
   KEY `training_id` (`training_id`,`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_applications: ~3 rows (approximately)
-INSERT INTO `tbl_training_applications` (`trans_id`, `app_code`, `training_id`, `applicant_id`, `applicant_name`, `applicant_contact`, `application_remarks`, `application_datetime`, `validation_datetime`, `application_status`, `application_fee`, `application_or`, `application_or_date`, `is_finance_paid`, `finance_mode`, `finance_datetime`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('022520260011271711EAC93D1645E9A3172624A', '202602B559', '0225202626100906D77', '022520261910532B9C3', 'MORENO, NOEL S', '09354488220', 'Expired Application', '2026-02-24 11:00:00', '2026-02-25 11:13:00', 'INACTIVE', 1500.00, NULL, NULL, 'N', 'WALKIN', NULL, 'N', 'MORENO, NOEL', '2026-02-25 11:00:00', 'System Update', '2026-02-25 11:13:00'),
-	('0225202621103607AEBFFAACFB45419FA719FB1', '2026021539', '02252026181001499FA', '022520261910532B9C3', 'MORENO, NOEL S', '09354488220', 'Paid', '2026-02-25 10:21:00', '2026-02-25 10:22:00', 'PAID', 550.00, '5566889', '2026-02-25', 'N', 'WALKIN', NULL, 'Y', 'MORENO, NOEL', '2026-02-25 10:21:00', 'System Administrator', '2026-02-25 10:22:00'),
-	('02252026481153E345B6A317734DD4AFDBEFF38', '2026024015', '0225202626100906D77', '022520261910532B9C3', 'MORENO, NOEL S', '09354488220', 'Expired Application', '2026-02-24 11:48:00', '2026-02-25 11:49:00', 'INACTIVE', 1500.00, NULL, NULL, 'N', 'WALKIN', NULL, 'N', 'MORENO, NOEL', '2026-02-25 11:48:00', 'System Update', '2026-02-25 11:49:00'),
-	('02252026521135A8B14A823F5B4ED4BA172AEFA', '202602381E', '0225202626100906D77', '022520261910532B9C3', 'MORENO, NOEL S', '09354488220', 'paid', '2026-02-25 11:52:00', '2026-02-25 11:57:00', 'PAID', 1500.00, '223655', '2026-02-25', 'N', 'WALKIN', NULL, 'Y', 'MORENO, NOEL', '2026-02-25 11:52:00', 'System Administrator', '2026-02-25 11:57:00');
+-- Dumping data for table db_cctms.tbl_training_applications: ~4 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_training_attendance
 CREATE TABLE IF NOT EXISTS `tbl_training_attendance` (
@@ -858,10 +883,7 @@ CREATE TABLE IF NOT EXISTS `tbl_training_attendance` (
   KEY `training_id` (`training_id`,`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_attendance: ~0 rows (approximately)
-INSERT INTO `tbl_training_attendance` (`trans_id`, `attendee_no`, `training_id`, `applicant_id`, `remarks`, `is_present`, `is_active`, `create_user`, `create_date`, `last_user`, `last_date`) VALUES
-	('02252026221054B85176DE56BD462C9CCFA7A77', 1, '02252026181001499FA', '022520261910532B9C3', 'PAID', 'N', 'Y', '', '2026-02-25 10:22:54', NULL, NULL),
-	('0225202657113613D4CB885F864A8BBCD880797', 1, '0225202626100906D77', '022520261910532B9C3', 'PAID', 'N', 'Y', '', '2026-02-25 11:57:36', NULL, NULL);
+-- Dumping data for table db_cctms.tbl_training_attendance: ~2 rows (approximately)
 
 -- Dumping structure for table db_cctms.tbl_training_details
 CREATE TABLE IF NOT EXISTS `tbl_training_details` (
@@ -876,12 +898,21 @@ CREATE TABLE IF NOT EXISTS `tbl_training_details` (
   KEY `senior_id` (`training_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_training_details: ~16 rows (approximately)
+-- Dumping data for table db_cctms.tbl_training_details: ~4 rows (approximately)
 INSERT INTO `tbl_training_details` (`trans_id`, `training_id`, `reg_status`, `remarks`, `last_user`, `last_date`, `counter`) VALUES
 	('02252026181001EDD40A3E4A6648CD9A4C5B3E4', '02252026181001499FA', 'DRAFTING', '', 'System Administrator', '2026-02-25 10:18:01', 1),
 	('0225202621100943063D7319C34C2EB605230E0', '02252026181001499FA', 'UPCOMING', 'Set for registration', 'System Administrator', '2026-02-25 10:21:09', 2),
 	('02252026261009E9176A25DAFC43C397CB9FD03', '0225202626100906D77', 'DRAFTING', '', 'System Administrator', '2026-02-25 10:26:09', 1),
-	('02252026261022F71E959CF1EB4A3B9B8EEE60B', '0225202626100906D77', 'UPCOMING', 'Set for registration', 'System Administrator', '2026-02-25 10:26:22', 2);
+	('02252026261022F71E959CF1EB4A3B9B8EEE60B', '0225202626100906D77', 'UPCOMING', 'Set for registration', 'System Administrator', '2026-02-25 10:26:22', 2),
+	('022720260410109BFD28E03A1645BF8EFAC0C94', '0227202604101026300', 'DRAFTING', '', 'System Administrator', '2026-02-27 10:04:10', 1),
+	('0227202607101312715D5FD52F4B88A0557E8A8', '0227202604101026300', 'UPCOMING', 'ss', 'System Administrator', '2026-02-27 10:07:13', 2),
+	('0227202608101975F931508CF14CB690FB9C2DF', '022720265609322E953', 'DRAFTING', '', 'System Administrator', '2026-02-27 10:08:19', 3),
+	('02272026081042B95F73F333174ADD9B928D77D', '022720265609322E953', 'UPCOMING', 'df', 'System Administrator', '2026-02-27 10:08:42', 4),
+	('02272026091025E8B7C9372D9E44769E9601B52', '0225202626100906D77', 'UPCOMING', '', 'System Administrator', '2026-02-27 10:09:25', 4),
+	('02272026470926553772B162444D72B66D6D292', '0225202626100906D77', 'DRAFTING', '', 'System Administrator', '2026-02-27 09:47:26', 3),
+	('02272026540912E5F8DEB4DC1C42E8B62268216', '02252026181001499FA', 'DRAFTING', '', 'System Administrator', '2026-02-27 09:54:12', 3),
+	('022720265609320DE03D8DBC864DA381F5C9055', '022720265609322E953', 'DRAFTING', '', 'System Administrator', '2026-02-27 09:56:32', 1),
+	('02272026580910B5EBCB58BD2D476EAC42B331A', '022720265609322E953', 'UPCOMING', 'sss', 'System Administrator', '2026-02-27 09:58:10', 2);
 
 -- Dumping structure for table db_cctms.tbl_training_speakers
 CREATE TABLE IF NOT EXISTS `tbl_training_speakers` (
@@ -1143,7 +1174,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user_pin` (
   PRIMARY KEY (`trans_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5003 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- Dumping data for table db_cctms.tbl_user_pin: ~6 rows (approximately)
+-- Dumping data for table db_cctms.tbl_user_pin: ~7 rows (approximately)
 INSERT INTO `tbl_user_pin` (`trans_id`, `user_id`, `pin_code`, `ip_address`, `status`, `create_user`, `create_date`, `expiration_date`) VALUES
 	(4996, '022020265909305C2C8', '622234', '::1', 'NOT SENT', '', '2026-02-20 13:14:14', '2026-02-21 13:14:14'),
 	(4997, '02202026180100D768C', '888436', '::1', 'NOT SENT', '', '2026-02-20 13:18:54', '2026-02-21 13:18:54'),

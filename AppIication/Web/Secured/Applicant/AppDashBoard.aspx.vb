@@ -25,7 +25,6 @@ Partial Class Secured_Applicant_AppDashBoard
 
     End Sub
 
-
     Protected Sub btnOK_Click(ByVal sender As Object, ByVal e As System.EventArgs)
 
         If thisMsgBox.getModalType = "REGISTER" Then
@@ -48,7 +47,6 @@ Partial Class Secured_Applicant_AppDashBoard
         spanCompleted.InnerText = getTrainingCounts("COMPLETED", hfApplicantId.Value).Rows.Count
 
     End Sub
-
 
     Private Function getTrainingCounts(ByVal _thisStatus As String, ByVal _thisApplicant As String) As DataTable
 
@@ -245,7 +243,6 @@ Partial Class Secured_Applicant_AppDashBoard
 #End Region
 
 
-
 #Region "CALENDAR"
 
 
@@ -263,7 +260,7 @@ Partial Class Secured_Applicant_AppDashBoard
               "tbl_training_applications.applicant_id = '" & hfApplicantId.Value & "' AND tbl_training_applications.is_active = 'Y' " & _
               "LEFT JOIN tbl_training_attendance ON tbl_training.trans_id = tbl_training_attendance.training_id AND " & _
               "tbl_training_attendance.applicant_id = '" & hfApplicantId.Value & "' AND tbl_training_attendance.is_active = 'Y' " & _
-              "WHERE tbl_training.is_active = 'Y' AND  tbl_training.training_status <> 'DRAFTING' "
+              "WHERE tbl_training.is_active = 'Y' AND  tbl_training.training_status <> 'DRAFTING' AND training_type = '" & Session("APPLICANTTYPE") & "' "
 
         dt = _clsDB.Fill_DataTable(sql)
 

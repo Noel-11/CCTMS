@@ -17,11 +17,13 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
             _clsDB.populateDDLB(ddlTrainingTitle, "training_title", "trans_id", "tbl_ref_trainings", "training_description", " WHERE is_active = 'Y'", , "")
 
+            _clsDB.populateDDLB(ddlTrainingType, "type_desc", "trans_id", "tbl_ref_training_applicant_type", "type_desc", " WHERE is_active = 'Y'", , "")
+            ddlTrainingType.Items.RemoveAt(0)
+
             dtpTrainingDate.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
             dtpTrainingDateEnd.Text = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd")
             dtpRegistrationDateFrom.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
             dtpRegistrationDateTo.Text = DateTime.Now.Date.ToString("yyyy-MM-dd")
-
 
             isChkDateTo()
 
@@ -105,6 +107,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
     Private Sub setStatusCtrls(ByVal _thisBol As Boolean)
 
         ddlTrainingTitle.Enabled = _thisBol
+        ddlTrainingType.Enabled = _thisBol
         chkTrainingDateTo.Enabled = _thisBol
 
         Dim _thisBolRead As Boolean = IIf(_thisBol, False, True)
@@ -112,6 +115,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         dtpTrainingDate.ReadOnly = _thisBolRead
         dtpTrainingDateEnd.ReadOnly = _thisBolRead
         txtDescription.ReadOnly = _thisBolRead
+
         txtTrainingSlots.ReadOnly = _thisBolRead
         txtRegistrationFee.ReadOnly = _thisBolRead
         dtpRegistrationDateFrom.ReadOnly = _thisBolRead
@@ -143,6 +147,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
             With _clsTraining
                 .getTraining(hfTransId.Value)
+                ddlTrainingType.SelectedValue = .trainingType
                 dtpTrainingDate.Text = CDate(.trainingDate).ToString("yyyy-MM-dd")
                 dtpTrainingDateEnd.Text = CDate(.trainingDateTo).ToString("yyyy-MM-dd")
 
@@ -215,6 +220,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         With _clsRecord
             .initialize()
             .transId = hfTransId.Value
+            .trainingType = ddlTrainingType.SelectedValue
             .trainingDate = CDate(dtpTrainingDate.Text).ToString("yyyy-MM-dd")
             .trainingDateTo = IIf(chkTrainingDateTo.Checked, CDate(dtpTrainingDateEnd.Text).ToString("yyyy-MM-dd"), CDate(dtpTrainingDate.Text).ToString("yyyy-MM-dd"))
             .regFrom = CDate(dtpRegistrationDateFrom.Text).ToString("yyyy-MM-dd")

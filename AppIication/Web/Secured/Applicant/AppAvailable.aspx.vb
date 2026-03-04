@@ -90,7 +90,7 @@ Partial Class Secured_Applicant_AppAvailable
 
         Dim _clsRecord As New clsTraining
 
-        dt = _clsRecord.browseTrainingApplicant(hfApplicantId.Value)
+        dt = _clsRecord.browseTrainingApplicant(hfApplicantId.Value, Session("APPLICANTTYPE"))
 
         _gvTraining.DataSource = dt
         _gvTraining.DataBind()

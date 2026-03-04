@@ -1,6 +1,6 @@
 ﻿Imports System.Data
 Partial Class Secured_Applicant_AppProfile
-    Inherits System.Web.UI.Page
+    Inherits cPageInit_Secured_Client
 
     Dim _clsDB As New clsDatabase
 
@@ -11,6 +11,7 @@ Partial Class Secured_Applicant_AppProfile
 
         If Not Page.IsPostBack Then
             hfTransId.Value = Session("APPLICANTID")
+            dtpPRCExpiration.Text = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd")
             getDll()
             fillInfo()
         End If
@@ -70,12 +71,34 @@ Partial Class Secured_Applicant_AppProfile
 
     End Sub
 
+    Private Sub getRegTypeForm(ByVal _thisType As String)
+
+        divPersonal.Visible = False
+        divInstitution.Visible = False
+        divProfession.Visible = False
+        divPreferences.Visible = False
+
+        If _thisType = "INDIVIDUAL" Then
+            divPersonal.Visible = True
+            divProfession.Visible = True
+            divPreferences.Visible = True
+
+        ElseIf _thisType = "INSTITUTION" Then
+            divInstitution.Visible = True
+        End If
+
+
+    End Sub
+
     Private Sub fillInfo()
         Dim _clsRecord As New clsTrainingApplicants
 
         With _clsRecord
             .getTrainingApplicants(hfTransId.Value)
-
+            getRegTypeForm(.applicantType)
+            txtInstitutionName.Text = .institutionName
+            txtInstContact.Text = .contactNo
+            txtInstEmail.Text = .emailAdd
             txtLName.Text = .lname
             txtFName.Text = .fname
             txtMName.Text = .mname
@@ -129,14 +152,15 @@ Partial Class Secured_Applicant_AppProfile
         With _clsRecord
             .initialize()
             .transId = hfTransId.Value
+            .institutionName = txtInstitutionName.Text.Trim.ToUpper
             .lname = txtLName.Text.Trim.ToUpper
             .fname = txtFName.Text.Trim.ToUpper
             .mname = txtMName.Text.Trim.ToUpper
             .ename = ddlEName.SelectedValue
             .gender = ddlGender.SelectedValue
             .civilStatus = ddlCivilStatus.SelectedValue
-            .contactNo = txtContactNo.Text.Trim
-            .emailAdd = txtEmail.Text.Trim
+            .contactNo = IIf(.applicantType = "INDIVIDUAL", txtContactNo.Text.Trim, txtInstContact.Text.Trim)
+            .emailAdd = IIf(.applicantType = "INDIVIDUAL", txtEmail.Text.Trim, txtInstEmail.Text.Trim)
             .homeAddr = txtHomeAddr.Text.Trim.ToUpper
             .cityProvince = ddlCityAddr.SelectedValue
             .profession = txtProfession.Text.Trim

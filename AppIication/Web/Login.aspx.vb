@@ -29,6 +29,25 @@ Partial Class _Login
     Protected Sub btnNo_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         If thisMsgBox.getModalType = "RESETPASSWORD" Then
             Response.Redirect("Login.aspx")
+
+        ElseIf thisMsgBox.getModalType = "PASSWORDCHANGED" Then
+            Dim _clsUserProfile As New clsTrainingApplicants
+
+            'If _clsUserProfile.validateLogin(hfUserName.Value, txtCPassword.Text.Trim) = True Then
+            With _clsUserProfile
+                .getTrainingApplicants(hfUserId.Value)
+                Session("APPLICANTID") = .transId
+                Session("APPLICANTTYPE") = .applicantType
+                Session("UserId") = .transId
+                Session("USERNAME") = .lname & ", " & .fname
+            End With
+
+            saveLoginLog("SUCCESSFULL")
+
+            Response.Redirect("Secured/Applicant/AppDashBoard.aspx")
+            'End If
+
+
         End If
     End Sub
 
@@ -42,62 +61,119 @@ Partial Class _Login
 
         Dim _clsUser As New clsUser
 
+        divLoginError.Visible = False
+
         Try
-            If _clsUserProfile.validateLogin(txtUserName.Text.Trim, txtPassword.Text.Trim) = True Then
-                With _clsUserProfile
-                    Session("APPLICANTID") = .transId
-                    Session("UserId") = .transId
-                    Session("USERNAME") = .lname & ", " & .fname
-                End With
 
-                saveLoginLog("SUCCESSFULL")
+            _clsUserProfile.getTrainingApplicantsUser(txtUserName.Text.Trim)
 
-                Response.Redirect("Secured/Applicant/AppDashBoard.aspx")
+            hfUserId.Value = _clsUserProfile.transId
+            hfUserName.Value = _clsUserProfile.userName
 
+            If hfUserId.Value = "" Then
+                divLoginError.Visible = True
             Else
 
-                'If _clsUserProfile.validateLogin(txtUserName.Text.Trim, txtPassword.Text.Trim) = True Then
-                '    With _clsUser
-                '        .getUserInformation(txtUserName.Text.Trim)
-                '        Session("UserId") = .userID
-                '        Session("UserRoleId") = .userRoleID
-                '        Session("UserName") = .userName
-                '        'Session("UserFieldDistrict") = .fieldDistrict
-                '    End With
+                If _clsUserProfile.validateLogin(txtUserName.Text.Trim, txtPassword.Text.Trim) = True Then
 
-                '    saveLoginLog("SUCCESS")
+                    If txtPassword.Text.Trim.ToLower = "password" Then
 
-                '    Dim _clsCMS As New clsCMS
-                '    Dim dtMenuHeader As New DataTable
-                '    dtMenuHeader.Clear()
-                '    dtMenuHeader = _clsCMS.browseSecureCMSMenuHeaderPermissionByModule(Session("UserId"), Session("UserRoleId"), Session("MODULE"))
+                        divCPPin.Visible = True
+                        divCPSet.Visible = False
 
-                '    If dtMenuHeader.Rows.Count > 0 Then
+                        lblCPContact.Text = _clsUserProfile.emailAdd
 
-                '        Dim dtHomePermission As DataTable
-                '        dtHomePermission = _clsCMS.browseSecureCMSMenuHeaderPermissionHome(Session("UserId"), Session("UserRoleId"), Session("MODULE"))
-                '        If dtHomePermission.Rows.Count > 0 Then
-                '            Response.Redirect("~/Secured/DashBoard.aspx")
-                '        Else
-                '            Response.Redirect("~/Secured/Default.aspx")
-                '        End If
-                '    End If
-                'End If
+                        sendCode(_clsUserProfile.emailAdd)
 
-                saveLoginLog("FAILED")
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlChangePassword", "var myModal = new bootstrap.Modal(document.getElementById('mdlChangePassword'), {});  myModal.show();", True)
 
+                    Else
+                        With _clsUserProfile
+                            Session("APPLICANTID") = .transId
+                            Session("APPLICANTTYPE") = .applicantType
+                            Session("UserId") = .transId
+                            Session("USERNAME") = .lname & ", " & .fname
+                        End With
+
+                        saveLoginLog("SUCCESSFULL")
+
+                        Response.Redirect("Secured/Applicant/AppDashBoard.aspx")
+
+                    End If
+
+                Else
+
+                    saveLoginLog("FAILED")
+                    divLoginError.Visible = True
+
+                End If
+
+               
             End If
 
         Catch ex As Exception
             Session("UserId") = txtUserName.Text.Trim
             saveLoginLog("FAILED")
-          
+
         End Try
 
     End Sub
 
     Protected Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+
         login()
+
+    End Sub
+
+    'CHANGE PASSWORD
+    Protected Sub btnCPVerPin_ServerClick(sender As Object, e As EventArgs) Handles btnCPVerPin.ServerClick
+
+        Dim dtCheck As New DataTable
+
+        Dim sql As String = ""
+
+        sql = "SELECT trans_id FROM tbl_user_pin WHERE pin_code = '" & txtCPPin.Text.Trim & "' AND expiration_date > '" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'  ORDER BY create_date DESC LIMIT 1"
+
+        dtCheck = _clsDB.Fill_DataTable(sql, "tbl_user_pin")
+
+        If dtCheck.Rows.Count > 0 Then
+            divCPSet.Visible = True
+            'divCPPin.Visible = True
+        Else
+            divCPSet.Visible = False
+            divCPPin.Visible = True
+            thisMsgBox.setError("Invalid Code!", "Authentication code Not found!")
+            thisMsgBox.showConfirmBox()
+        End If
+
+    End Sub
+
+
+    Protected Sub btnSavePassword_Click(sender As Object, e As EventArgs) Handles btnSavePassword.ServerClick
+
+        Dim _clsUserProfile As New clsTrainingApplicants
+
+        If _clsUserProfile.validateLogin(hfUserName.Value, txtCPassword.Text.Trim) = True And txtCPassword.Text = txtCRetypePassword.Text Then
+            thisMsgBox.setError("Invalid", "It looks like you entered your current password. Please enter a different new password.!")
+        Else
+            If txtCPassword.Text <> txtCRetypePassword.Text Then
+                thisMsgBox.setError("Invalid", "Password not match!")
+            Else
+                Dim _clsRecord As New clsTrainingApplicants
+
+                With _clsRecord
+                    .transId = hfUserId.Value
+                    .password = txtCPassword.Text.Trim
+                    .updateApplicantPassword()
+                End With
+
+                thisMsgBox.setModalType("PASSWORDCHANGED")
+                thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with ur new password.")
+            End If
+        End If
+
+            thisMsgBox.showConfirmBox()
+
     End Sub
 
     Private Sub saveLoginLog(ByVal _status As String)
@@ -125,6 +201,7 @@ Partial Class _Login
     End Function
 
 #End Region
+
 
 
 
@@ -171,7 +248,7 @@ Partial Class _Login
 
                     lblPinContact.Text = hfEmailAdd.Value
                     pnlPin.Visible = True
-                    sendCode()
+                    sendCode(hfEmailAdd.Value)
                 Else
                     thisMsgBox.setError("Cannot Verify", "No Email Address found! ")
                 End If
@@ -193,7 +270,7 @@ Partial Class _Login
 
         sql = "SELECT trans_id FROM tbl_user_pin WHERE pin_code = '" & txtPinCode.Text.Trim & "' AND expiration_date > '" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'  ORDER BY create_date DESC LIMIT 1"
 
-        dtCheck = _clsDB.Fill_DataTable(sql, "tbl_paycheck_pin")
+        dtCheck = _clsDB.Fill_DataTable(sql, "tbl_user_pin")
 
         If dtCheck.Rows.Count > 0 Then
             pnlPassword.Visible = True
@@ -208,11 +285,11 @@ Partial Class _Login
     End Sub
 
 
-    Private Sub sendCode()
+    Private Sub sendCode(ByVal _thisEmail As String)
 
         Dim _clsPayslipPin As New clsUserPin
 
-        If hfEmailAdd.Value <> "" Then
+        If _thisEmail <> "" Then
 
             With _clsPayslipPin
                 .userId = hfUserId.Value
@@ -225,13 +302,13 @@ Partial Class _Login
                 _smsMsg = "Your authentication code is : " & .pinCode
 
                 Try
-                    sendEmail(hfEmailAdd.Value, _smsMsg)
+                    sendEmail(_thisEmail, _smsMsg)
                     .status = "SENT"
                 Catch ex As Exception
                     .status = "NOT SENT"
                 End Try
 
-                .savePayCheckPin()
+                .savePin()
             End With
 
         End If
@@ -261,7 +338,7 @@ Partial Class _Login
             End With
 
             thisMsgBox.setModalType("RESETPASSWORD")
-            thisMsgBox.setInfo("Info", "Retrieved Successfully! <br/> You can now Login with ur new password.")
+            thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with ur new password.")
         End If
 
         thisMsgBox.showConfirmBox()
@@ -270,4 +347,5 @@ Partial Class _Login
 
 #End Region
 
+   
 End Class

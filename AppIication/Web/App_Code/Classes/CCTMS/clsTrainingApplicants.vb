@@ -14,6 +14,10 @@ Public Class clsTrainingApplicants
 #Region "Properties"
     Public Property transId As String
 
+    Public Property applicantType As String
+
+    Public Property institutionName As String
+
     Public Property lname As String
 
     Public Property fname As String
@@ -76,6 +80,8 @@ Public Class clsTrainingApplicants
 
     Public Sub initialize()
         _transId = ""
+        _applicantType = "INDIVIDUAL"
+        _institutionName = ""
         _lname = ""
         _fname = ""
         _mname = ""
@@ -137,10 +143,12 @@ Public Class clsTrainingApplicants
         If transId = "" Then
             _userName = getUserName(emailAdd)
             With _clsDB.dbUtility
-                .fieldItems = "trans_id,lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration,registration_date,user_name,password,is_active,create_user,create_date"
+                .fieldItems = "trans_id,applicant_type,institution_name,lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration,registration_date,user_name,password,is_active,create_user,create_date"
                 .sqlString = .getSQLStatement("tbl_training_applicants", "INSERT")
                 _transId = DateTime.Now.ToString("MMddyyyymmhhss") & Left(Guid.NewGuid().ToString.Replace("-", ""), 5).ToUpper
                 .ADDPARAM_CMD_String("trans_id", _transId)
+                .ADDPARAM_CMD_String("applicant_type", _applicantType)
+                .ADDPARAM_CMD_String("institution_name", _institutionName)
                 .ADDPARAM_CMD_String("lname", _lname)
                 .ADDPARAM_CMD_String("fname", _fname)
                 .ADDPARAM_CMD_String("mname", _mname)
@@ -173,8 +181,9 @@ Public Class clsTrainingApplicants
             End With
         Else
             With _clsDB.dbUtility
-                .fieldItems = "lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration"
+                .fieldItems = "institution_name,lname,fname,mname,ename,gender,civil_status,contact_no,email_add,home_addr,city_province,profession,educ_attain,workplace,position,prc_no,pref_learn_tracks,pref_learn_tracks_others,pref_learn_mode,pref_sched,topic_interest,program_discovered,prc_expiration"
                 .sqlString = .getSQLStatement("tbl_training_applicants", "UPDATE", "trans_id")
+                .ADDPARAM_CMD_String("institution_name", _institutionName)
                 .ADDPARAM_CMD_String("lname", _lname)
                 .ADDPARAM_CMD_String("fname", _fname)
                 .ADDPARAM_CMD_String("mname", _mname)
@@ -262,14 +271,21 @@ Public Class clsTrainingApplicants
         dt = _clsDB.Fill_DataTable("SELECT * FROM tbl_training_applicants WHERE user_name='" & _id & "'")
         If dt.Rows.Count > 0 Then
             _transId = dt.Rows(0)("trans_id").ToString
+            _applicantType = dt.Rows(0)("applicant_type").ToString
             _lname = dt.Rows(0)("lname").ToString
             _fname = dt.Rows(0)("fname").ToString
             _mname = dt.Rows(0)("mname").ToString
             _ename = dt.Rows(0)("ename").ToString
-         
+
+            _emailAdd = dt.Rows(0)("email_add").ToString
+
             _userName = dt.Rows(0)("user_name").ToString
             _password = dt.Rows(0)("password").ToString
             _isActive = dt.Rows(0)("is_active").ToString
+
+
+
+
         Else
             initialize()
         End If
@@ -277,9 +293,11 @@ Public Class clsTrainingApplicants
 
     Public Sub getTrainingApplicants(ByVal _id As String)
         Dim dt As New DataTable
-        dt = _clsDB.Fill_DataTable("SELECT * FROM tbl_training_applicants WHERE trans_id='" & _id & "'")
+        dt = _clsDB.Fill_DataTable("SELECT * FROM tbl_training_applicants WHERE trans_id='" & _id & "' LIMIT 1")
         If dt.Rows.Count > 0 Then
             _transId = dt.Rows(0)("trans_id").ToString
+            _applicantType = dt.Rows(0)("applicant_type").ToString
+            _institutionName = dt.Rows(0)("institution_name").ToString
             _lname = dt.Rows(0)("lname").ToString
             _fname = dt.Rows(0)("fname").ToString
             _mname = dt.Rows(0)("mname").ToString
