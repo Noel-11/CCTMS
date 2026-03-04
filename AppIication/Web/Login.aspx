@@ -46,7 +46,7 @@
     
 
     <%--FORGOT PASSWORD--%>
-    <div id="mdlForgotPassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" style="z-index: 10">
+    <div id="mdlForgotPassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" >
         <div class="modal-dialog modal-md">
             <!-- Modal content-->
             <div class="modal-content">
@@ -132,8 +132,8 @@
 
     <%--FORGOT PASSWORD END--%>
 
-  <div id="mdlChangePassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" style="z-index: 10">
-        <div class="modal-dialog modal-md">
+  <div id="mdlChangePassword" role="dialog" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" >
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header bg-warning" style="text-align: center">
