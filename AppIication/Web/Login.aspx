@@ -5,6 +5,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
+    <link href="Scripts/PwVal/pwVal.css" rel="stylesheet" />
+    <script src="Scripts/PwVal/pwVal.js"></script>
+
     <section class="page1">
         <div class="container">
             <div class="college"><b>CITY COLLEGE</b></div>
@@ -28,13 +31,13 @@
                     <asp:TextBox runat="server" CssClass="form-control" TextMode="Password" Placeholder="password" ID="txtPassword" onkeyup="clickEnterSearch('ctl00_cpConTent_btnLogin');" />
                 </div>
 
-                  <div runat="server" id="divLoginError" visible="false" class="mb-3">
-                        <label class="form-check-label text-danger small">Invalid username/password!</label>
-                    </div>
+                <div runat="server" id="divLoginError" visible="false" class="mb-3">
+                    <label class="form-check-label text-danger small">Invalid username/password!</label>
+                </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  
-                     <asp:Button runat="server" Text="LOGIN" class="btn btn-green px-5" ID="btnLogin" />
+
+                    <asp:Button runat="server" Text="LOGIN" class="btn btn-green px-5" ID="btnLogin" />
                     <a runat="server" id="aForgotP" href="#">Forgot password?</a>
                 </div>
 
@@ -43,10 +46,10 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
-    
+
 
     <%--FORGOT PASSWORD--%>
-    <div id="mdlForgotPassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" >
+    <div id="mdlForgotPassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog modal-md">
             <!-- Modal content-->
             <div class="modal-content">
@@ -67,7 +70,7 @@
                                     <div runat="server" id="pnlContact">
                                         <h4>Verify User Details</h4>
 
-                                        <div class="col-md-12 mb-2">
+                                        <%--<div class="col-md-12 mb-2">
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtVerLName" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Last Name is Required" ValidationGroup="CEL" />
                                             <asp:TextBox runat="server" ID="txtVerLName" CssClass="form-control mb-3" placeholder="Last Name" ValidationGroup="CEL"></asp:TextBox>
 
@@ -77,7 +80,7 @@
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtVerFName" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="First Name is Required" ValidationGroup="CEL" />
                                             <asp:TextBox runat="server" ID="txtVerFName" CssClass="form-control mb-3" placeholder="First Name" ValidationGroup="CEL"></asp:TextBox>
 
-                                        </div>
+                                        </div>--%>
 
                                         <div class="col-md-12 mb-2">
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtVerEmail" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Email Address is Required" ValidationGroup="CEL" />
@@ -132,7 +135,7 @@
 
     <%--FORGOT PASSWORD END--%>
 
-  <div id="mdlChangePassword" role="dialog" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" >
+    <div id="mdlChangePassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" style="background: #ffffff; background: linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(240, 255, 240, .9) 100%);">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <!-- Modal content-->
             <div class="modal-content">
@@ -168,14 +171,16 @@
                                     <div runat="server" id="divCPSet">
                                         <asp:TextBox runat="server" ID="txtCPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"></asp:TextBox>
                                         <asp:TextBox runat="server" ID="txtCRetypePassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+                                       
                                         <button runat="server" id="btnSavePassword" type="button" class="btn btn-primary mb-3">Submit <i class="bi bi-arrow-right"></i></button>
+                                        <button type="button" class="btn btn-danger mb-3" runat="server" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
                             </div>
 
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                   
+
                 </div>
             </div>
         </div>
@@ -185,7 +190,7 @@
     <asp:UpdatePanel runat="server" ID="upUpdate">
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfUserId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfUserName"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfUserName"></asp:HiddenField>
             <asp:HiddenField runat="server" ID="hfEmailAdd"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>

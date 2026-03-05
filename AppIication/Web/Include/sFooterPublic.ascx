@@ -10,7 +10,7 @@
             <img src="<%=ResolveClientUrl("~/Images/ccIcon.png")%>" alt="City College Logo">
             <div class="footer-text">
                 <strong>City College Training Online Application</strong>
-                <span>Powered by: Information Technology Department</span>
+                <span>Powered by: City Management Information Systems and Innovation Department</span>
             </div>
             <img src="<%=ResolveClientUrl("~/Images/ICTlogo2.png")%>" alt="IT Department Logo">
         </div>

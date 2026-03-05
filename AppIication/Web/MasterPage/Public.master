@@ -40,7 +40,10 @@
          <!-- Template Main JS File -->
     <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
         <script src="<%=ResolveClientUrl("~/Scripts/myJS/myJs.js")%>"></script>
-        
+
+        <%--<!-- Password Validation -->
+        <link href="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.css")%>" rel="stylesheet" />
+        <script src="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.js")%>"></script>--%>
     </asp:ContentPlaceHolder>
 
     <!-- Google tag (gtag.js) -->

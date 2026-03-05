@@ -1,0 +1,20 @@
+﻿<style>
+.password-box {
+    background-color: #2d1f00;
+    border-radius: 12px;
+    color: #f1c40f;
+}
+
+.password-box p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.valid {
+    color: #2ecc71;
+}
+
+.invalid {
+    color: #e74c3c;
+}
+</style>

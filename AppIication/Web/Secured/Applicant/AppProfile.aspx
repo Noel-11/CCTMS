@@ -297,7 +297,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" runat="server" class="btn btn-success btn-lg mb-2" id="btnSavePassword" validationgroup="SubmitStatus">Save</button>
-                            <button type="button" runat="server" class="btn btn-danger btn-lg mb-2" id="btnCPClose" data-bs-dismiss="modal">Save</button>
+                            <button type="button" runat="server" class="btn btn-danger btn-lg mb-2" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
 
                         </div>
                     </ContentTemplate>

@@ -4,18 +4,12 @@
 
 .loader-overlay {
     /*position:fixed;*/
-    /*display: none;*/ /* hidden by default */
+    display: none; /* hidden by default */
     /*background: rgba(0, 0, 0, 0.4);*/ /* transparent dark background */
     /*z-index: 1090;*/
-
-    position: fixed;
-    inset: 0;
     background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(4px);
-    z-index: 2000; /* higher than Bootstrap modal 1055 */
-    display: none;
-    align-items: center;
-    justify-content: center;
+  
 
 }
 

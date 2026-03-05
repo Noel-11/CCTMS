@@ -11,7 +11,7 @@ Partial Class _Registration
 
         If Not Page.IsPostBack Then
             hfTransId.Value = ""
-            dtpPRCExpiration.Text = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd")
+            '  dtpPRCExpiration.Text = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd")
             getDll()
             getRegTypeForm()
         End If
@@ -124,6 +124,11 @@ Partial Class _Registration
             .position = txtPosition.Text.Trim.ToUpper
             .workplace = txtWorkPlace.Text.Trim.ToUpper
             .prcNo = txtPRCNo.Text.Trim
+
+            If dtpPRCExpiration.Text = "" Then
+                dtpPRCExpiration.Text = "0000-00-00"
+            End If
+
             .prcExpiration = CDate(dtpPRCExpiration.Text).ToString("yyyy-MM-dd")
             .prefLearnTracks = dllPreferredTracks.SelectedValue
             .prefLearnTracksOthers = ""
@@ -232,22 +237,40 @@ Partial Class _Registration
 
         Dim sql As String = ""
 
+        Dim errorMsg As String = ""
+
         'CHECK NAME DUPLICATE
 
-        sql = "SELECT trans_id, lname, fname, mname, ename FROM tbl_training_applicants " &
-              "WHERE lname = '" & txtLName.Text.Trim.ToUpper & "' AND fname = '" & txtFName.Text.Trim.ToUpper & "' AND  " & _
-              "ename = '" & ddlEName.SelectedValue & "' LIMIT 1"
+        If ddlRegType.SelectedValue = "INSTITUTION" Then
+            sql = "SELECT trans_id, lname, fname, mname, ename, institution_name FROM tbl_training_applicants " &
+                  "WHERE institution_name = '" & txtInstitutionName.Text.Trim & "' LIMIT 1 "
+
+        Else
+            sql = "SELECT trans_id, lname, fname, mname, ename, institution_name FROM tbl_training_applicants " &
+             "WHERE lname = '" & txtLName.Text.Trim.ToUpper & "' AND fname = '" & txtFName.Text.Trim.ToUpper & "' AND  " & _
+             "ename = '" & ddlEName.SelectedValue & "' LIMIT 1"
+
+
+        End If
 
         dtCheckExist = _clsDB.Fill_DataTable(sql)
 
         thisMsgBox.setModalType("SAVEXX")
 
         If dtCheckExist.Rows.Count > 0 Then
-            thisMsgBox.setError("Cannot Save", "Name already registered! <br/> " & _
-                                               "Last Name: " & dtCheckExist.Rows(0)("lname") & "<br/>" & _
-                                               "First Name: " & dtCheckExist.Rows(0)("fname") & "<br/>" & _
-                                               "Middle Name: " & dtCheckExist.Rows(0)("mname") & "<br/>" & _
-                                               "Ext. Name: " & dtCheckExist.Rows(0)("ename"))
+
+            If ddlRegType.SelectedValue = "INSTITUTION" Then
+                errorMsg = "Institution already registered! <br/> " & _
+                     "Name: " & dtCheckExist.Rows(0)("institution_name")
+            Else
+                errorMsg = "Name already registered! <br/> " & _
+                      "Last Name: " & dtCheckExist.Rows(0)("lname") & "<br/>" & _
+                      "First Name: " & dtCheckExist.Rows(0)("fname") & "<br/>" & _
+                      "Middle Name: " & dtCheckExist.Rows(0)("mname") & "<br/>" & _
+                      "Ext. Name: " & dtCheckExist.Rows(0)("ename")
+            End If
+
+            thisMsgBox.setError("Cannot Save", errorMsg)
         Else
 
             sql = "SELECT trans_id,email_add FROM tbl_training_applicants " &

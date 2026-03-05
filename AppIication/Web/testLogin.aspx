@@ -13,6 +13,10 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <link href="Scripts/PwVal/pwVal.css" rel="stylesheet" />
+
+    <script src="Scripts/PwVal/pwVal.js"></script>
+
     <style>
         body {
             background: linear-gradient(135deg, #0d6efd, #198754);
@@ -82,7 +86,7 @@
 
                                 <h3 class="fw-bold mb-4 text-center">Welcome Back 👋</h3>
 
-                                <form >
+                                <form>
 
                                     <!-- Username -->
                                     <div class="form-floating mb-3">
@@ -118,6 +122,37 @@
                 </div>
             </div>
         </div>
+
+
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+
+                            <label class="form-label">Password</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">🔒</span>
+                                <input type="password" id="password" class="form-control" onkeyup="validatePassword()">
+                            </div>
+
+                            <!-- Validation Box -->
+                            <div class="card p-3 password-box">
+                                <p id="length" class="invalid">❌ Must be at least 8 characters</p>
+                                <p id="uppercase" class="invalid">❌ Must contain at least 1 uppercase letter</p>
+                                <p id="number" class="invalid">❌ Must contain at least 1 number</p>
+                                <p id="special" class="invalid">❌ Must contain at least 1 special character</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+
     </form>
 
 

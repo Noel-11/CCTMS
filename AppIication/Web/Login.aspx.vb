@@ -168,7 +168,8 @@ Partial Class _Login
                 End With
 
                 thisMsgBox.setModalType("PASSWORDCHANGED")
-                thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with ur new password.")
+                thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password.")
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "btnCPClose", "document.getElementById('ctl00_cpConTent_btnCPClose').click();", True)
             End If
         End If
 
@@ -224,7 +225,7 @@ Partial Class _Login
 
             Dim dt As New DataTable
 
-            dt = _clsDB.Fill_DataTable("SELECT trans_id, email_add FROM tbl_training_applicants WHERE lname = '" & txtVerLName.Text.Trim.ToUpper & "' AND fname = '" & txtVerFName.Text.Trim.ToUpper & "' AND email_add = '" & txtVerEmail.Text.Trim.ToUpper & "' AND password <> '' LIMIT 1")
+            dt = _clsDB.Fill_DataTable("SELECT trans_id, email_add FROM tbl_training_applicants WHERE email_add = '" & txtVerEmail.Text.Trim.ToUpper & "' AND password <> '' LIMIT 1")
 
             If dt.Rows.Count > 0 Then
                 hfUserId.Value = dt.Rows(0)("trans_id").ToString
@@ -338,7 +339,8 @@ Partial Class _Login
             End With
 
             thisMsgBox.setModalType("RESETPASSWORD")
-            thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with ur new password.")
+            thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password.")
+
         End If
 
         thisMsgBox.showConfirmBox()

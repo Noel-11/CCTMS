@@ -157,14 +157,14 @@
                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtWorkPlace" />
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">PRC License Number<span class="text-danger">*</span></label>
+                                    <label class="form-label">PRC License Number</label>
                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtPRCNo" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPRCNo" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPRCNo" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />--%>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">License Expiration Date<span class="text-danger">*</span></label>
                                     <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpPRCExpiration" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="dtpPRCExpiration" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="dtpPRCExpiration" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />--%>
                                 </div>
                             </div>
 
