@@ -28,6 +28,8 @@
 
         <link href="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap/css/bootstrap.min.css")%>" rel="stylesheet" />
 
+        <link href="<%=ResolveClientUrl("~/Scripts/NiceAdmin/vendor/bootstrap-icons/bootstrap-icons.css")%>" rel="stylesheet" />
+
         <link href="<%=ResolveClientUrl("~/Scripts/mycss/landing_page.css")%>" rel="stylesheet" />
       
          <link href="<%=ResolveClientUrl("~/Scripts/mycss/mycss.css")%>" rel="stylesheet" />
@@ -41,9 +43,10 @@
     <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
         <script src="<%=ResolveClientUrl("~/Scripts/myJS/myJs.js")%>"></script>
 
-        <%--<!-- Password Validation -->
+        <!-- Password Validation -->
         <link href="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.css")%>" rel="stylesheet" />
-        <script src="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.js")%>"></script>--%>
+        <script src="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.js")%>"></script>
+
     </asp:ContentPlaceHolder>
 
     <!-- Google tag (gtag.js) -->
@@ -55,7 +58,6 @@
 
         gtag('config', '');
     </script>
-
 
 </head>
 

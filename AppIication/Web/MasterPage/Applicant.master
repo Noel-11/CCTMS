@@ -29,6 +29,10 @@
         <script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/jquery.min.js")%>"></script>
         <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
 
+          <!-- Password Validation -->
+        <link href="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.css")%>" rel="stylesheet" />
+        <script src="<%=ResolveClientUrl("~/Scripts/PwVal/pwVal.js")%>"></script>
+
     </asp:ContentPlaceHolder>
 
 

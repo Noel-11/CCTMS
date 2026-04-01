@@ -5,8 +5,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
-    <link href="Scripts/PwVal/pwVal.css" rel="stylesheet" />
-    <script src="Scripts/PwVal/pwVal.js"></script>
+
 
     <section class="page1">
         <div class="container">
@@ -111,8 +110,26 @@
                             <div class="row">
                                 <div class="col-md-12 mb-2">
                                     <div runat="server" id="pnlPassword">
-                                        <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"></asp:TextBox>
-                                        <asp:TextBox runat="server" ID="txtRetypeRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+
+                                        <div runat="server" id="divFPSet">
+                                            <div class="password-container">
+                                                <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"
+                                                    onkeyup="validatePassword(this.id,'fpLength','fpUppercase','fpNumber','fpSpecial')"
+                                                    onfocus="showTooltip('fpTooltip')"
+                                                    onblur="hideTooltip(this.id,'fpTooltip')"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="txtRetypeRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+
+                                                <!-- Tooltip -->
+                                                <div id="fpTooltip" class="password-tooltip">
+                                                    <p id="fpLength" class="invalid">• At least 8 characters</p>
+                                                    <p id="fpUppercase" class="invalid">• 1 uppercase letter</p>
+                                                    <p id="fpNumber" class="invalid">• 1 number</p>
+                                                    <p id="fpSpecial" class="invalid">• 1 special character</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                         <button runat="server" id="btnRegister" type="button" class="btn btn-primary mb-3">SUBMIT <i class="bi bi-arrow-right"></i></button>
                                     </div>
                                 </div>
@@ -169,9 +186,23 @@
                             <div class="row">
                                 <div class="col-md-12 mb-2">
                                     <div runat="server" id="divCPSet">
-                                        <asp:TextBox runat="server" ID="txtCPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"></asp:TextBox>
-                                        <asp:TextBox runat="server" ID="txtCRetypePassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
-                                       
+                                        <div class="password-container">
+                                            <asp:TextBox runat="server" ID="txtCPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"
+                                                onkeyup="validatePassword(this.id,'length','uppercase','number','special')"
+                                                onfocus="showTooltip('passwordTooltip')"
+                                                onblur="hideTooltip(this.id,'passwordTooltip')"></asp:TextBox>
+
+                                            <asp:TextBox runat="server" ID="txtCRetypePassword" CssClass="form-control mb-1" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+
+                                            <!-- Tooltip -->
+                                            <div id="passwordTooltip" class="password-tooltip">
+                                                <p id="length" class="invalid">• At least 8 characters</p>
+                                                <p id="uppercase" class="invalid">• 1 uppercase letter</p>
+                                                <p id="number" class="invalid">• 1 number</p>
+                                                <p id="special" class="invalid">• 1 special character</p>
+                                            </div>
+                                        </div>
+
                                         <button runat="server" id="btnSavePassword" type="button" class="btn btn-primary mb-3">Submit <i class="bi bi-arrow-right"></i></button>
                                         <button type="button" class="btn btn-danger mb-3" runat="server" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
                                     </div>

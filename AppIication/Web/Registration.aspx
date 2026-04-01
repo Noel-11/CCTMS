@@ -78,8 +78,38 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Email Address<span class="text-danger">*</span></label>
-                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtEmail" />
+
+                                        <div class="input-group">
+                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtEmail" />
+                                            <span class="input-group-text bg-light">
+                                                <i class="bi bi-exclamation-circle text-primary" id="emailInfo"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="left"
+                                                    title="Note: Please use your personal email address, as it will serve as your username after registration."></i>
+                                            </span>
+                                        </div>
+
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+
+                                                const el = document.getElementById("emailInfo");
+                                                const tooltip = new bootstrap.Tooltip(el, { trigger: 'manual' });
+
+                                                el.addEventListener("click", function () {
+                                                    if (el.classList.contains("show-tooltip")) {
+                                                        tooltip.hide();
+                                                        el.classList.remove("show-tooltip");
+                                                    } else {
+                                                        tooltip.show();
+                                                        el.classList.add("show-tooltip");
+                                                    }
+                                                });
+
+                                            });
+                                          </script>
+
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +135,13 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Email Address<span class="text-danger">*</span></label>
-                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtInstEmail" />
+                                        <div class="input-group">
+                                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtInstEmail" />
+                                            <span class="input-group-text bg-light">
+                                                <i class="bi bi-exclamation-circle text-primary"></i>
+                                            </span>
+                                        </div>
+
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" ControlToValidate="txtInstEmail" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                                     </div>
 
@@ -158,13 +194,18 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">PRC License Number</label>
-                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtPRCNo" />
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPRCNo" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />--%>
+                                    <div class="input-group">
+                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPRCNo" />
+                                        <div class="input-group-text">
+                                            <asp:CheckBox runat="server" ID="chkNAPRCNo" Text="&nbsp;N/A" AutoPostBack="true" />
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">License Expiration Date<span class="text-danger">*</span></label>
+                                    <label class="form-label">License Expiration Date</label>
                                     <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="dtpPRCExpiration" />
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="dtpPRCExpiration" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />--%>
                                 </div>
                             </div>
 
@@ -276,6 +317,7 @@
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>
+
 
 </asp:Content>
 

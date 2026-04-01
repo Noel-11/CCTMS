@@ -73,17 +73,17 @@ Partial Class _Registration
 
         _clsDB.populateDDLB(ddlGender, "description", "trans_id", "tbl_ref_gender", "description", " WHERE is_active = 'Y'", , "")
 
-        _clsDB.populateDDLB(ddlCivilStatus, "description", "trans_id", "tbl_ref_civil_status", "description", " WHERE is_active = 'Y'", , "")
+        _clsDB.populateDDLB(ddlCivilStatus, "description", "trans_id", "tbl_ref_civil_status", "sort_order", " WHERE is_active = 'Y'", , "")
 
         _clsDB.populateDDLB(ddlCityAddr, "description", "trans_id", "tbl_ref_city_province", "description", " WHERE is_active = 'Y'", , "")
 
         ddlCityAddr.Items.RemoveAt(0)
         ddlCityAddr.SelectedValue = "CAGAYAN DE ORO_D1"
 
-        _clsDB.populateDDLB(dllEducation, "description", "trans_id", "tbl_ref_educ_attainment", "description", " WHERE is_active = 'Y'", , "")
+        _clsDB.populateDDLB(dllEducation, "description", "trans_id", "tbl_ref_educ_attainment", "sort_order", " WHERE is_active = 'Y'", , "")
         dllEducation.Items.RemoveAt(0)
 
-        _clsDB.populateDDLB(dllPreferredTracks, "description", "trans_id", "tbl_ref_learning_tracks", "description", " WHERE is_active = 'Y'", , "")
+        _clsDB.populateDDLB(dllPreferredTracks, "description", "trans_id", "tbl_ref_learning_tracks", "sort_order", " WHERE is_active = 'Y'", , "")
 
         Dim dtTracks As New DataTable
 
@@ -96,7 +96,19 @@ Partial Class _Registration
 
         _clsDB.populateDDLB(ddlPreferredSched, "description", "trans_id", "tbl_ref_preferred_schedule", "description", " WHERE is_active = 'Y'", , "")
 
-        _clsDB.populateDDLB(ddlHear, "description", "trans_id", "tbl_ref_program_sources", "description", " WHERE is_active = 'Y'", , "")
+        _clsDB.populateDDLB(ddlHear, "description", "trans_id", "tbl_ref_program_sources", "sort_order", " WHERE is_active = 'Y'", , "")
+
+    End Sub
+
+    Protected Sub chkNAPRCNo_CheckedChanged(sender As Object, e As EventArgs) Handles chkNAPRCNo.CheckedChanged
+
+        txtPRCNo.Enabled = True
+        dtpPRCExpiration.Enabled = True
+
+        If chkNAPRCNo.Checked Then
+            txtPRCNo.Enabled = False
+            dtpPRCExpiration.Enabled = False
+        End If
 
     End Sub
 
@@ -311,4 +323,5 @@ Partial Class _Registration
     'End Sub
 
 
+   
 End Class

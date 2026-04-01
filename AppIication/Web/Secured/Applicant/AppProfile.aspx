@@ -255,8 +255,7 @@
 
                         <div class="modal-body">
 
-
-                            <div class="row" runat="server" id="pnlPin">
+                            <%--  <div class="row" runat="server" id="pnlPin">
                                 <div class="col-md-12 mb-2">
                                     <div>
                                         <h3>Verification Code</h3>
@@ -275,7 +274,8 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
+
 
 
                             <div class="row">
@@ -284,20 +284,33 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-2">
-                                    <div runat="server" id="pnlPassword">
-                                        <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"></asp:TextBox>
-                                        <asp:TextBox runat="server" ID="txtRetypeRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
-                                        <%--<button runat="server" id="btnRegister" type="button" class="btn btn-primary mb-3">SUBMIT <i class="bi bi-arrow-right"></i></button>--%>
+                            <div class="password-container">
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
+                                        <div runat="server" id="pnlPassword">
+                                            <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"
+                                                onkeyup="validatePassword(this.id)"
+                                                onfocus="showTooltip('passwordTooltip')"
+                                                onblur="hideTooltip(this.id,'passwordTooltip')"></asp:TextBox>
+
+                                            <asp:TextBox runat="server" ID="txtRetypeRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Confirm Password*"></asp:TextBox>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                                <!-- Tooltip -->
+                                <div id="passwordTooltip" class="password-tooltip">
+                                    <p id="length" class="invalid">• At least 8 characters</p>
+                                    <p id="uppercase" class="invalid">• 1 uppercase letter</p>
+                                    <p id="number" class="invalid">• 1 number</p>
+                                    <p id="special" class="invalid">• 1 special character</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" runat="server" class="btn btn-success btn-lg mb-2" id="btnSavePassword" validationgroup="SubmitStatus">Save</button>
-                            <button type="button" runat="server" class="btn btn-danger btn-lg mb-2" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" runat="server" class="btn btn-success mb-2" id="btnSavePassword" validationgroup="SubmitStatus">Save</button>
+                            <button type="button" runat="server" class="btn btn-danger mb-2" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
 
                         </div>
                     </ContentTemplate>

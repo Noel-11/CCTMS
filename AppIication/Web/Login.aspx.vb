@@ -23,14 +23,21 @@ Partial Class _Login
     End Sub
 
     Protected Sub btnOK_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        If thisMsgBox.getModalType = "PASSWORDCHANGED" Then
 
+            updatePw()
+            thisMsgBox.setModalType("PASSWORDCHANGEDOK")
+            thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password. <br/> Click OK to login.")
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "btnCPClose", "document.getElementById('ctl00_cpConTent_btnCPClose').click();", True)
+            thisMsgBox.showConfirmBox()
+        End If
     End Sub
 
     Protected Sub btnNo_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         If thisMsgBox.getModalType = "RESETPASSWORD" Then
             Response.Redirect("Login.aspx")
 
-        ElseIf thisMsgBox.getModalType = "PASSWORDCHANGED" Then
+        ElseIf thisMsgBox.getModalType = "PASSWORDCHANGEDOK" Then
             Dim _clsUserProfile As New clsTrainingApplicants
 
             'If _clsUserProfile.validateLogin(hfUserName.Value, txtCPassword.Text.Trim) = True Then
@@ -153,27 +160,51 @@ Partial Class _Login
 
         Dim _clsUserProfile As New clsTrainingApplicants
 
+        thisMsgBox.setModalType("PASSWORDCHANGEDXX")
+
+
         If _clsUserProfile.validateLogin(hfUserName.Value, txtCPassword.Text.Trim) = True And txtCPassword.Text = txtCRetypePassword.Text Then
             thisMsgBox.setError("Invalid", "It looks like you entered your current password. Please enter a different new password.!")
         Else
+
             If txtCPassword.Text <> txtCRetypePassword.Text Then
                 thisMsgBox.setError("Invalid", "Password not match!")
             Else
-                Dim _clsRecord As New clsTrainingApplicants
+                Dim _clsUtilPwValidator As New clsUtilPwValidator
 
-                With _clsRecord
-                    .transId = hfUserId.Value
-                    .password = txtCPassword.Text.Trim
-                    .updateApplicantPassword()
-                End With
+                If _clsUtilPwValidator.validatePw(txtCPassword.Text) = False Then
 
-                thisMsgBox.setModalType("PASSWORDCHANGED")
-                thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password.")
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "btnCPClose", "document.getElementById('ctl00_cpConTent_btnCPClose').click();", True)
+                    thisMsgBox.setError("Invalid", "Password does not meet the required criteria.!<br/>" & _
+                                           "• At least 8 characters<br/>" & _
+                                           "• 1 uppercase letter<br/>" & _
+                                           "• 1 number<br/>" & _
+                                           "• 1 special character")
+
+                Else
+
+                    thisMsgBox.setModalType("PASSWORDCHANGED")
+
+                    thisMsgBox.setConfirm(, "Are you sure to save this password?")
+
+                End If
+
             End If
-        End If
+
+            End If
 
             thisMsgBox.showConfirmBox()
+
+    End Sub
+
+    Private Sub updatePw()
+
+        Dim _clsRecord As New clsTrainingApplicants
+
+        With _clsRecord
+            .transId = hfUserId.Value
+            .password = txtCPassword.Text.Trim
+            .updateApplicantPassword()
+        End With
 
     End Sub
 
@@ -330,17 +361,30 @@ Partial Class _Login
         If txtRegPasword.Text <> txtRetypeRegPasword.Text Then
             thisMsgBox.setError("Invalid", "Password not match!")
         Else
-            Dim _clsRecord As New clsTrainingApplicants
 
-            With _clsRecord
-                .transId = hfUserId.Value
-                .password = txtRegPasword.Text.Trim
-                .updateApplicantPassword()
-            End With
+            Dim _clsUtilPwValidator As New clsUtilPwValidator
 
-            thisMsgBox.setModalType("RESETPASSWORD")
-            thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password.")
+            If _clsUtilPwValidator.validatePw(txtRegPasword.Text) = False Then
+                thisMsgBox.setError("Invalid", "Password does not meet the required criteria.!<br/>" & _
+                                             "• At least 8 characters<br/>" & _
+                                             "• 1 uppercase letter<br/>" & _
+                                             "• 1 number<br/>" & _
+                                             "• 1 special character")
+            Else
+                Dim _clsRecord As New clsTrainingApplicants
 
+                With _clsRecord
+                    .transId = hfUserId.Value
+                    .password = txtRegPasword.Text.Trim
+                    .updateApplicantPassword()
+                End With
+
+                thisMsgBox.setModalType("RESETPASSWORD")
+                thisMsgBox.setInfo("Info", "Password updated Successfully! <br/> You can now Login with your new password.")
+
+            End If
+
+           
         End If
 
         thisMsgBox.showConfirmBox()

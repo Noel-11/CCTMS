@@ -233,34 +233,49 @@ Partial Class Secured_Applicant_AppProfile
 #Region "PASSWORD"
 
     Protected Sub btnChangePassword_Click(sender As Object, e As EventArgs) Handles btnChangePassword.Click
-        txtPinCode.Text = ""
+        ' txtPinCode.Text = ""
         txtRegPasword.Text = ""
         txtRetypeRegPasword.Text = ""
-        pnlPin.Visible = False
+        '  pnlPin.Visible = False
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPassword", "var myModal = new bootstrap.Modal(document.getElementById('mdlPassword'), {});  myModal.show();", True)
     End Sub
 
     Protected Sub btnRegSave_Click(sender As Object, e As EventArgs) Handles btnSavePassword.ServerClick
 
-        If txtRegPasword.Text <> txtRetypeRegPasword.Text Then
-            thisMsgBox.setError("Invalid", "Password not match!")
+        thisMsgBox.setModalType("CHANGE PASSWORDXX")
+
+        Dim _clsApplicant As New clsTrainingApplicants
+
+        With _clsApplicant
+            .getTrainingApplicants(hfTransId.Value)
+        End With
+
+        If _clsApplicant.validateLogin(_clsApplicant.userName, txtCurrentPassword.Text) = False Then
+            thisMsgBox.setError("Wrong Password", "Invalid Current Password!")
         Else
 
-            Dim _clsApplicant As New clsTrainingApplicants
-
-            With _clsApplicant
-                .getTrainingApplicants(hfTransId.Value)
-            End With
-
-            thisMsgBox.setModalType("CHANGE PASSWORDXX")
-            If _clsApplicant.validateLogin(_clsApplicant.userName, txtCurrentPassword.Text.Trim) = False Then
-
-                thisMsgBox.setError("Wrong Password", "Invalid Current Password!")
+            If txtRegPasword.Text <> txtRetypeRegPasword.Text Then
+                thisMsgBox.setError("Invalid", "Password not match!")
 
             Else
-                hfCpNewPw.Value = txtRegPasword.Text.Trim
-                thisMsgBox.setModalType("CHANGE PASSWORD")
-                thisMsgBox.setConfirm(, "Are you sure to change your Password?")
+
+                If txtCurrentPassword.Text = txtRegPasword.Text Then
+                    thisMsgBox.setError("Invalid", "It looks like you entered your current password. Please enter a different new password.!")
+                Else
+                    Dim _clsUtilPwValidator As New clsUtilPwValidator
+
+                    If _clsUtilPwValidator.validatePw(txtRegPasword.Text) = False Then
+                        thisMsgBox.setError("Invalid", "Password does not meet the required criteria.!<br/>" & _
+                                              "• At least 8 characters<br/>" & _
+                                              "• 1 uppercase letter<br/>" & _
+                                              "• 1 number<br/>" & _
+                                              "• 1 special character")
+                    Else
+                        hfCpNewPw.Value = txtRegPasword.Text.Trim
+                        thisMsgBox.setModalType("CHANGE PASSWORD")
+                        thisMsgBox.setConfirm(, "Are you sure to change your Password?")
+                    End If
+                End If
 
             End If
 

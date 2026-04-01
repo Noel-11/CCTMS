@@ -123,31 +123,46 @@
             </div>
         </div>
 
-
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
                 <div class="container mt-5">
                     <div class="row justify-content-center">
-                        <div class="col-md-6">
+                        <div class="col-md-5 position-relative">
 
-                            <label class="form-label">Password</label>
-                            <div class="input-group mb-2">
-                                <span class="input-group-text">🔒</span>
-                                <input type="password" id="password" class="form-control" onkeyup="validatePassword()">
-                            </div>
+                            <div id="passwordForm" onsubmit="return checkSubmit()">
 
-                            <!-- Validation Box -->
-                            <div class="card p-3 password-box">
-                                <p id="length" class="invalid">❌ Must be at least 8 characters</p>
-                                <p id="uppercase" class="invalid">❌ Must contain at least 1 uppercase letter</p>
-                                <p id="number" class="invalid">❌ Must contain at least 1 number</p>
-                                <p id="special" class="invalid">❌ Must contain at least 1 special character</p>
+                                <label class="form-label">Password</label>
+
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text">🔒</span>
+                                    <input type="password"
+                                        id="password"
+                                        class="form-control"
+                                        onkeyup="validatePassword()"
+                                        onfocus="showTooltip()"
+                                        onblur="hideTooltip()">
+                                </div>
+
+                                <!-- Tooltip -->
+                                <div id="passwordTooltip" class="password-tooltip">
+                                    <p id="length" class="invalid">• At least 8 characters</p>
+                                    <p id="uppercase" class="invalid">• 1 uppercase letter</p>
+                                    <p id="number" class="invalid">• 1 number</p>
+                                    <p id="special" class="invalid">• 1 special character</p>
+                                </div>
+
+                                <!-- Error message -->
+                                <div id="errorMessage" class="text-danger mt-3"></div>
+
+                                <button type="submit" class="btn btn-primary mt-3 w-100">
+                                    Submit
+                                </button>
+
                             </div>
 
                         </div>
                     </div>
                 </div>
-
 
             </ContentTemplate>
         </asp:UpdatePanel>
