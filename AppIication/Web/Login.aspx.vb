@@ -235,8 +235,6 @@ Partial Class _Login
 #End Region
 
 
-
-
 #Region "FORGOT PASSWORD"
 
     Protected Sub aForgotP_ServerClick(sender As Object, e As EventArgs) Handles aForgotP.ServerClick
@@ -327,7 +325,6 @@ Partial Class _Login
                 .userId = hfUserId.Value
                 .ipAddress = GetIPAddress()
                 .pinCode = .getPin
-
 
                 Dim _smsMsg As String = ""
 
