@@ -171,7 +171,7 @@
                     <ContentTemplate>
                         <div class="card-header bg-success text-light">
                             <span runat="server" id="span1" style="font-weight: bold;">Registered Attendees</span>
-                            <button runat="server" class="btn btn-warning" id="btnPrintAttendance" tooltip="Click to Print Attendance"><i class="bi bi-printer-fill"></i>&nbsp;</button>
+                            <button type="button" runat="server" class="btn btn-warning" id="btnPrintAttendance" tooltip="Click to Print Attendance"><i class="bi bi-printer-fill"></i>&nbsp;</button>
 
                         </div>
                         <div class="card-body" style="padding-bottom: 5px;">

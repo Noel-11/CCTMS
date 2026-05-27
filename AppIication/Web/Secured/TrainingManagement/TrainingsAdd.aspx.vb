@@ -416,10 +416,6 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         End With
 
-        'If _clsStatus.regStatus <> "COMPLETED" Then
-
-        'End If
-
     End Sub
 
     Protected Sub btnSaveStatus_ServerClick(sender As Object, e As EventArgs) Handles btnSaveStatus.ServerClick
@@ -444,8 +440,8 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
     Public Sub generateReport()
         Try
-            Dim warnings() As Warning
-            Dim streamIds() As String
+            Dim warnings(-1) As Warning
+            Dim streamIds(-1) As String
             Dim mimeType As String = String.Empty
             Dim encoding As String = String.Empty
             Dim extension As String = String.Empty

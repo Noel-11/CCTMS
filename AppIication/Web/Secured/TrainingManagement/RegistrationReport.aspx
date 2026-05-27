@@ -72,7 +72,7 @@
                         <div class="col-md-4 mb-1">
 
                             <button runat="server" class="btn btn-success" id="btnSearch"><i class="bi bi-funnel"></i>&nbsp;Filter</button>
-                            <button runat="server" class="btn btn-info" id="btnPrint"><i class="bi bi-printer"></i>&nbsp;Filter</button>
+                            <button type="button" runat="server" class="btn btn-info" id="btnPrint"><i class="bi bi-printer"></i>&nbsp;Generate Report</button>
                             <span class="text-dark" style="background-color: white; color: black">
                                 <asp:Label runat="server" ID="lblPaging" CssClass="pull-right "></asp:Label></span>
                         </div>
@@ -92,9 +92,9 @@
                             <asp:BoundField DataField="profession" HeaderText="PROFESSION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="prc_no" HeaderText="LICENSE NUMBER" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="prc_expiration" HeaderText="EXPIRATION DATE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="learningTracks" HeaderText="LEARNING TRACKS" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="learningMode" HeaderText="LEARNING MODE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="preferredSched" HeaderText="PREFERRED SCHEDULE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="pref_learn_tracks" HeaderText="LEARNING TRACKS" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="pref_learn_mode" HeaderText="LEARNING MODE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="pref_sched" HeaderText="PREFERRED SCHEDULE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
                         </Columns>
                     </asp:GridView>
 

@@ -138,8 +138,8 @@ Partial Class Secured_TrainingManagement_RegistrationReport
 
         sql = "SELECT tbl_training_applicants.trans_id,lname,CONCAT(fname,' ',ename) AS fname,mname,ename,tbl_ref_gender.`description` AS gender,contact_no,email_add, " & _
               "tbl_training_applicants.home_addr, tbl_training_applicants.profession, tbl_training_applicants.prc_no, DATE_FORMAT(tbl_training_applicants.prc_expiration,'%m/%d/%Y') AS prc_expiration, " & _
-              "CONCAT(GROUP_CONCAT(tbl_ref_learning_tracks.`description`),', ',tbl_training_applicants.pref_learn_tracks_others) AS learningTracks,tbl_ref_learning_mode.`description` AS learningMode, " & _
-              "tbl_ref_preferred_schedule.`description` AS preferredSched FROM  tbl_training_applicants " & _
+              "CONCAT(GROUP_CONCAT(tbl_ref_learning_tracks.`description`),', ',tbl_training_applicants.pref_learn_tracks_others) AS pref_learn_tracks,tbl_ref_learning_mode.`description` AS pref_learn_mode, " & _
+              "tbl_ref_preferred_schedule.`description` AS pref_sched FROM  tbl_training_applicants " & _
               "INNER JOIN tbl_ref_gender ON tbl_training_applicants.gender = tbl_ref_gender.trans_id " & _
               "INNER JOIN tbl_ref_learning_mode ON tbl_training_applicants.pref_learn_mode = tbl_ref_learning_mode.trans_id " & _
               "LEFT JOIN tbl_training_applicants_learning_tracks ON tbl_training_applicants.trans_id = tbl_training_applicants_learning_tracks.applicant_id " & _

@@ -12,12 +12,11 @@
                     
                 </div>
                 <div class="col-lg-4">
-
                     <h2 class="text-success">Training Programs</h2>
                 </div>
 
                 <div class="col-lg-4">
-                   <button runat="server" class="btn btn-success float-end" id="btnAdd"><i class="bi bi-plus-square"></i>&nbsp;Add New Training</button>
+                   <button type="button" runat="server" class="btn btn-success float-end" id="btnAdd"><i class="bi bi-plus-square"></i>&nbsp;Add New Training</button>
                 </div>
 
             </div>

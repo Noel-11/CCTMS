@@ -42,7 +42,7 @@
                             <div class="input-group mb-1">
                                 <span runat="server" id="Span3" class="input-group-text border-secondary bg-success text-light">Status</span>
                                  <asp:DropDownList runat="server" ID="ddlTrainingStatus" CssClass="form-select border-secondary" ></asp:DropDownList>
-                                <button runat="server" class="btn btn-success" id="btnSearch"><i class="bi bi-funnel"></i>&nbsp;Filter</button>
+                                <button type="button" runat="server" class="btn btn-success" id="btnSearch"><i class="bi bi-funnel"></i>&nbsp;Filter</button>
                                 <span class="input-group-text" style="background-color: white; color: black">
                                     <asp:Label runat="server" ID="lblPaging" CssClass="pull-right "></asp:Label></span>
                             </div>
