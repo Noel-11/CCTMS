@@ -4,15 +4,15 @@ Partial Class MasterPage_Admin
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select", "$('.ddlSel').select2({theme: 'bootstrap-5',dropdownAutoWidth:'true',});", True)
+        'ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select", "$('.ddlSel').select2({theme: 'bootstrap-5',dropdownAutoWidth:'true',});", True)
 
         'Modal DDL
 
         ' ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select2", "$('.ddlSelM').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead'),width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',placeholder: $( this ).data( 'placeholder' ),});", True)
 
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select2", "$('.ddlSelM').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead'),dropdownAutoWidth:'true',});", True)
+        'ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select2", "$('.ddlSelM').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead'),dropdownAutoWidth:'true',});", True)
 
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select3", "$('.ddlSelM2').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead2'),dropdownAutoWidth:'true',});", True)
+        'ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ctl00$form-select3", "$('.ddlSelM2').select2({theme: 'bootstrap-5',dropdownParent: $('.modalHead2'),dropdownAutoWidth:'true',});", True)
 
         'User Details
 

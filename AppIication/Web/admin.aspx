@@ -2,7 +2,6 @@
 
 <%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
 <!DOCTYPE html>
-<%@ Register Src="~/Include/wucErrorMessageBox.ascx" TagName="wucError" TagPrefix="wucError" %>
 <%@ Register Src="~/Include/sFooter.ascx" TagName="sFooter" TagPrefix="uc3" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -79,14 +78,14 @@
     </style>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTES5DW7T1"></script>
+<%--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTES5DW7T1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-BTES5DW7T1');
-    </script>
+    </script>--%>
 
 
 </head>

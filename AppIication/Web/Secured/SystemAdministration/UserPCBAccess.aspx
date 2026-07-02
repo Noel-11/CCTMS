@@ -1,8 +1,8 @@
-﻿<%@ Page Title="User PCB Access" Language="VB" MasterPageFile="~/MasterPage/Secured.master" AutoEventWireup="false" CodeFile="UserPCBAccess.aspx.vb" Inherits="Secured_SystemAdministration_UserEntry" Theme="Skins" %>
+﻿<%@ Page Title="User PCB Access" Language="VB" MasterPageFile="~/MasterPage/admin.master" AutoEventWireup="false" CodeFile="UserPCBAccess.aspx.vb" Inherits="Secured_SystemAdministration_UserEntry" Theme="Skins" %>
 
 <%@ Register src="~/Include/sSearchPaging.ascx" tagname="sSearchPaging" tagprefix="uc6" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="cphSContent" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" Runat="Server">
     <asp:Table runat="server" ID="tblForm"  SkinID="tblForm">
       <asp:TableRow HorizontalAlign="Center" VerticalAlign="Middle" BackColor="#ffffcc"
             Height="30px">

@@ -210,7 +210,7 @@ Partial Class _RegistrationInstitution
     Private Sub sendEmail(ByVal thisEmail As String, ByVal thisMsg As String)
 
         Dim _clsCommunicate As New clsCommunicate
-        _clsCommunicate.sendGmail(thisEmail, "APPLICANT USER LOGIN", thisMsg)
+        _clsCommunicate.SendEmail(thisEmail, "APPLICANT USER LOGIN", thisMsg)
 
     End Sub
 

@@ -276,6 +276,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         _gvAttendees.DataSource = dt
         _gvAttendees.DataBind()
 
+        lblPagingAtt.Text = setCurrentPage(0, dt, False)
     End Sub
 
 #End Region
@@ -358,6 +359,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         _gvApplicants.DataSource = dt
         _gvApplicants.DataBind()
 
+        lblPagingApp.Text = setCurrentPage(0, dt, False)
 
     End Sub
 

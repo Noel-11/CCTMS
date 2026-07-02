@@ -3,7 +3,7 @@
 <link href="<%=ResolveClientUrl("~/Scripts/mycss/footerStyle.css")%>" rel="stylesheet" />
 
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_LA/sdk.js#xfbml=1&version=v3.3"></script>
+<%--<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_LA/sdk.js#xfbml=1&version=v3.3"></script>--%>
 
 
 <style>

@@ -137,11 +137,17 @@ Partial Class _Registration
             .workplace = txtWorkPlace.Text.Trim.ToUpper
             .prcNo = txtPRCNo.Text.Trim
 
-            If dtpPRCExpiration.Text = "" Then
-                dtpPRCExpiration.Text = "0000-00-00"
+            If dtpPRCExpiration.Text = "" Or IsNothing(dtpPRCExpiration.Text) Then
+                .prcExpiration = Nothing
+
+            Else
+                Try
+                    .prcExpiration = CDate(dtpPRCExpiration.Text).ToString("yyyy-MM-dd")
+                Catch ex As Exception
+
+                End Try
             End If
 
-            .prcExpiration = CDate(dtpPRCExpiration.Text).ToString("yyyy-MM-dd")
             .prefLearnTracks = dllPreferredTracks.SelectedValue
             .prefLearnTracksOthers = ""
             .prefLearnMode = ddlPreferredMode.SelectedValue
@@ -311,7 +317,7 @@ Partial Class _Registration
     Private Sub sendEmail(ByVal thisEmail As String, ByVal thisMsg As String)
 
         Dim _clsCommunicate As New clsCommunicate
-        _clsCommunicate.sendGmail(thisEmail, "APPLICANT USER LOGIN", thisMsg)
+        _clsCommunicate.SendEmail(thisEmail, "APPLICANT USER LOGIN", thisMsg)
 
     End Sub
 

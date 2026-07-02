@@ -40,7 +40,7 @@
         <script src="<%=ResolveClientUrl("~/Scripts/block/blockui.js")%>"></script>
 
          <!-- Template Main JS File -->
-    <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
+        <script src="<%=ResolveClientUrl("~/Scripts/NiceAdmin/js/main.js")%>"></script>
         <script src="<%=ResolveClientUrl("~/Scripts/myJS/myJs.js")%>"></script>
 
         <!-- Password Validation -->

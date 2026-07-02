@@ -25,7 +25,6 @@ Public Class clsSMSSaveDB
                     .ADDPARAM_CMD_String("recipient_message", thisMessage & " - DO NOT REPLY. ")
                     .ADDPARAM_CMD_String("priority", "999")
                     .ADDPARAM_CMD_String("send_status", "SEND")
-                    .ADDPARAM_CMD_String("send_number", thisSender)
                     .ADDPARAM_CMD_String("send_date", DateTime.Now.Date.ToString("yyyy-MM-dd"))
                     .ADDPARAM_CMD_String("send_time", DateTime.Now.ToString("HH:mm:ss"))
                     .executeUsingCommandFromSQL(True)

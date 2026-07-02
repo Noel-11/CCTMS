@@ -55,10 +55,26 @@ Public Class clsTrainingAttendance
 
         Dim sql As String = ""
 
-        sql = "SELECT tbl_training_attendance.trans_id, lname,fname,mname,ename, contact_no,email_add,prc_no,prc_expiration, " & _
+        sql = "SELECT tbl_training_attendance.trans_id,tbl_training_attendance.applicant_id, lname,fname,mname,ename, contact_no,email_add,prc_no,prc_expiration, " & _
               "CONCAT(lname,', ',fname,' ',ename,' ',mname) AS applicantName, is_present, " & _
               "(CASE WHEN is_present = 'Y' THEN 'TRUE' ELSE 'FALSE' END) AS isAttendanceChecked FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
+              "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.training_id = '" & _thisId & "' " & _
+              "ORDER BY lname,fname"
+
+        Return _clsDB.Fill_DataTable(sql, "tbl_training_attendance")
+    End Function
+
+    Public Function browseTrainingAttendanceStatus(ByVal _thisId As String) As DataTable
+
+        Dim sql As String = ""
+
+        sql = "SELECT tbl_training_attendance.trans_id,tbl_training_applications.trans_id AS application_id,tbl_training_attendance.applicant_id, " & _
+              "lname,fname,mname,ename, contact_no,email_add,prc_no,prc_expiration, is_present, " & _
+              "CONCAT(lname,', ',fname,' ',ename,' ',mname) AS applicantName,profession,application_status FROM tbl_training_attendance " & _
+              "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
+              "INNER JOIN tbl_training_applications ON tbl_training_attendance.applicant_id = tbl_training_applications.applicant_id AND " & _
+              "tbl_training_attendance.training_id = tbl_training_applications.training_id " & _
               "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.training_id = '" & _thisId & "' " & _
               "ORDER BY lname,fname"
 
@@ -110,7 +126,7 @@ Public Class clsTrainingAttendance
 
     Public Sub deleteAttendance(ByVal _thisApp As String, ByVal _thisTraining As String)
 
-        _clsDB.Delete_Record("DELETE FROM tbl_training_attendance WHERE applicant_id = '" & applicantId & "' AND training_id = '" & _thisTraining & "' AND is_active = 'Y' ")
+        _clsDB.Delete_Record("DELETE FROM tbl_training_attendance WHERE applicant_id = '" & _thisApp & "' AND training_id = '" & _thisTraining & "' AND is_active = 'Y' ")
 
     End Sub
 

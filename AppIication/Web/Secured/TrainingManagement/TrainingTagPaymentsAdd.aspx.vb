@@ -196,10 +196,43 @@ Partial Class Secured_TrainingManagement_TrainingTagPaymentsAdd
 
         Dim _clsRecords As New clsTrainingAttendance
 
-        dt = _clsRecords.browseTrainingAttendance(hfTransId.Value)
+        dt = _clsRecords.browseTrainingAttendanceStatus(hfTransId.Value)
 
         _gvAttendees.DataSource = dt
         _gvAttendees.DataBind()
+
+        lblPagingAtt.Text = setCurrentPage(0, dt, False)
+
+    End Sub
+
+    Protected Sub cmdGVTagStatus(ByVal sender As Object, ByVal e As CommandEventArgs)
+
+        hfApplicationId.Value = e.CommandArgument.ToString
+
+        hfApplicantId.Value = CType(sender, ImageButton).Attributes("applicantId")
+
+        _clsDB.populateDDLB(ddlTagStatus, "status_desc", "trans_id", "tbl_ref_status", "sort_order", " WHERE is_active = 'Y'", , "")
+        ddlTagStatus.Items.RemoveAt(0)
+
+        lblTagTrainingDate.Text = dtpTrainingDate.Text
+        lblTagTrainingTitle.Text = txtTrainingTitle.Text
+
+        lblTagName.Text = CType(sender, ImageButton).Attributes("applicantName")
+        lblTagProfession.Text = CType(sender, ImageButton).Attributes("appProfession")
+
+        ddlTagStatus.SelectedValue = CType(sender, ImageButton).Attributes("appStatus")
+
+        divTagPayment.Visible = False
+
+        If ddlTagStatus.SelectedValue = "PAID" Then
+
+            divTagPayment.Visible = True
+
+        End If
+
+        fillGVAppStatus()
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPayment", "var myModal = new bootstrap.Modal(document.getElementById('mdlPayment'), {});  myModal.show();", True)
 
     End Sub
 
@@ -284,10 +317,11 @@ Partial Class Secured_TrainingManagement_TrainingTagPaymentsAdd
         _gvApplicants.DataSource = dt
         _gvApplicants.DataBind()
 
+        lblPagingApp.Text = setCurrentPage(0, dt, False)
 
     End Sub
 
-
+   
     'TAG PAYMENTS
 
     Private Sub fillGVAppStatus()
@@ -354,26 +388,23 @@ Partial Class Secured_TrainingManagement_TrainingTagPaymentsAdd
             .lastUser = Session("UserName")
             .updateApplicationStatus()
 
+            Dim _clsAttendance As New clsTrainingAttendance
+            _clsAttendance.deleteAttendance(hfApplicantId.Value, hfTransId.Value)
+
             If .applicationStatus = "PAID" Then
                 .applicationOr = txtTagOR.Text.Trim
                 .applicationOrDate = CDate(dtpTagORDate.Text).ToString("yyyy-MM-dd")
                 .updateApplicationPayments()
 
-
-                Dim _clsAttendance As New clsTrainingAttendance
-
                 With _clsAttendance
                     .initialize()
-                    .deleteAttendance(hfApplicantId.Value, hfTransId.Value)
                     .trainingId = hfTransId.Value
                     .applicantId = hfApplicantId.Value
                     .remarks = "PAID"
-
                     .saveTrainingAttendance()
                 End With
 
             End If
-
 
         End With
 

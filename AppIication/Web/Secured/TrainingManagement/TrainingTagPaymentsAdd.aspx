@@ -124,10 +124,10 @@
 
                         </div>
                         <div class="card-body" style="padding-bottom: 5px;">
-
+                             <asp:Label runat="server" ID="lblPagingAtt" ></asp:Label></span>
                             <asp:GridView runat="server" ID="_gvAttendees" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered table-success table-striped table-hover" PageSize="15" EmptyDataText="NO RECORD FOUND"
                                 PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
-                                GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="true">
+                                GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="false">
                                 <Columns>
 
                                     <asp:BoundField DataField="lname" HeaderText="Last Name" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="left" />
@@ -138,7 +138,12 @@
                                     <asp:BoundField DataField="prc_no" HeaderText="PRC ID #" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="left" />
                                     <asp:BoundField DataField="prc_expiration" HeaderText="PRC Expiration Date" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
                                     <asp:BoundField DataField="is_present" HeaderText="IsPresent" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="CENTER" />
-
+                                    <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/useredit.png" OnCommand="cmdGVTagStatus"
+                                                CommandArgument='<%# Bind("application_id")%>' applicantId='<%# Eval("applicant_id")%>' applicantName='<%# Eval("applicantName")%>' appProfession='<%# Eval("profession")%>' appStatus='<%# Eval("application_status")%>' ToolTip="Click to Tag Payment" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
 
@@ -153,32 +158,33 @@
                 </div>
                 <div class="card-body" style="padding-bottom: 5px;">
                     <asp:UpdatePanel runat="server" ID="UpdatePanel7">
-                    <ContentTemplate>
+                        <ContentTemplate>
+                            <asp:Label runat="server" ID="lblPagingApp" ></asp:Label></span>
+                            <asp:GridView runat="server" ID="_gvApplicants" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered table-success table-striped table-hover" PageSize="15" EmptyDataText="NO RECORD FOUND"
+                                PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
+                                GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="false">
+                                <Columns>
 
-                    <asp:GridView runat="server" ID="_gvApplicants" HeaderStyle-Font-Size="14px" CssClass="gridviewGray table-bordered table-success table-striped table-hover" PageSize="15" EmptyDataText="NO RECORD FOUND"
-                        PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
-                        GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="true">
-                        <Columns>
+                                    <asp:BoundField DataField="lname" HeaderText="Last Name" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="fname" HeaderText="First Name" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="mname" HeaderText="Middle Name" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="contact_no" HeaderText="Contact No." ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:BoundField DataField="email_add" HeaderText="Email Address" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
+                                    <asp:BoundField DataField="prc_no" HeaderText="PRC ID #" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="left" />
+                                    <asp:BoundField DataField="prc_expiration" HeaderText="PRC Expiration Date" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
+                                    <asp:BoundField DataField="application_status" HeaderText="Status" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
 
-                            <asp:BoundField DataField="lname" HeaderText="Last Name" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="fname" HeaderText="First Name" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="mname" HeaderText="Middle Name" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="contact_no" HeaderText="Contact No." ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
-                            <asp:BoundField DataField="email_add" HeaderText="Email Address" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
-                            <asp:BoundField DataField="prc_no" HeaderText="PRC ID #" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="left" />
-                            <asp:BoundField DataField="prc_expiration" HeaderText="PRC Expiration Date" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="left" />
-                            <asp:BoundField DataField="application_status" HeaderText="Status" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                    <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/useredit.png" OnCommand="cmdGVTagPayment"
+                                                CommandArgument='<%# Bind("application_id")%>' applicantId='<%# Eval("applicant_id")%>' applicantName='<%# Eval("applicantName")%>' appProfession='<%# Eval("profession")%>' appStatus='<%# Eval("application_status")%>' ToolTip="Click to Tag Payment" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/useredit.png" OnCommand="cmdGVTagPayment"
-                                        CommandArgument='<%# Bind("application_id")%>' applicantId='<%# Eval("applicant_id")%>' applicantName ='<%# Eval("applicantName")%>' appProfession ='<%# Eval("profession")%>' appStatus = '<%# Eval("application_status")%>' ToolTip="Click to Tag Payment" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                        </Columns>
-                    </asp:GridView>
-                    </ContentTemplate></asp:UpdatePanel>
+                                </Columns>
+                            </asp:GridView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
 
             </div>
@@ -230,7 +236,7 @@
                             <div class="row mb-1">
                                 <div class="col-md-6">
                                     <span class="fw-bold text-dark">Status: </span>
-                                    <asp:DropDownList runat="server" ID="ddlTagStatus" CssClass="form-select" AutoPostBack="true" >
+                                    <asp:DropDownList runat="server" ID="ddlTagStatus" CssClass="form-select" AutoPostBack="true">
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -238,7 +244,7 @@
                             <div class="row mb-1">
                                 <div class="col-md-12">
                                     <span class="fw-bold text-dark">Remarks: </span>
-                                    <asp:TextBox runat="server" ID="txtTagRemarks" CssClass="form-control" TextMode="MultiLine" Rows="3" ></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtTagRemarks" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -247,12 +253,12 @@
 
                                 <div class="col-md-6">
                                     <span class="fw-bold text-dark">Payment OR: </span>
-                                    <asp:TextBox runat="server" ID="txtTagOR" CssClass="form-control" ></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtTagOR" CssClass="form-control"></asp:TextBox>
                                 </div>
 
                                 <div class="col-md-6">
                                     <span class="fw-bold text-dark">OR DATE: </span>
-                                    <asp:TextBox runat="server" ID="dtpTagORDate" CssClass="form-control" TextMode="Date" ></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="dtpTagORDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
                                 </div>
 
                             </div>
@@ -476,8 +482,8 @@
     <asp:UpdatePanel ID="updatePanel3" runat="server">
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfTransId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfApplicationId"></asp:HiddenField>
-             <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfApplicationId"></asp:HiddenField>
+            <asp:HiddenField runat="server" ID="hfApplicantId"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
     </asp:UpdatePanel>

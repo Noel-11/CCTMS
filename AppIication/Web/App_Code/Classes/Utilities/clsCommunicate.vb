@@ -2,10 +2,11 @@
 Imports System.Net.Mail
 Imports System.Net
 Imports System.IO
+Imports System.Threading.Tasks
 
 Public Class clsCommunicate
 
-    Public Sub sendGmail(thisRecipient As String, thisSubject As String, thisMessage As String)
+    Public Sub sendEmail(thisRecipient As String, thisSubject As String, thisMessage As String)
         Try
             Dim client As New SmtpClient("smtp.gmail.com", 587)
             client.EnableSsl = True
@@ -21,10 +22,73 @@ Public Class clsCommunicate
 
             client.Send(message)
         Catch ex As Exception
-
+            'MsgBox(ex.Message)
         End Try
 
     End Sub
+
+    Public Sub SendGmail(thisRecipient As String, thisSubject As String, thisMessage As String)
+        Try
+            ' Force TLS 1.2
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+
+            Using client As New SmtpClient("mail.cagayandeoro.gov.ph", 587)
+                client.EnableSsl = True
+                client.UseDefaultCredentials = False
+                client.Credentials = New NetworkCredential("nmoreno@cagayandeoro.gov.ph", "Nolexcenbsit0910")
+
+                Dim fromAddress As New MailAddress("nmoreno@cagayandeoro.gov.ph", "[CITY COLLEGE ONLINE TRAINING APPLICATION]")
+                Dim toAddress As New MailAddress(thisRecipient)
+
+                Using message As New MailMessage(fromAddress, toAddress)
+                    message.Subject = thisSubject
+                    message.Body = thisMessage & "<br/><br/>This is a system generated email, please do not reply."
+                    message.IsBodyHtml = True
+
+                    client.Send(message)
+                End Using
+            End Using
+
+        Catch ex As Exception
+            'Throw New Exception("Email sending failed: " & ex.ToString())
+
+            MsgBox(ex.Message)
+
+        End Try
+
+
+    End Sub
+
+    Public Async Function SendEmailAsync(thisRecipient As String, thisSubject As String, thisMessage As String) As Task
+        Try
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+
+            Using client As New SmtpClient("mail.cagayandeoro.gov.ph", 587)
+                client.EnableSsl = True
+                client.UseDefaultCredentials = False
+                client.Credentials = New NetworkCredential("nmoreno@cagayandeoro.gov.ph", "Nolexcenbsit0910")
+
+                Dim fromAddress As New MailAddress("nmoreno@cagayandeoro.gov.ph", "[CITY COLLEGE ONLINE TRAINING APPLICATION]")
+                Dim toAddress As New MailAddress(thisRecipient)
+
+                Using message As New MailMessage(fromAddress, toAddress)
+                    message.Subject = thisSubject
+                    message.Body = thisMessage & "<br/><br/>This is a system generated email, please do not reply."
+                    message.IsBodyHtml = True
+
+                    Await client.SendMailAsync(message)
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception("Email sending failed: " & ex.ToString())
+            MsgBox(ex.Message)
+        End Try
+
+    End Function
+
+
+
 
     Public Sub sendGmailWithAttachment(thisRecipient As String, thisSubject As String, thisMessage As String, fileName As String, fileByte As MemoryStream)
 

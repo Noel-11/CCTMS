@@ -283,9 +283,6 @@ Public Class clsTrainingApplicants
             _password = dt.Rows(0)("password").ToString
             _isActive = dt.Rows(0)("is_active").ToString
 
-
-
-
         Else
             initialize()
         End If

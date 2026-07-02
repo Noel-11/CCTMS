@@ -11,7 +11,6 @@ Partial Class _Login
 
         If Not Page.IsPostBack Then
             ' Session.Remove("UserId")
-
         End If
 
         _btnOK = thisMsgBox.FindControl("btnMsgBoxYes")
@@ -162,6 +161,7 @@ Partial Class _Login
 
         thisMsgBox.setModalType("PASSWORDCHANGEDXX")
 
+        hfCPassword.Value = txtCPassword.Text.Trim
 
         If _clsUserProfile.validateLogin(hfUserName.Value, txtCPassword.Text.Trim) = True And txtCPassword.Text = txtCRetypePassword.Text Then
             thisMsgBox.setError("Invalid", "It looks like you entered your current password. Please enter a different new password.!")
@@ -202,7 +202,7 @@ Partial Class _Login
 
         With _clsRecord
             .transId = hfUserId.Value
-            .password = txtCPassword.Text.Trim
+            .password = hfCPassword.Value
             .updateApplicantPassword()
         End With
 
@@ -348,7 +348,7 @@ Partial Class _Login
     Private Sub sendEmail(ByVal thisEmail As String, ByVal thisMsg As String)
 
         Dim _clsCommunicate As New clsCommunicate
-        _clsCommunicate.sendGmail(thisEmail, "APPLICANT USER VERIFICATION", thisMsg)
+        _clsCommunicate.SendEmail(thisEmail, "APPLICANT USER VERIFICATION", thisMsg)
 
     End Sub
 

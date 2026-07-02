@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage/Secured.master" AutoEventWireup="false" CodeFile="adUserChangePasswordold.aspx.vb" Inherits="Secured_adUserChangePassword" Theme="Skins" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage/admin.master" AutoEventWireup="false" CodeFile="adUserChangePasswordold.aspx.vb" Inherits="Secured_adUserChangePassword" Theme="Skins" %>
 
 <%@ Register src="~/Include/wucErrorMessageBox.ascx" tagname="wucErrorMessageBox" tagprefix="wucErrorMsgBox" %>
 <%@ Register src="~/Include/wucValidateMessageBox.ascx" tagname="wucMessageBox" tagprefix="wucMsgBox" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="cphSContent" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" Runat="Server">
     <asp:Table runat="server" ID="tblForm" SkinID="tblForm">
         <asp:TableRow HorizontalAlign="Center" VerticalAlign="Middle" BackColor="#b9b9b9"
             Height="30px">

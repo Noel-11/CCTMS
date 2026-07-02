@@ -113,7 +113,7 @@
 
                                         <div runat="server" id="divFPSet">
                                             <div class="password-container">
-                                                <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"
+                                                <asp:TextBox runat="server" ID="txtRegPasword" CssClass="form-control mb-3" TextMode="Password" placeholder="New Password*"
                                                     onkeyup="validatePassword(this.id,'fpLength','fpUppercase','fpNumber','fpSpecial')"
                                                     onfocus="showTooltip('fpTooltip')"
                                                     onblur="hideTooltip(this.id,'fpTooltip')"></asp:TextBox>
@@ -187,7 +187,8 @@
                                 <div class="col-md-12 mb-2">
                                     <div runat="server" id="divCPSet">
                                         <div class="password-container">
-                                            <asp:TextBox runat="server" ID="txtCPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="Password*"
+
+                                            <asp:TextBox runat="server" ID="txtCPassword" CssClass="form-control mb-3" TextMode="Password" placeholder="New Password*"
                                                 onkeyup="validatePassword(this.id,'length','uppercase','number','special')"
                                                 onfocus="showTooltip('passwordTooltip')"
                                                 onblur="hideTooltip(this.id,'passwordTooltip')"></asp:TextBox>
@@ -222,6 +223,7 @@
         <ContentTemplate>
             <asp:HiddenField runat="server" ID="hfUserId"></asp:HiddenField>
             <asp:HiddenField runat="server" ID="hfUserName"></asp:HiddenField>
+             <asp:HiddenField runat="server" ID="hfCPassword"></asp:HiddenField>
             <asp:HiddenField runat="server" ID="hfEmailAdd"></asp:HiddenField>
             <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
         </ContentTemplate>
