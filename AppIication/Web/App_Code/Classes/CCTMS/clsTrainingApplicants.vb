@@ -122,7 +122,6 @@ Public Class clsTrainingApplicants
     End Function
 
    
-
     Public Function getUserName(ByVal _thisUName As String) As String
         Dim uName As String = ""
         Dim dtCheckExist As New DataTable

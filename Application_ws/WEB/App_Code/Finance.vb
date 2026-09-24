@@ -62,14 +62,22 @@ Public Class Finance
         If checkWsKey(wsKey) = True Then
             Try
 
-                'sql = "SELECT tbl_request_payment.ref_code,CONCAT(tbl_request_payment.r_lname,', ',tbl_request_payment.r_fname,' ',tbl_request_payment.r_mname) AS payor,r_celno AS celno,req_type as description,total_amount,finance_paid,finance_or FROM tbl_request_payment " & _
-                '      "INNER JOIN tbl_requester ON tbl_request_payment.req_id = tbl_requester.trans_id " & _
-                '      "WHERE tbl_request_payment.is_active = 'Y' AND tbl_request_payment.ref_code = '" & controlNo.Trim & "' LIMIT 1"
+
+                'sql = "SELECT tbl_training_applications.app_code AS ref_code, CONCAT(tbl_training_applicants.lname,', ',tbl_training_applicants.fname,' ',tbl_training_applicants.mname) AS payor, " & _
+                '      "tbl_training_applicants.contact_no AS celno,tbl_training.training_title,tbl_training_applications.application_fee AS total_amount,tbl_training_applications.is_finance_paid AS finance_paid, " & _
+                '      "tbl_training_applications.application_or AS finance_or  FROM tbl_training_applications " & _
+                '      "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+                '      "INNER JOIN tbl_training_applicants ON tbl_training_applications.applicant_id = tbl_training_applicants.trans_id " & _
+                '      "WHERE tbl_training_applications.is_active = 'Y' AND tbl_training_applications.app_code = '" & controlNo.Trim & "' " & _
+                '      "LIMIT 1"
 
                 sql = "SELECT tbl_training_applications.app_code AS ref_code, CONCAT(tbl_training_applicants.lname,', ',tbl_training_applicants.fname,' ',tbl_training_applicants.mname) AS payor, " & _
-                      "tbl_training_applicants.contact_no AS celno,tbl_training.training_title,tbl_training_applications.application_fee AS total_amount,tbl_training_applications.is_finance_paid AS finance_paid, " & _
-                      "tbl_training_applications.application_or AS finance_or  FROM tbl_training_applications " & _
+                      "tbl_training_applicants.contact_no AS celno,tbl_training.training_title, tbl_ref_training_program_fee.`description` AS fee_category, " & _
+                      "tbl_training_applications.application_fee AS total_amount,tbl_training_applications.is_finance_paid AS finance_paid, tbl_training_applications.application_or AS finance_or " & _
+                      "FROM tbl_training_applications " & _
                       "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
+                      "INNER JOIN tbl_ref_trainings ON tbl_training.training_id = tbl_ref_trainings.trans_id " & _
+                      "INNER JOIN tbl_ref_training_program_fee ON tbl_ref_trainings.training_prog_fee = tbl_ref_training_program_fee.trans_id " & _
                       "INNER JOIN tbl_training_applicants ON tbl_training_applications.applicant_id = tbl_training_applicants.trans_id " & _
                       "WHERE tbl_training_applications.is_active = 'Y' AND tbl_training_applications.app_code = '" & controlNo.Trim & "' " & _
                       "LIMIT 1"
@@ -215,7 +223,6 @@ Public Class Finance
                             With _clsAttendance
                                 .initialize()
                                 .deleteAttendance(dr("applicant_id"), dr("training_id"))
-
                             End With
 
                             With _clsRegistrationDetails

@@ -72,7 +72,8 @@
                         <div class="col-md-4 mb-1">
 
                             <button runat="server" class="btn btn-success" id="btnSearch"><i class="bi bi-funnel"></i>&nbsp;Filter</button>
-                            <button type="button" runat="server" class="btn btn-info" id="btnPrint"><i class="bi bi-printer"></i>&nbsp;Generate Report</button>
+                            <button type="button" runat="server" class="btn btn-info" id="btnPrint"><i class="bi bi-printer"></i>&nbsp;Print</button>
+                            <button type="button" runat="server" class="btn btn-success" id="btnExcel"><i class="bi bi-file-spreadsheet"></i>&nbsp;Download</button>
                             <span class="text-dark" style="background-color: white; color: black">
                                 <asp:Label runat="server" ID="lblPaging" CssClass="pull-right "></asp:Label></span>
                         </div>
@@ -89,16 +90,21 @@
                             <asp:BoundField DataField="gender" HeaderText="GENDER" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="contact_no" HeaderText="CONTACT NO." ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="email_add" HeaderText="EMAIL ADDRESS" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="applicant_type" HeaderText="TYPE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="CENTER" />
                             <asp:BoundField DataField="profession" HeaderText="PROFESSION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="prc_no" HeaderText="LICENSE NUMBER" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="prc_expiration" HeaderText="EXPIRATION DATE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="pref_learn_tracks" HeaderText="LEARNING TRACKS" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="pref_learn_mode" HeaderText="LEARNING MODE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="pref_sched" HeaderText="PREFERRED SCHEDULE" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Left" />
+                             
                         </Columns>
                     </asp:GridView>
 
                 </ContentTemplate>
+                  <Triggers>
+                    <asp:PostBackTrigger ControlID="btnExcel" />
+                </Triggers>
             </asp:UpdatePanel>
         </div>
 

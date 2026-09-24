@@ -73,17 +73,13 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
     End Sub
 
     Private Sub getTrainingTitleDetails()
+        Dim _clsRefTrainings As New clsRefTrainings
 
-        If hfTransId.Value = "" Then
-            Dim _clsRefTrainings As New clsRefTrainings
-
-            With _clsRefTrainings
-                .getRefTrainings(ddlTrainingTitle.SelectedValue)
+        With _clsRefTrainings
+            .getRefTrainings(ddlTrainingTitle.SelectedValue)
                 txtDescription.Text = .trainingDescription
-
-            End With
-
-        End If
+                txtRegistrationFee.Text = .trainingProgFeeAmount
+        End With
 
     End Sub
 
@@ -117,7 +113,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
         txtDescription.ReadOnly = _thisBolRead
 
         txtTrainingSlots.ReadOnly = _thisBolRead
-        txtRegistrationFee.ReadOnly = _thisBolRead
+        ' txtRegistrationFee.ReadOnly = _thisBolRead
         dtpRegistrationDateFrom.ReadOnly = _thisBolRead
         dtpRegistrationDateTo.ReadOnly = _thisBolRead
         txtTrainingVenue.ReadOnly = _thisBolRead
@@ -498,7 +494,7 @@ Partial Class Secured_TrainingManagement_TrainingsAdd
 
         Dim sql As String = ""
 
-        sql = "SELECT CONCAT(tbl_training_applicants.lname,', ',fname,' ', ename,' ', mname) AS applicantName,home_addr, contact_no FROM tbl_training_attendance " & _
+        sql = "SELECT CONCAT(tbl_training_applicants.lname,', ',fname,' ', ename,' ', mname) AS applicantName,home_addr, email_add, contact_no,prc_no FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
               "WHERE tbl_training_attendance.training_id = '" & hfTransId.Value & "' AND tbl_training_attendance.is_active = 'Y' " & _
               "ORDER BY lname,fname"

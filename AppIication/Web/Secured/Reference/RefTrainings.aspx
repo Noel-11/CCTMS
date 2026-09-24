@@ -48,11 +48,12 @@
                         GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="true">
                         <Columns>
 
-
-                            <asp:BoundField DataField="training_title" HeaderText="Title" ItemStyle-Width="40%" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="training_title" HeaderText="Title" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="training_description" HeaderText="Description" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="learning_mode" HeaderText="Learning Mode" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="is_active" HeaderText="Is Active" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                             <asp:BoundField DataField="trainingProgram" HeaderText="Training Program" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="training_prog_fee_amount" HeaderText="Training Program" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N}" />
+                            <asp:BoundField DataField="is_active" HeaderText="Is Active" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" /> 
 
                             <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>

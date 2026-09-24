@@ -13,12 +13,13 @@ Partial Class Secured_Reference_RefTrainingsAdd
 
         If Not Page.IsPostBack Then
 
-
             hfTransId.Value = Session("REF_TRAINING_ID")
 
             _clsDB.populateDDLB(ddlLearningTracks, "description", "trans_id", "tbl_ref_learning_tracks", "description", " WHERE is_active = 'Y'", , "")
 
             _clsDB.populateDDLB(ddlPreferredMode, "description", "trans_id", "tbl_ref_learning_mode", "description", " WHERE is_active = 'Y'", , "")
+
+            _clsDB.populateDDLB(ddlTrainingProgFee, "description", "trans_id", "tbl_ref_training_program_fee", "sort_order", " WHERE is_active = 'Y'", , "")
 
             flllInfo()
 
@@ -37,7 +38,6 @@ Partial Class Secured_Reference_RefTrainingsAdd
         If thisMsgBox.getModalType = "SAVE TRAINING" Then
 
             saveRefTraining()
-            'thisMsgBox.setNotification("")
             Response.Redirect("RefTrainingsAdd.aspx")
 
         End If
@@ -47,7 +47,6 @@ Partial Class Secured_Reference_RefTrainingsAdd
     Protected Sub btnNo_Click(ByVal sender As Object, ByVal e As System.EventArgs)
 
         If thisMsgBox.getModalType = "SAVE TRAINING" Then
-
 
         End If
 
@@ -72,6 +71,22 @@ Partial Class Secured_Reference_RefTrainingsAdd
         isTracksOther()
     End Sub
 
+    Private Function getRefTrainingProgFee(ByVal _thisId As String) As Decimal
+
+        Dim _fee As Decimal = 0
+        Try
+            _fee = _clsDB.Get_DB_Item("SELECT fee_amount FROM tbl_ref_training_program_fee WHERE trans_id = '" & _thisId & "' LIMIT 1")
+        Catch ex As Exception
+
+        End Try
+
+        Return _fee
+
+    End Function
+
+    Protected Sub ddlTrainingProgFee_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlTrainingProgFee.SelectedIndexChanged
+        txtRegistrationFee.Text = getRefTrainingProgFee(ddlTrainingProgFee.SelectedValue)
+    End Sub
 
     Private Sub flllInfo()
 
@@ -86,11 +101,14 @@ Partial Class Secured_Reference_RefTrainingsAdd
             ddlPreferredMode.SelectedValue = .learningMode
             ddlLearningTracks.SelectedValue = .learningTracks
             txtLearningTracksOther.Text = .learningTracksOther
+            ddlTrainingProgFee.SelectedValue = .trainingProgFee
             rblIsactive.SelectedValue = .isActive
+
+            txtRegistrationFee.Text = getRefTrainingProgFee(.trainingProgFee)
         End With
 
-    End Sub
 
+    End Sub
 
     Private Sub saveRefTraining()
 
@@ -104,6 +122,8 @@ Partial Class Secured_Reference_RefTrainingsAdd
             .learningMode = ddlPreferredMode.SelectedValue
             .learningTracks = ddlLearningTracks.SelectedValue
             .learningTracksOther = txtLearningTracksOther.Text.Trim.ToUpper
+            .trainingProgFee = ddlTrainingProgFee.SelectedValue
+            .trainingProgFeeAmount = txtRegistrationFee.Text.Trim
             .isActive = rblIsactive.SelectedValue
             .lastUser = Session("UserName")
             .saveRefTrainings()
@@ -119,6 +139,5 @@ Partial Class Secured_Reference_RefTrainingsAdd
         thisMsgBox.showConfirmBox()
     End Sub
 
-   
 End Class
 

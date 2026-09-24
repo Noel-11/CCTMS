@@ -253,7 +253,7 @@ Partial Class Secured_Applicant_AppAvailable
               "tbl_training_applications.applicant_contact AS contact_no,CONCAT(tbl_training.training_title,': ',tbl_training.training_desc) AS training_description FROM tbl_training_applications " & _
               "INNER JOIN tbl_training ON tbl_training_applications.training_id = tbl_training.trans_id " & _
               "WHERE tbl_training_applications.applicant_id = '" & hfApplicantId.Value & "' AND " & _
-              "tbl_training_applications.training_id = '" & hfTrainingId.Value & "'"
+              "tbl_training_applications.training_id = '" & hfTrainingId.Value & "' AND tbl_training_applications.is_active = 'Y' "
 
         Dim dt As New DataTable
 

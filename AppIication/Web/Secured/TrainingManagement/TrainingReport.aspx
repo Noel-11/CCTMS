@@ -2,6 +2,7 @@
     Inherits="Secured_TrainingManagement_TrainingReport" Theme="Skins"
     MasterPageFile="~/MasterPage/Admin.master" %>
 
+<%@ Register Src="~/Include/wucConfirmBoxBS5.ascx" TagName="wucConfirmBox" TagPrefix="wucConfirmBox" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
     <div class="card">
@@ -14,9 +15,9 @@
                 </div>
 
                 <div class="col-lg-4">
-                      
-                   <h2 class="text-success">Report: Training List</h2>
-              </div>
+
+                    <h2 class="text-success">Report: Training List</h2>
+                </div>
 
             </div>
 
@@ -29,11 +30,11 @@
                     <div class="row mt-1">
                         <div class="col-md-6 mb-1">
                             <div class="input-group mb-2">
-                                 <span runat="server" id="Span1" class="input-group-text border-secondary bg-success text-light">Date From</span>
-                                 <asp:TextBox runat="server" ID="dtpDateFrom" CssClass="input-field form-control border-secondary" Style="text-transform: uppercase" placeholder="" TextMode="Date"></asp:TextBox>
-                                 <span runat="server" id="Span2" class="input-group-text border-secondary bg-success text-light">To</span>
-                                 <asp:TextBox runat="server" ID="dtpDateTo" CssClass="input-field form-control border-secondary" Style="text-transform: uppercase" placeholder="" TextMode="Date"></asp:TextBox>
-                                  
+                                <span runat="server" id="Span1" class="input-group-text border-secondary bg-success text-light">Date From</span>
+                                <asp:TextBox runat="server" ID="dtpDateFrom" CssClass="input-field form-control border-secondary" Style="text-transform: uppercase" placeholder="" TextMode="Date"></asp:TextBox>
+                                <span runat="server" id="Span2" class="input-group-text border-secondary bg-success text-light">To</span>
+                                <asp:TextBox runat="server" ID="dtpDateTo" CssClass="input-field form-control border-secondary" Style="text-transform: uppercase" placeholder="" TextMode="Date"></asp:TextBox>
+
                             </div>
 
                         </div>
@@ -41,7 +42,7 @@
                         <div class="col-md-6 mb-1">
                             <div class="input-group mb-1">
                                 <span runat="server" id="Span3" class="input-group-text border-secondary bg-success text-light">Status</span>
-                                 <asp:DropDownList runat="server" ID="ddlTrainingStatus" CssClass="form-select border-secondary" ></asp:DropDownList>
+                                <asp:DropDownList runat="server" ID="ddlTrainingStatus" CssClass="form-select border-secondary"></asp:DropDownList>
                                 <button type="button" runat="server" class="btn btn-success" id="btnSearch"><i class="bi bi-funnel"></i>&nbsp;Filter</button>
                                 <span class="input-group-text" style="background-color: white; color: black">
                                     <asp:Label runat="server" ID="lblPaging" CssClass="pull-right "></asp:Label></span>
@@ -53,17 +54,26 @@
                         PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false"
                         GridLines="None" Font-Names="Arial" Font-Size="12px" ForeColor="#000000" AllowPaging="false">
                         <Columns>
-                           
+
                             <asp:BoundField DataField="training_date" HeaderText="Training Date" ItemStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:MMM dd, yyyy}" />
                             <asp:BoundField DataField="training_title" HeaderText="Title" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="training_desc" HeaderText="Description" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="attendance" HeaderText="Attendance" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                             <asp:BoundField DataField="training_status" HeaderText="Status" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                             <%--<asp:BoundField DataField="registration_fee" HeaderText="Fee" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N}" />--%>
-                             <asp:TemplateField HeaderText="" HeaderStyle-Width="1%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                            <asp:BoundField DataField="training_status" HeaderText="Status" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <%--<asp:BoundField DataField="registration_fee" HeaderText="Fee" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N}" />--%>
+                            <asp:TemplateField HeaderText="" HeaderStyle-Width="5%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/printer.png" OnCommand="cmdGVPrint"
-                                        CommandArgument='<%# Bind("trans_id")%>' ToolTip="Click to View Attendance" />
+                                    <asp:UpdatePanel ID="updatePanel5" runat="server">
+                                        <ContentTemplate>
+                                            <asp:ImageButton runat="server" ID="lnkEdit" ImageUrl="~/images/printer.png" OnCommand="cmdGVPrint"
+                                                CommandArgument='<%# Bind("trans_id")%>' ToolTip="Click to View Attendance" />
+                                            <asp:ImageButton runat="server" ID="lnkExcel" ImageUrl="~/images/excel.png" OnCommand="cmdGVExcel"
+                                                CommandArgument='<%# Bind("trans_id")%>' ToolTip="Click to Download Excel" />
+                                        </ContentTemplate>
+                                        <Triggers>
+                                            <asp:PostBackTrigger ControlID="lnkExcel" />
+                                        </Triggers>
+                                    </asp:UpdatePanel>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
@@ -104,5 +114,12 @@
         </div>
 
     </div>
+
+     <asp:UpdatePanel ID="updatePanel3" runat="server">
+        <ContentTemplate>
+           
+            <wucConfirmBox:wucConfirmBox runat="server" ID="thisMsgBox" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
 </asp:Content>

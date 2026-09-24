@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="Shortcut Icon" href="~/favicon.ico" type="image/x-icon" />
+    <link rel="Shortcut Icon" href="~/Images/favicon.ico" type="image/x-icon" />
     <title>CITY COLLEGE</title>
 
     <link href="Scripts/Bootstrap5/css/bootstrap.css" rel="stylesheet" />
@@ -78,7 +78,7 @@
     </style>
 
     <!-- Google tag (gtag.js) -->
-<%--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTES5DW7T1"></script>
+    <%--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTES5DW7T1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -86,8 +86,6 @@
 
         gtag('config', 'G-BTES5DW7T1');
     </script>--%>
-
-
 </head>
 <body class="bg-light">
 
@@ -96,52 +94,189 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
 
-        <div class="container" style="margin-bottom: 5%;">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header" style="background-color: #5eb1b1ab;">
-                            <h3 class="text-center">LOG IN ACCOUNT <i class="fa-solid fa-user-lock"></i></h3>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-outline mb-4">
-                                    <div class="form-group text-center">
-                                        <img src="<%=ResolveClientUrl("~/Images/login.png")%>" class="img-fluid img-thumbnail" alt="LOGIN IMAGE" />
+        <div class="min-vh-100 d-flex align-items-center justify-content-center py-4 px-3"
+            style="background: linear-gradient(135deg,#cdf9df 0%,#8ee8b0 40%,#2e8b5a4d 100%)">
+
+            <div class="w-100" style="max-width: 900px">
+
+                <%-- SYSTEM TITLE --%>
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold mb-1"
+                        style="font-size: clamp(16px,4vw,22px); letter-spacing: .04em; color: #1a4a2e; text-shadow: 0 2px 8px rgba(255,255,255,0.4)">
+                        <i class="bi bi-mortarboard-fill me-2"></i>
+                        City College Training Management System
+                    </h4>
+                    <p class="mb-0" style="font-size: 12px; color: #2e6b45">
+                        Authorized Personnel Only
+                    </p>
+                </div>
+
+                <div class="card border-0 overflow-hidden shadow-lg"
+                    style="border-radius: 16px">
+                    <div class="row g-0">
+
+                        <%-- LEFT: Image panel — hidden on mobile --%>
+                        <div class="col-md-5 d-none d-md-flex flex-column align-items-center justify-content-center p-5"
+                            style="background: linear-gradient(160deg,#2e8b5a 0%,#1a5c35 100%)">
+
+                            <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
+                                class="img-fluid mb-4"
+                                style="max-height: 200px; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2))"
+                                alt="City College Training Management System" />
+
+                            <div class="text-center">
+                                <h5 class="fw-bold text-white mb-2"
+                                    style="font-size: 15px; letter-spacing: .03em; line-height: 1.5">City College Training<br />
+                                    Management System
+                                </h5>
+                                <p class="mb-4" style="font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.6">
+                                    Manage training programs, schedules,<br />
+                                    and participants in one place.
+                                </p>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <div class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
+                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
+                                            <i class="bi bi-people-fill"></i>
+                                        </div>
+                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Participants</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
+                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
+                                            <i class="bi bi-calendar-check-fill"></i>
+                                        </div>
+                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Schedules</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
+                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
+                                            <i class="bi bi-award-fill"></i>
+                                        </div>
+                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Certificates</small>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- UserID input -->
-                                <div class="form-outline mb-4">
-                                    <asp:TextBox runat="server" ID="txtUserId" class="form-control form-control-lg" placeholder="Enter User ID"></asp:TextBox>
-                                    <%-- <label class="form-label" for="form3Example3">User ID</label>--%>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtUserId" SetFocusOnError="true" Font-Bold="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text=" is required" ValidationGroup="DOC" />
-                                </div>
-
-                                <!-- Password input -->
-                                <div class="form-outline mb-3">
-                                    <input runat="server" type="password" id="txtPassword" class="form-control form-control-lg"
-                                        placeholder="Enter password" />
-
-                                    <%--  <label class="form-label" for="form3Example4">Password</label>--%>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPassword" SetFocusOnError="true" Font-Bold="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text=" is required" ValidationGroup="DOC" />
-                                </div>
-
-                                <div class="text-center text-lg-start mt-4 pt-2">
-                                    <button runat="server" id="btnLogin" class="btn btn-success text-light" causesvalidation="false"><i class="bi bi-box-arrow-in-right h4"></i>&nbsp;Login</button>
-                                    <%--<asp:Button runat="server" ID="btnLogin" class="btn btn-primary btn-lg" Style="padding-left: 2.5rem; padding-right: 2.5rem;" Text="Login" ValidationGroup="DOC" />--%>
-                                    <p class="small fw-bold mt-2 pt-1 mb-0" runat="server" visible="false">
-                                        Don't have an account? <a href="#!"
-                                            class="link-danger">Register</a>
-                                    </p>
-                                </div>
-                            </form>
                         </div>
+
+                        <%-- RIGHT: Login form --%>
+                        <div class="col-12 col-md-7 d-flex flex-column justify-content-center bg-white"
+                            style="padding: clamp(1.5rem,5vw,3rem)">
+
+                            <%-- Mobile: logo --%>
+                            <div class="text-center mb-4 d-md-none">
+                                <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
+                                    class="img-fluid mb-3"
+                                    style="max-height: 90px; object-fit: contain"
+                                    alt="CCTMS" />
+                                <p class="text-muted mb-0" style="font-size: 12px">
+                                    Sign in to access your account
+                                </p>
+                            </div>
+
+                            <%-- Form heading --%>
+                            <div class="mb-4 d-none d-md-block">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                                        style="width: 36px; height: 36px; background: #cdf9df; color: #2e8b5a; font-size: 18px">
+                                        <i class="bi bi-shield-lock"></i>
+                                    </div>
+                                    <h5 class="fw-bold mb-0" style="color: #1a4a2e; font-size: 18px">Welcome back
+                                    </h5>
+                                </div>
+                                <p class="text-muted mb-0 ms-1" style="font-size: 13px">
+                                    Sign in to continue to CCTMS.
+                                </p>
+                            </div>
+
+                            <%-- User ID --%>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold mb-1"
+                                    style="font-size: 13px; color: #1a4a2e">
+                                    User ID <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0"
+                                        style="background: #cdf9df; color: #2e8b5a; border-color: #a8f0c4">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+                                    <asp:TextBox runat="server" ID="txtUserId"
+                                        CssClass="form-control border-start-0"
+                                        placeholder="Enter your user ID"
+                                        Style="font-size: 14px; border-color: #a8f0c4"></asp:TextBox>
+                                </div>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
+                                    ControlToValidate="txtUserId" SetFocusOnError="true"
+                                    CssClass="text-danger fst-italic mt-1"
+                                    Style="font-size: 12px"
+                                    Display="Dynamic" Text="User ID is required"
+                                    ValidationGroup="DOC" />
+                            </div>
+
+                            <%-- Password --%>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold mb-1"
+                                    style="font-size: 13px; color: #1a4a2e">
+                                    Password <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0"
+                                        style="background: #cdf9df; color: #2e8b5a; border-color: #a8f0c4">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+                                    <input runat="server" type="password" id="txtPassword"
+                                        class="form-control border-start-0"
+                                        placeholder="Enter your password"
+                                        style="font-size: 14px; border-color: #a8f0c4" />
+                                </div>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                    ControlToValidate="txtPassword" SetFocusOnError="true"
+                                    CssClass="text-danger fst-italic mt-1"
+                                    Style="font-size: 12px"
+                                    Display="Dynamic" Text="Password is required"
+                                    ValidationGroup="DOC" />
+                            </div>
+
+                            <%-- Sign in button --%>
+                            <div class="d-grid mb-3">
+                                <button runat="server" id="btnLogin"
+                                    class="btn fw-semibold text-white d-flex align-items-center justify-content-center gap-2"
+                                    style="background: #2e8b5a; border-color: #2e8b5a; font-size: 15px; padding: 12px"
+                                    causesvalidation="false">
+                                    <i class="bi bi-box-arrow-in-right" style="font-size: 17px"></i>
+                                    Sign in
+                                </button>
+                            </div>
+
+                            <%-- Register link (hidden by default) --%>
+                            <p class="small fw-bold text-center mb-0" runat="server" visible="false">
+                                Don't have an account?
+                        <a href="#!" class="link-danger">Register</a>
+                            </p>
+
+                            <%-- Security notice --%>
+                            <div class="text-center mt-4 pt-3 border-top"
+                                style="border-color: #cdf9df !important">
+                                <small class="text-muted d-flex align-items-center justify-content-center gap-1"
+                                    style="font-size: 11px">
+                                    <i class="bi bi-shield-check" style="color: #2e8b5a"></i>
+                                    Authorized access only. All activity is monitored.
+                                </small>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
-            </div>
 
-          
+                <%-- Footer --%>
+                <div class="text-center mt-3">
+                    <small style="font-size: 11px; color: #1a4a2e">&copy; <%=DateTime.Now.Year%> City College Training Management System. All rights reserved.
+                    </small>
+                </div>
+
+            </div>
 
         </div>
 

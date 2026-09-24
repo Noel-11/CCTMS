@@ -111,7 +111,7 @@ Public Class clsTrainingAttendance
 
     Public Sub deleteAttendance(ByVal _thisApp As String, ByVal _thisTraining As String)
 
-        _clsDB.Delete_Record("DELETE FROM tbl_training_attendance WHERE applicant_id = '" & applicantId & "' AND training_id = '" & _thisTraining & "' AND is_active = 'Y' ")
+        _clsDB.Delete_Record("DELETE FROM tbl_training_attendance WHERE applicant_id = '" & _thisApp & "' AND training_id = '" & _thisTraining & "' AND is_active = 'Y' ")
 
     End Sub
 

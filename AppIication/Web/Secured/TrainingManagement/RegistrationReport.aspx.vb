@@ -16,7 +16,6 @@ Partial Class Secured_TrainingManagement_RegistrationReport
             _clsDB.populateDDLB(ddlPreferredSched, "description", "trans_id", "tbl_ref_preferred_schedule", "description", " WHERE is_active = 'Y'", "ALL", "")
             _clsDB.populateDDLB(ddlGender, "description", "trans_id", "tbl_ref_gender", "description", " WHERE is_active = 'Y'", "ALL", "")
 
-
             dtpDateFrom.Text = DateTime.Now.Year & "-" & DateTime.Now.Month.ToString("00") & "-01"
             dtpDateTo.Text = DateTime.Now.Year & "-" & DateTime.Now.Month.ToString("00") & "-" & DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month).ToString("00")
 
@@ -51,16 +50,21 @@ Partial Class Secured_TrainingManagement_RegistrationReport
 
 #Region "REPORT"
 
+
+    Protected Sub btnExcel_ServerClick(sender As Object, e As EventArgs) Handles btnExcel.ServerClick
+        generateReport("excel")
+    End Sub
+
     Protected Sub btnPrint_ServerClick(sender As Object, e As EventArgs) Handles btnPrint.ServerClick
 
-        generateReport()
+        generateReport("pdf")
         lblReportHeadName.Text = "Registration List"
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
 
     End Sub
 
 
-    Public Sub generateReport()
+    Public Sub generateReport(ByVal _thisType As String)
         Try
             Dim warnings() As Warning
             Dim streamIds() As String
@@ -97,11 +101,27 @@ Partial Class Secured_TrainingManagement_RegistrationReport
 
             rvPrint.LocalReport.Refresh()
 
-            Dim bytes() As Byte = rvPrint.LocalReport.Render("PDF", Nothing, mimeType, encoding, extension, streamIds, warnings)
 
-            Session("pdfBytes") = bytes
+            If _thisType = "excel" Then
+                Dim bytes() As Byte = rvPrint.LocalReport.Render("EXCEL", Nothing, mimeType, encoding, extension, streamIds, warnings)
+                Response.Clear()
+                Response.Buffer = True
 
-            ltEmbed.Text = String.Format("<object data=""{0}{1}"" type=""application/pdf"" width=""100%"" height=""700px""></object>", ResolveUrl("~/ReportHandler.ashx"), "")
+                Response.ContentType = mimeType
+                Response.AddHeader("content-disposition", ("attachment; filename=CCTMSREGList" & DateTime.Now.ToString("yyyyMMddHHss") & ".xls"))
+                Response.BinaryWrite(bytes)
+                '' create the file
+                Response.Flush()
+                HttpContext.Current.ApplicationInstance.CompleteRequest()
+            Else
+                Dim bytes() As Byte = rvPrint.LocalReport.Render("PDF", Nothing, mimeType, encoding, extension, streamIds, warnings)
+
+                Session("pdfBytes") = bytes
+
+                ltEmbed.Text = String.Format("<object data=""{0}{1}"" type=""application/pdf"" width=""100%"" height=""700px""></object>", ResolveUrl("~/ReportHandler.ashx"), "")
+
+            End If
+
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -139,12 +159,12 @@ Partial Class Secured_TrainingManagement_RegistrationReport
         sql = "SELECT tbl_training_applicants.trans_id,lname,CONCAT(fname,' ',ename) AS fname,mname,ename,tbl_ref_gender.`description` AS gender,contact_no,email_add, " & _
               "tbl_training_applicants.home_addr, tbl_training_applicants.profession, tbl_training_applicants.prc_no, DATE_FORMAT(tbl_training_applicants.prc_expiration,'%m/%d/%Y') AS prc_expiration, " & _
               "CONCAT(GROUP_CONCAT(tbl_ref_learning_tracks.`description`),', ',tbl_training_applicants.pref_learn_tracks_others) AS pref_learn_tracks,tbl_ref_learning_mode.`description` AS pref_learn_mode, " & _
-              "tbl_ref_preferred_schedule.`description` AS pref_sched FROM  tbl_training_applicants " & _
-              "INNER JOIN tbl_ref_gender ON tbl_training_applicants.gender = tbl_ref_gender.trans_id " & _
-              "INNER JOIN tbl_ref_learning_mode ON tbl_training_applicants.pref_learn_mode = tbl_ref_learning_mode.trans_id " & _
+              "tbl_ref_preferred_schedule.`description` AS pref_sched, applicant_type FROM tbl_training_applicants " & _
+              "LEFT JOIN tbl_ref_gender ON tbl_training_applicants.gender = tbl_ref_gender.trans_id " & _
+              "LEFT JOIN tbl_ref_learning_mode ON tbl_training_applicants.pref_learn_mode = tbl_ref_learning_mode.trans_id " & _
               "LEFT JOIN tbl_training_applicants_learning_tracks ON tbl_training_applicants.trans_id = tbl_training_applicants_learning_tracks.applicant_id " & _
               "LEFT JOIN tbl_ref_learning_tracks ON tbl_training_applicants_learning_tracks.tracks_id = tbl_ref_learning_tracks.trans_id " & _
-              "INNER JOIN tbl_ref_preferred_schedule ON tbl_training_applicants.pref_sched = tbl_ref_preferred_schedule.trans_id " & _
+              "LEFT JOIN tbl_ref_preferred_schedule ON tbl_training_applicants.pref_sched = tbl_ref_preferred_schedule.trans_id " & _
               "WHERE tbl_training_applicants.is_active = 'Y' " & sqlWhere & _
               "GROUP BY tbl_training_applicants.trans_id " & _
               "ORDER BY lname,fname"
@@ -158,9 +178,9 @@ Partial Class Secured_TrainingManagement_RegistrationReport
     End Function
 
 
-  
+
 
 #End Region
 
-    
+
 End Class

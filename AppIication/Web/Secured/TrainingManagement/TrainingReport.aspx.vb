@@ -49,15 +49,21 @@ Partial Class Secured_TrainingManagement_TrainingReport
 
 #Region "REPORT"
 
+    Protected Sub cmdGVExcel(ByVal sender As Object, ByVal e As CommandEventArgs)
+        generateReport(e.CommandArgument.ToString, "excel")
+        'generateReport2()
+    End Sub
+
     Protected Sub cmdGVPrint(ByVal sender As Object, ByVal e As CommandEventArgs)
         generateReport(e.CommandArgument.ToString)
+
+        ' generateReport2()
+
         lblReportHeadName.Text = "TRAINING ATTENDANCE"
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlPrintReport", "var myModal = new bootstrap.Modal(document.getElementById('mdlPrintReport'), {});  myModal.show();", True)
     End Sub
 
-  
-
-    Public Sub generateReport(ByVal _thisId As String)
+    Public Sub generateReport(ByVal _thisId As String, Optional _thisType As String = "pdf")
         Try
             Dim warnings() As Warning
             Dim streamIds() As String
@@ -81,14 +87,30 @@ Partial Class Secured_TrainingManagement_TrainingReport
 
             rvPrint.LocalReport.Refresh()
 
-            Dim bytes() As Byte = rvPrint.LocalReport.Render("PDF", Nothing, mimeType, encoding, extension, streamIds, warnings)
+            If _thisType = "excel" Then
+                Dim bytes() As Byte = rvPrint.LocalReport.Render("EXCEL", Nothing, mimeType, encoding, extension, streamIds, warnings)
+                Response.Clear()
+                Response.Buffer = True
 
-            Session("pdfBytes") = bytes
+                Response.ContentType = mimeType
+                Response.AddHeader("content-disposition", ("attachment; filename=CCTMSAttendance" & DateTime.Now.ToString("yyyyMMddHHss") & ".xls"))
+                Response.BinaryWrite(bytes)
+                '' create the file
+                Response.Flush()
+                HttpContext.Current.ApplicationInstance.CompleteRequest()
+            Else
+                Dim bytes() As Byte = rvPrint.LocalReport.Render("PDF", Nothing, mimeType, encoding, extension, streamIds, warnings)
 
-            ltEmbed.Text = String.Format("<object data=""{0}{1}"" type=""application/pdf"" width=""100%"" height=""700px""></object>", ResolveUrl("~/ReportHandler.ashx"), "")
+                Session("pdfBytes") = bytes
+
+                ltEmbed.Text = String.Format("<object data=""{0}{1}"" type=""application/pdf"" width=""100%"" height=""700px""></object>", ResolveUrl("~/ReportHandler.ashx"), "")
+
+            End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            thisMsgBox.setModalType("XXX")
+            thisMsgBox.setError(, ex.Message)
+            thisMsgBox.showConfirmBox()
         End Try
 
         'ReportsMsgBox.show("PAYROLL")
@@ -115,7 +137,8 @@ Partial Class Secured_TrainingManagement_TrainingReport
 
         Dim sql As String = ""
 
-        sql = "SELECT CONCAT(tbl_training_applicants.lname,', ',fname,' ', ename,' ', mname) AS applicantName,home_addr, contact_no FROM tbl_training_attendance " & _
+        sql = "SELECT CONCAT(tbl_training_applicants.lname,', ',fname,' ', ename,' ', mname) AS applicantName,home_addr, email_add, " & _
+              "contact_no,profession,position,contact_no,attendee_no,prc_no  FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
               "WHERE tbl_training_attendance.training_id = '" & _thisId & "' AND tbl_training_attendance.is_active = 'Y' " & _
               "ORDER BY lname,fname"

@@ -58,7 +58,8 @@ Public Class clsTrainingAttendance
         sql = "SELECT tbl_training_attendance.trans_id,tbl_training_attendance.applicant_id, lname,fname,mname,ename, contact_no,email_add,prc_no,prc_expiration, " & _
               "CONCAT(lname,', ',fname,' ',ename,' ',mname) AS applicantName, is_present, " & _
               "(CASE WHEN is_present = 'Y' THEN 'TRUE' ELSE 'FALSE' END) AS isAttendanceChecked FROM tbl_training_attendance " & _
-              "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
+              "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id AND " & _
+              "tbl_training_applicants.is_active = 'Y' " & _
               "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.training_id = '" & _thisId & "' " & _
               "ORDER BY lname,fname"
 
@@ -74,7 +75,7 @@ Public Class clsTrainingAttendance
               "CONCAT(lname,', ',fname,' ',ename,' ',mname) AS applicantName,profession,application_status FROM tbl_training_attendance " & _
               "INNER JOIN tbl_training_applicants ON tbl_training_attendance.applicant_id = tbl_training_applicants.trans_id " & _
               "INNER JOIN tbl_training_applications ON tbl_training_attendance.applicant_id = tbl_training_applications.applicant_id AND " & _
-              "tbl_training_attendance.training_id = tbl_training_applications.training_id " & _
+              "tbl_training_attendance.training_id = tbl_training_applications.training_id AND tbl_training_applications.is_active = 'Y' " & _
               "WHERE tbl_training_attendance.is_active = 'Y' AND tbl_training_attendance.training_id = '" & _thisId & "' " & _
               "ORDER BY lname,fname"
 

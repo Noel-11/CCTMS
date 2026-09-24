@@ -76,7 +76,7 @@
                                     <div class="col-lg-8">
                                         <div class="input-group">
                                             <label class="input-group-text">Description</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDescription" TextMode="MultiLine" Rows="2" />
                                         </div>
                                          <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtDescription" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Description is required" ValidationGroup="DOC" />
                                     </div>
@@ -104,9 +104,10 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <label class="input-group-text">Registration Fee</label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistrationFee" TextMode="Number" min="0.00" max="999999.99" MaxLength="9" step="any" Style="text-align: right"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistrationFee" TextMode="Number" min="0.00" max="999999.99" MaxLength="9" step="any" Style="text-align: right" ReadOnly="true"></asp:TextBox>
                                         </div>
                                          <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtRegistrationFee" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Registration Fee is required" ValidationGroup="DOC" />
+                                          <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtRegistrationFee" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" InitialValue="0.00" Display="Dynamic" Text="Registration Fee is required" ValidationGroup="DOC" />
                                     </div>
 
                                     <div class="col-lg-4">
