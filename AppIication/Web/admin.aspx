@@ -12,68 +12,185 @@
     <link rel="Shortcut Icon" href="~/Images/favicon.ico" type="image/x-icon" />
     <title>CITY COLLEGE</title>
 
-    <link href="Scripts/Bootstrap5/css/bootstrap.css" rel="stylesheet" />
     <link href="Scripts/Bootstrap5/css/bootstrap.min.css" rel="stylesheet" />
-
-    <script src="Scripts/Bootstrap5/js/bootstrap.min.js"></script>
-
-    <script src="Scripts/Bootstrap5/js/bootstrap.bundle.js"></script>
-
     <link href="Scripts/NiceAdmin/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-
-
-    <!-- Font Awesome icons (free version)-->
-    <%--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>--%>
+    <script src="Scripts/Bootstrap5/js/bootstrap.bundle.min.js"></script>
 
     <style type="text/css">
-        .auto-style1 {
-            width: 202px;
+        :root {
+            --primary-base: #2e8b5a;
+            --primary-dark: #246e47;
+            --border-soft: #d3dfd8;
         }
 
-        .auto-style4 {
-            width: 533px;
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f8fb;
         }
 
-        #imgWaterMark {
-            opacity: 0.4;
-            z-index: -1;
-            /* For IE8 and earlier */
+        /* Full layout wrapper with subtle split / gradient background inspired by reference */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #a6d8eb 0%, #bde3f3 48%, #eef7fb 52%, #cbe9f7 100%);
         }
 
-            #imgWaterMark:hover {
-                opacity: 1;
-                filter: alpha(opacity=100);
-                position: absolute;
-                z-index: -1;
-                /*For IE8 and earlier*/
+        @media (max-width: 991.98px) {
+            .login-wrapper {
+                background: linear-gradient(180deg, #a6d8eb 0%, #daf0f8 40%, #ffffff 100%);
             }
-
-        .divider:after,
-        .divider:before {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: #eee;
         }
 
-        .h-custom {
-            height: calc(100% - 73px);
+        .login-main {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem 2rem;
         }
 
-        @media (max-width: 450px) {
-            .h-custom {
-                height: 100%;
-            }
+        /* Left graphic panel */
+        .left-illustration-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 2.5rem;
+        }
+
+        .left-illustration-img {
+            max-width: 85%;
+            height: auto;
+            max-height: 380px;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Partner Logos & Subtitle Above Card */
+        .partner-logos img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+        }
+
+        .portal-subtext {
+            font-size: 0.82rem;
+            color: #3f6854;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* Admin Login Card */
+        .login-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 16px 36px rgba(18, 48, 32, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .login-card-header {
+            background-color: var(--primary-base);
+            color: #ffffff;
+            padding: 0.95rem 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .login-card-body {
+            padding: 1.85rem 2rem 1.6rem;
+        }
+
+        .form-label-custom {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: #2b3a32;
+            margin-bottom: 0.35rem;
+        }
+
+        .input-group-custom {
+            border: 1px solid #c9d5cf;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.2s ease-in-out;
+            background-color: #ffffff;
+        }
+
+        .input-group-custom:focus-within {
+            border-color: var(--primary-base);
+            box-shadow: 0 0 0 0.2rem rgba(46, 139, 90, 0.2);
+        }
+
+        .input-group-custom .input-group-text {
+            background: transparent;
+            border: none;
+            color: #798d83;
+            font-size: 1.05rem;
+            padding-left: 0.85rem;
+            padding-right: 0.5rem;
+        }
+
+        .input-group-custom .form-control {
+            border: none;
+            box-shadow: none;
+            padding: 0.62rem 0.75rem 0.62rem 0.2rem;
+            font-size: 0.92rem;
+            color: #2b3a32;
+        }
+
+        .input-group-custom .form-control::placeholder {
+            color: #9cb0a5;
+            font-size: 0.88rem;
+        }
+
+        .btn-sign-in {
+            background-color: var(--primary-base);
+            border-color: var(--primary-base);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 6px;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .btn-sign-in:hover, .btn-sign-in:focus {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: #ffffff;
+        }
+
+        .login-card-footer {
+            border-top: 1px solid #f0f4f2;
+            padding: 0.8rem 1.25rem;
+            text-align: center;
+            background-color: #ffffff;
+            font-size: 0.76rem;
+            color: #63776d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
         }
 
         .footer {
-            /*position: fixed;*/
-            left: 0;
-            bottom: 0;
+            flex-shrink: 0;
             width: 100%;
             background-color: #333;
             color: white;
-            /*text-align: center;*/
         }
     </style>
 
@@ -94,195 +211,121 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
 
-        <div class="min-vh-100 d-flex align-items-center justify-content-center py-4 px-3"
-            style="background: linear-gradient(135deg,#cdf9df 0%,#8ee8b0 40%,#2e8b5a4d 100%)">
+        <div class="login-wrapper">
+            <main class="login-main">
+                <div class="container-fluid px-3 px-md-4">
+                    <div class="row align-items-center justify-content-center gy-4 gx-lg-5">
 
-            <div class="w-100" style="max-width: 900px">
-
-                <%-- SYSTEM TITLE --%>
-                <div class="text-center mb-4">
-                    <h4 class="fw-bold mb-1"
-                        style="font-size: clamp(16px,4vw,22px); letter-spacing: .04em; color: #1a4a2e; text-shadow: 0 2px 8px rgba(255,255,255,0.4)">
-                        <i class="bi bi-mortarboard-fill me-2"></i>
-                        City College Training Management System
-                    </h4>
-                    <p class="mb-0" style="font-size: 12px; color: #2e6b45">
-                        Authorized Personnel Only
-                    </p>
-                </div>
-
-                <div class="card border-0 overflow-hidden shadow-lg"
-                    style="border-radius: 16px">
-                    <div class="row g-0">
-
-                        <%-- LEFT: Image panel — hidden on mobile --%>
-                        <div class="col-md-5 d-none d-md-flex flex-column align-items-center justify-content-center p-5"
-                            style="background: linear-gradient(160deg,#2e8b5a 0%,#1a5c35 100%)">
-
+                        <%-- LEFT SIDE: Illustration (login.png) --%>
+                        <div class="col-12 col-lg-6 col-xl-6 left-illustration-col">
                             <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
-                                class="img-fluid mb-4"
-                                style="max-height: 200px; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2))"
+                                class="left-illustration-img img-fluid"
                                 alt="City College Training Management System" />
-
-                            <div class="text-center">
-                                <h5 class="fw-bold text-white mb-2"
-                                    style="font-size: 15px; letter-spacing: .03em; line-height: 1.5">City College Training<br />
-                                    Management System
-                                </h5>
-                                <p class="mb-4" style="font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.6">
-                                    Manage training programs, schedules,<br />
-                                    and participants in one place.
-                                </p>
-                                <div class="d-flex justify-content-center gap-3">
-                                    <div class="text-center">
-                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
-                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
-                                            <i class="bi bi-people-fill"></i>
-                                        </div>
-                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Participants</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
-                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
-                                            <i class="bi bi-calendar-check-fill"></i>
-                                        </div>
-                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Schedules</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="d-flex align-items-center justify-content-center rounded-3 mx-auto mb-1"
-                                            style="width: 36px; height: 36px; background: rgba(205,249,223,0.2); font-size: 16px; color: #cdf9df">
-                                            <i class="bi bi-award-fill"></i>
-                                        </div>
-                                        <small style="font-size: 10px; color: rgba(205,249,223,0.85)">Certificates</small>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <%-- RIGHT: Login form --%>
-                        <div class="col-12 col-md-7 d-flex flex-column justify-content-center bg-white"
-                            style="padding: clamp(1.5rem,5vw,3rem)">
+                        <%-- RIGHT SIDE: Brand Logos, Subtext & Admin Login Card --%>
+                        <div class="col-12 col-md-8 col-lg-5 col-xl-4">
 
-                            <%-- Mobile: logo --%>
-                            <div class="text-center mb-4 d-md-none">
-                                <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
-                                    class="img-fluid mb-3"
-                                    style="max-height: 90px; object-fit: contain"
-                                    alt="CCTMS" />
-                                <p class="text-muted mb-0" style="font-size: 12px">
-                                    Sign in to access your account
-                                </p>
+                            <%-- Top partner / system logos and subtitle --%>
+                            <div class="text-center mb-3">
+                                <div class="d-flex align-items-center justify-content-center gap-3 partner-logos mb-2">
+                                    <img src="<%=ResolveClientUrl("~/Images/CCLogo.png")%>" alt="City College Logo" />
+                                    <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" alt="City of Cagayan de Oro Seal" />
+                                    <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" alt="RISE Cagayan de Oro" />
+                                </div>
+                                <div class="portal-subtext">
+                                    Office of the City College — Admin Portal
+                                </div>
                             </div>
 
-                            <%-- Form heading --%>
-                            <div class="mb-4 d-none d-md-block">
-                                <div class="d-flex align-items-center gap-2 mb-1">
-                                    <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
-                                        style="width: 36px; height: 36px; background: #cdf9df; color: #2e8b5a; font-size: 18px">
-                                        <i class="bi bi-shield-lock"></i>
+                            <%-- Login Card --%>
+                            <div class="login-card">
+                                <%-- Card Header --%>
+                                <div class="login-card-header">
+                                    <i class="bi bi-shield-lock"></i>
+                                    <span>Administrator Login</span>
+                                </div>
+
+                                <%-- Card Body --%>
+                                <div class="login-card-body">
+
+                                    <%-- User ID --%>
+                                    <div class="mb-3 text-start">
+                                        <label class="form-label form-label-custom">
+                                            User ID <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group-custom d-flex align-items-center">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                                            <asp:TextBox runat="server" ID="txtUserId"
+                                                CssClass="form-control"
+                                                placeholder="Enter your user ID"></asp:TextBox>
+                                        </div>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
+                                            ControlToValidate="txtUserId" SetFocusOnError="true"
+                                            CssClass="text-danger fst-italic mt-1 d-block"
+                                            Style="font-size: 11px"
+                                            Display="Dynamic" Text="User ID is required"
+                                            ValidationGroup="DOC" />
                                     </div>
-                                    <h5 class="fw-bold mb-0" style="color: #1a4a2e; font-size: 18px">Welcome back
-                                    </h5>
+
+                                    <%-- Password --%>
+                                    <div class="mb-4 text-start">
+                                        <label class="form-label form-label-custom">
+                                            Password <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group-custom d-flex align-items-center">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-lock"></i>
+                                            </span>
+                                            <input runat="server" type="password" id="txtPassword"
+                                                class="form-control"
+                                                placeholder="Enter your password" />
+                                        </div>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                            ControlToValidate="txtPassword" SetFocusOnError="true"
+                                            CssClass="text-danger fst-italic mt-1 d-block"
+                                            Style="font-size: 11px"
+                                            Display="Dynamic" Text="Password is required"
+                                            ValidationGroup="DOC" />
+                                    </div>
+
+                                    <%-- Sign in button --%>
+                                    <div class="d-grid mb-2">
+                                        <button runat="server" id="btnLogin"
+                                            class="btn btn-sign-in"
+                                            causesvalidation="false">
+                                            Sign in
+                                        </button>
+                                    </div>
+
+                                    <%-- Register link (hidden by default) --%>
+                                    <p class="small fw-bold text-center mb-0 mt-3" runat="server" visible="false">
+                                        Don't have an account?
+                                        <a href="#!" class="link-danger">Register</a>
+                                    </p>
                                 </div>
-                                <p class="text-muted mb-0 ms-1" style="font-size: 13px">
-                                    Sign in to continue to CCTMS.
-                                </p>
-                            </div>
 
-                            <%-- User ID --%>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold mb-1"
-                                    style="font-size: 13px; color: #1a4a2e">
-                                    User ID <span class="text-danger">*</span>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text border-end-0"
-                                        style="background: #cdf9df; color: #2e8b5a; border-color: #a8f0c4">
-                                        <i class="bi bi-person"></i>
-                                    </span>
-                                    <asp:TextBox runat="server" ID="txtUserId"
-                                        CssClass="form-control border-start-0"
-                                        placeholder="Enter your user ID"
-                                        Style="font-size: 14px; border-color: #a8f0c4"></asp:TextBox>
+                                <%-- Security notice --%>
+                                <div class="login-card-footer">
+                                    <i class="bi bi-shield-check" style="color: var(--primary-base);"></i>
+                                    <span>Authorized access only. All activity is monitored and logged.</span>
                                 </div>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
-                                    ControlToValidate="txtUserId" SetFocusOnError="true"
-                                    CssClass="text-danger fst-italic mt-1"
-                                    Style="font-size: 12px"
-                                    Display="Dynamic" Text="User ID is required"
-                                    ValidationGroup="DOC" />
-                            </div>
 
-                            <%-- Password --%>
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold mb-1"
-                                    style="font-size: 13px; color: #1a4a2e">
-                                    Password <span class="text-danger">*</span>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text border-end-0"
-                                        style="background: #cdf9df; color: #2e8b5a; border-color: #a8f0c4">
-                                        <i class="bi bi-lock"></i>
-                                    </span>
-                                    <input runat="server" type="password" id="txtPassword"
-                                        class="form-control border-start-0"
-                                        placeholder="Enter your password"
-                                        style="font-size: 14px; border-color: #a8f0c4" />
-                                </div>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                                    ControlToValidate="txtPassword" SetFocusOnError="true"
-                                    CssClass="text-danger fst-italic mt-1"
-                                    Style="font-size: 12px"
-                                    Display="Dynamic" Text="Password is required"
-                                    ValidationGroup="DOC" />
-                            </div>
-
-                            <%-- Sign in button --%>
-                            <div class="d-grid mb-3">
-                                <button runat="server" id="btnLogin"
-                                    class="btn fw-semibold text-white d-flex align-items-center justify-content-center gap-2"
-                                    style="background: #2e8b5a; border-color: #2e8b5a; font-size: 15px; padding: 12px"
-                                    causesvalidation="false">
-                                    <i class="bi bi-box-arrow-in-right" style="font-size: 17px"></i>
-                                    Sign in
-                                </button>
-                            </div>
-
-                            <%-- Register link (hidden by default) --%>
-                            <p class="small fw-bold text-center mb-0" runat="server" visible="false">
-                                Don't have an account?
-                        <a href="#!" class="link-danger">Register</a>
-                            </p>
-
-                            <%-- Security notice --%>
-                            <div class="text-center mt-4 pt-3 border-top"
-                                style="border-color: #cdf9df !important">
-                                <small class="text-muted d-flex align-items-center justify-content-center gap-1"
-                                    style="font-size: 11px">
-                                    <i class="bi bi-shield-check" style="color: #2e8b5a"></i>
-                                    Authorized access only. All activity is monitored.
-                                </small>
                             </div>
 
                         </div>
 
                     </div>
                 </div>
+            </main>
 
-                <%-- Footer --%>
-                <div class="text-center mt-3">
-                    <small style="font-size: 11px; color: #1a4a2e">&copy; <%=DateTime.Now.Year%> City College Training Management System. All rights reserved.
-                    </small>
-                </div>
-
+            <!-- Footer -->
+            <div class="footer">
+                <uc3:sFooter ID="sFooter1" runat="server" />
             </div>
 
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <uc3:sFooter ID="sFooter1" runat="server" />
         </div>
 
 
