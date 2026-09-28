@@ -7,15 +7,20 @@
     <div class="container my-4">
 
         <div class="container">
-            <div class="empower text-light" style="font-size: 25px;">CITY COLLEGE ONLINE TRAINING REGISTRATION</div>
-
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3 mb-3">
+                <div class="brand-logos brand-logos-themed">
+                    <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" alt="City of Cagayan de Oro Seal" class="brand-logo" />
+                    <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" alt="RISE Cagayan de Oro" class="brand-logo brand-logo-wide" />
+                </div>
+                <h4 class="fw-bold text-light text-center text-md-start mb-0"><i class="bi bi-journal-check me-2"></i>CITY COLLEGE ONLINE TRAINING REGISTRATION</h4>
+            </div>
         </div>
-        <div class="card shadow-sm">
+        <div class="card shadow-lg rounded-4 border-0">
             <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                 <ContentTemplate>
-                    <div class="card-body">
+                    <div class="card-body p-4">
 
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <label class="input-group-text bg-success text-light">Registration Type</label>
@@ -29,7 +34,7 @@
                         <!-- PERSONAL INFORMATION -->
                         <div class="row" runat="server" id="divPersonal">
                             <div class="col-lg-12">
-                                <h6 class="border-bottom pb-2 mb-3 fw-bold">PERSONAL INFORMATION</h6>
+                                <h6 class="section-title"><i class="bi bi-person-vcard-fill"></i>PERSONAL INFORMATION</h6>
 
                                 <div class="row g-3">
                                     <div class="col-md-3">
@@ -117,7 +122,7 @@
 
                         <div class="row" runat="server" id="divInstitution">
                             <div class="col-lg-12">
-                                <h6 class="border-bottom pb-2 mb-3 fw-bold">INSTITUTION INFORMATION</h6>
+                                <h6 class="section-title"><i class="bi bi-building-fill"></i>INSTITUTION INFORMATION</h6>
 
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -167,7 +172,7 @@
                         <div class="row" runat="server" id="divProfession">
 
                             <!-- PROFESSION -->
-                            <h6 class="border-bottom pb-2 mt-4 fw-bold">PROFESSION / OCCUPATION</h6>
+                            <h6 class="section-title mt-4"><i class="bi bi-briefcase-fill"></i>PROFESSION / OCCUPATION</h6>
 
                             <div class="row g-3">
                                 <div class="col-md-4">
@@ -196,7 +201,7 @@
                                     <label class="form-label">PRC License Number</label>
                                     <div class="input-group">
                                         <asp:TextBox runat="server" CssClass="form-control" ID="txtPRCNo" />
-                                        <div class="input-group-text">
+                                        <div class="input-group-text d-flex align-items-center">
                                             <asp:CheckBox runat="server" ID="chkNAPRCNo" Text="&nbsp;N/A" AutoPostBack="true" />
                                         </div>
                                     </div>
@@ -214,7 +219,7 @@
                         <div class="row" runat="server" id="divPreferences">
 
                             <!-- TRAINING -->
-                            <h6 class="border-bottom pb-2 mt-4 fw-bold">TRAINING & SEMINAR PREFERENCES</h6>
+                            <h6 class="section-title mt-4"><i class="bi bi-mortarboard-fill"></i>TRAINING & SEMINAR PREFERENCES</h6>
 
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -270,11 +275,11 @@
                             </div>
 
                             <!-- ADMIN -->
-                            <h6 class="border-bottom pb-2 mt-4 fw-bold">ADMINISTRATIVE TRACKING</h6>
+                            <h6 class="section-title mt-4"><i class="bi bi-clipboard-data-fill"></i>ADMINISTRATIVE TRACKING</h6>
 
                             <div class="mb-3">
                                 <label class="form-label">How did you hear about our programs?<span class="text-danger">*</span></label>
-                                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlHear">
+                                <asp:DropDownList runat="server" CssClass="form-select" ID="ddlHear">
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="ddlHear" SetFocusOnError="true" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="*" ValidationGroup="DOC" />
                             </div>
@@ -282,26 +287,20 @@
                         </div>
 
                         <!-- PRIVACY -->
-                        <h6 class="border-bottom pb-2 mt-4 fw-bold">DATA PRIVACY AND VERIFICATION</h6>
+                        <h6 class="section-title mt-4"><i class="bi bi-shield-lock-fill"></i>DATA PRIVACY AND VERIFICATION</h6>
 
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP1" />
-                                <span>I certify that all information provided is true and correct.</span>
-                            </label>
-
+                        <div class="form-check mb-2">
+                            <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP1" ClientIDMode="Static" />
+                            <label class="form-check-label" for="chkDP1">I certify that all information provided is true and correct.</label>
                         </div>
 
-                        <div class="form-check">
-
-                            <label class="form-check-label">
-                                <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP2" />
-                                I have read and agree to the <a href="DataPrivacy.aspx" target="_blank">Data Privacy Consent</a>.
-                            </label>
+                        <div class="form-check mb-3">
+                            <asp:CheckBox runat="server" CssClass="form-check-input" ID="chkDP2" ClientIDMode="Static" />
+                            <label class="form-check-label" for="chkDP2">I have read and agree to the <a href="DataPrivacy.aspx" target="_blank">Data Privacy Consent</a>.</label>
                         </div>
 
                         <div class="text-center mt-4">
-                            <asp:Button runat="server" Text="REGISTER" CssClass="btn btn-success px-5" ID="btnSaveRegistration" ValidationGroup="DOC" />
+                            <asp:Button runat="server" Text="REGISTER" CssClass="btn btn-green btn-lg px-5 rounded-pill" ID="btnSaveRegistration" ValidationGroup="DOC" />
                         </div>
 
                     </div>

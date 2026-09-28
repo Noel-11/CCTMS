@@ -5,53 +5,73 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
-
-
-    <section class="page1">
+    <section class="login-section">
         <div class="container">
-            <div class="college"><b>CITY COLLEGE</b></div>
-            <div class="empower">EMPOWER YOUR FUTURE</div>
-            <div class="highlight mb-2">SEMINAR</div>
-            <div class="cont mb-3"><span style="color: #e5b417;">CONTINUING </span><span>PROFESSIONAL</span> <span style="color: black;">DEVELOPMENT</span></div>
-            <div class="sub mb-2">TRAINING</div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card login-shell border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="row g-0 align-items-stretch">
+
+                            <!-- BRAND PANEL -->
+                            <div class="col-lg-5 login-brand d-flex flex-column align-items-center justify-content-center text-center text-white p-4 p-lg-5">
+                                <div class="brand-logos brand-logos-themed justify-content-center mb-3">
+                                    <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" alt="City of Cagayan de Oro Seal" class="brand-logo" />
+                                    <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" alt="RISE Cagayan de Oro" class="brand-logo brand-logo-wide" />
+                                </div>
+                                <div class="college-mini fw-bold mb-2">CITY COLLEGE</div>
+                                <div class="empower-mini mb-3">EMPOWER YOUR FUTURE</div>
+                                <span class="badge rounded-pill badge-gold mb-3">SEMINAR</span>
+                                <p class="mb-0 small opacity-75">
+                                    <span class="text-warning-em fw-bold">Continuing</span> Professional Development Training
+                                </p>
+                            </div>
+
+                            <!-- LOGIN PANEL -->
+                            <div class="col-lg-7">
+                                <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                                    <ContentTemplate>
+
+                                        <div class="login-box text-center p-4 p-md-5">
+
+                                            <div class="login-icon mb-3">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                            <h4 class="fw-bold text-success mb-1">SIGN IN</h4>
+                                            <p class="text-secondary mb-4">Access your CPD training account</p>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text bg-light"><i class="bi bi-person-fill"></i></span>
+                                                <asp:TextBox runat="server" CssClass="form-control" Placeholder="username" ID="txtUserName" onkeyup="clickEnterSearch('ctl00_cpConTent_btnLogin');" />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
+                                                <asp:TextBox runat="server" CssClass="form-control" TextMode="Password" Placeholder="password" ID="txtPassword" onkeyup="clickEnterSearch('ctl00_cpConTent_btnLogin');" />
+                                            </div>
+
+                                            <div runat="server" id="divLoginError" visible="false" class="mb-3">
+                                                <label class="form-check-label text-danger small">Invalid username/password!</label>
+                                            </div>
+
+                                            <asp:Button runat="server" Text="LOGIN" class="btn btn-green w-100 mb-3 rounded-pill" ID="btnLogin" />
+                                            <a runat="server" id="aForgotP" class="small text-success" href="#">Forgot password?</a>
+
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- LOGIN -->
-    <asp:UpdatePanel runat="server" ID="UpdatePanel1">
-        <ContentTemplate>
-
-            <div class="login-box text-center">
-
-                <div class="mb-3">
-                    <asp:TextBox runat="server" CssClass="form-control" Placeholder="username" ID="txtUserName" onkeyup="clickEnterSearch('ctl00_cpConTent_btnLogin');" />
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Password" Placeholder="password" ID="txtPassword" onkeyup="clickEnterSearch('ctl00_cpConTent_btnLogin');" />
-                </div>
-
-                <div runat="server" id="divLoginError" visible="false" class="mb-3">
-                    <label class="form-check-label text-danger small">Invalid username/password!</label>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                    <asp:Button runat="server" Text="LOGIN" class="btn btn-green px-5" ID="btnLogin" />
-                    <a runat="server" id="aForgotP" href="#">Forgot password?</a>
-                </div>
-
-
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
-
 
     <%--FORGOT PASSWORD--%>
     <div id="mdlForgotPassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false">
         <div class="modal-dialog modal-md">
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="modal-header bg-success" style="text-align: center">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
@@ -69,7 +89,7 @@
                                     <div runat="server" id="pnlContact">
                                         <h4>Verify User Details</h4>
 
-                                        <%--<div class="col-md-12 mb-2">
+                                        <div class="col-md-12 mb-2">
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtVerLName" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Last Name is Required" ValidationGroup="CEL" />
                                             <asp:TextBox runat="server" ID="txtVerLName" CssClass="form-control mb-3" placeholder="Last Name" ValidationGroup="CEL"></asp:TextBox>
 
@@ -87,7 +107,7 @@
 
                                         </div>
 
-                                        <button runat="server" id="btnVerifyCel" type="button" class="btn btn-primary mb-3" validationgroup="CEL">Verify User <i class="bi bi-arrow-right"></i></button>
+                                        <button runat="server" id="btnVerifyCel" type="button" class="btn btn-green mb-3" validationgroup="CEL">Verify User <i class="bi bi-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +122,7 @@
                                         </p>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtPinCode" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Code is Required" ValidationGroup="PIN" />
                                         <asp:TextBox runat="server" ID="txtPinCode" CssClass="form-control mb-3" TextMode="Number" MaxLength="6" placeholder="PIN" lenght="6" ValidationGroup="PIN"></asp:TextBox>
-                                        <button runat="server" id="btnVerify" type="button" class="btn btn-primary mb-3" validationgroup="PIN">Verify PIN <i class="bi bi-arrow-right"></i></button>
+                                        <button runat="server" id="btnVerify" type="button" class="btn btn-green mb-3" validationgroup="PIN">Verify PIN <i class="bi bi-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +150,7 @@
 
                                         </div>
 
-                                        <button runat="server" id="btnRegister" type="button" class="btn btn-primary mb-3">SUBMIT <i class="bi bi-arrow-right"></i></button>
+                                        <button runat="server" id="btnRegister" type="button" class="btn btn-green mb-3">SUBMIT <i class="bi bi-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +160,7 @@
                     <div class="modal-footer ">
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
-                                <%--   <asp:Button runat="server" ID="btnSaveMC" class="btn btn-success pull-right" Text="Save" ValidationGroup="DOC" CausesValidation="false" />
+                                   <asp:Button runat="server" ID="btnSaveMC" class="btn btn-success pull-right" Text="Save" ValidationGroup="DOC" CausesValidation="false" />
                                     <asp:Button runat="server" ID="btnSaveMCAll" class="btn btn-success pull-right" Text="Save to all" ValidationGroup="DOC" CausesValidation="false" />--%>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -155,7 +175,7 @@
     <div id="mdlChangePassword" role="dialog" class="modal fade" data-bs-backdrop="false" data-bs-keyboard="false" style="background: #ffffff; background: linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(240, 255, 240, .9) 100%);">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="modal-header bg-warning" style="text-align: center">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
@@ -178,7 +198,7 @@
                                         </p>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtCPPin" SetFocusOnError="true" Font-Bold="false" Font-Italic="true" Font-Size="10pt" Display="Dynamic" Text="Code is Required" ValidationGroup="CPPIN" />
                                         <asp:TextBox runat="server" ID="txtCPPin" CssClass="form-control mb-3" TextMode="Number" MaxLength="6" placeholder="PIN" lenght="6" ValidationGroup="PIN"></asp:TextBox>
-                                        <button runat="server" id="btnCPVerPin" type="button" class="btn btn-primary mb-3" validationgroup="CPPIN">Verify PIN <i class="bi bi-arrow-right"></i></button>
+                                        <button runat="server" id="btnCPVerPin" type="button" class="btn btn-green mb-3" validationgroup="CPPIN">Verify PIN <i class="bi bi-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +224,7 @@
                                             </div>
                                         </div>
 
-                                        <button runat="server" id="btnSavePassword" type="button" class="btn btn-primary mb-3">Submit <i class="bi bi-arrow-right"></i></button>
+                                        <button runat="server" id="btnSavePassword" type="button" class="btn btn-green mb-3">Submit <i class="bi bi-arrow-right"></i></button>
                                         <button type="button" class="btn btn-danger mb-3" runat="server" id="btnCPClose" data-bs-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>

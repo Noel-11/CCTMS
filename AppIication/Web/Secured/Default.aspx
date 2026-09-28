@@ -3,6 +3,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
 
-    <h1 class="mt-4">WELCOME TO CITY COLLEGE TRAINING MANAGEMENT SYSTEM</h1>
+    <div class="d-flex flex-column flex-md-row align-items-center gap-3 mt-4">
+        <div class="brand-logos">
+            <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" alt="City of Cagayan de Oro Seal" class="brand-logo" />
+            <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" alt="RISE Cagayan de Oro" class="brand-logo brand-logo-wide" />
+        </div>
+        <h1 class="mb-0">WELCOME TO CITY COLLEGE TRAINING MANAGEMENT SYSTEM</h1>
+    </div>
    
 </asp:Content>
