@@ -70,11 +70,15 @@
         }
 
         /* Partner Logos & Subtitle Above Card */
+        .partner-logos {
+            flex-wrap: wrap;
+        }
+
         .partner-logos img {
             height: 48px;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
         }
 
         .portal-subtext {
@@ -167,10 +171,22 @@
             transition: all 0.25s ease-in-out;
         }
 
-        .btn-sign-in:hover, .btn-sign-in:focus {
+        .btn-sign-in:hover, .btn-sign-in:focus, .btn-sign-in:focus-visible {
             background-color: var(--primary-dark);
             border-color: var(--primary-dark);
             color: #ffffff;
+            box-shadow: 0 0 0 0.2rem rgba(46, 139, 90, 0.22);
+        }
+
+        .btn-sign-in:active {
+            background-color: #1d5838;
+            border-color: #1d5838;
+            color: #ffffff;
+        }
+
+        .btn-sign-in i {
+            font-size: 1.05rem;
+            line-height: 1;
         }
 
         .login-card-footer {
@@ -186,11 +202,33 @@
             gap: 0.35rem;
         }
 
+        /* Footer wrapper retained so the existing sFooter control keeps working */
         .footer {
             flex-shrink: 0;
             width: 100%;
-            background-color: #333;
-            color: white;
+            background-color: #e7e7e7;
+            color: #212529;
+            border-top: 1px solid #d9d9d9;
+        }
+
+        /* Small screens */
+        @media (max-width: 575.98px) {
+            .login-main {
+                padding: 2rem 1rem 1.5rem;
+            }
+
+            .left-illustration-img {
+                max-height: 220px;
+                max-width: 100%;
+            }
+
+            .partner-logos img {
+                height: 38px;
+            }
+
+            .login-card-body {
+                padding: 1.5rem 1.25rem 1.25rem;
+            }
         }
     </style>
 
@@ -217,7 +255,7 @@
                     <div class="row align-items-center justify-content-center gy-4 gx-lg-5">
 
                         <%-- LEFT SIDE: Illustration (login.png) --%>
-                        <div class="col-12 col-lg-6 col-xl-6 left-illustration-col">
+                        <div class="col-12 col-lg-6 left-illustration-col">
                             <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
                                 class="left-illustration-img img-fluid"
                                 alt="City College Training Management System" />
@@ -251,15 +289,17 @@
 
                                     <%-- User ID --%>
                                     <div class="mb-3 text-start">
-                                        <label class="form-label form-label-custom">
+                                        <asp:Label runat="server" AssociatedControlID="txtUserId"
+                                            CssClass="form-label form-label-custom">
                                             User ID <span class="text-danger">*</span>
-                                        </label>
+                                        </asp:Label>
                                         <div class="input-group-custom d-flex align-items-center">
                                             <span class="input-group-text">
                                                 <i class="bi bi-person"></i>
                                             </span>
                                             <asp:TextBox runat="server" ID="txtUserId"
                                                 CssClass="form-control"
+                                                autocomplete="username"
                                                 placeholder="Enter your user ID"></asp:TextBox>
                                         </div>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
@@ -272,15 +312,17 @@
 
                                     <%-- Password --%>
                                     <div class="mb-4 text-start">
-                                        <label class="form-label form-label-custom">
+                                        <asp:Label runat="server" AssociatedControlID="txtPassword"
+                                            CssClass="form-label form-label-custom">
                                             Password <span class="text-danger">*</span>
-                                        </label>
+                                        </asp:Label>
                                         <div class="input-group-custom d-flex align-items-center">
                                             <span class="input-group-text">
                                                 <i class="bi bi-lock"></i>
                                             </span>
                                             <input runat="server" type="password" id="txtPassword"
                                                 class="form-control"
+                                                autocomplete="current-password"
                                                 placeholder="Enter your password" />
                                         </div>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
@@ -294,9 +336,10 @@
                                     <%-- Sign in button --%>
                                     <div class="d-grid mb-2">
                                         <button runat="server" id="btnLogin"
-                                            class="btn btn-sign-in"
+                                            class="btn btn-sign-in d-flex align-items-center justify-content-center gap-2"
                                             causesvalidation="false">
-                                            Sign in
+                                            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                                            <span>Sign in</span>
                                         </button>
                                     </div>
 
