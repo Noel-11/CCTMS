@@ -4,47 +4,238 @@
 
 <%@ Register Src="~/Include/wucConfirmBoxBS5.ascx" TagName="wucConfirmBox" TagPrefix="wucConfirmBox" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cpConTent" runat="Server">
+    <%-- ==================== PAGE SCOPED STYLES ==================== --%>
+    <style>
+        .rta-page {
+            --rta-green: #2e8b5a;
+            --rta-green-dark: #246e47;
+            --rta-ink: #1a4a2e;
+            --rta-soft: #eaf6ef;
+            --rta-line: #e3ebe6;
+        }
 
-    <div class="card">
-        <asp:UpdatePanel ID="updatePanel2" runat="server">
-            <ContentTemplate>
+        .rta-page .card {
+            border: 1px solid var(--rta-line);
+            border-radius: 10px;
+            box-shadow: none;
+            background: #fff;
+        }
 
-                <%-- HEADER --%>
-                <div class="card-header border-bottom d-flex align-items-center justify-content-between px-3 py-2"
-                    style="background: #2e8b5a">
-                    <button runat="server" id="btnHome"
-                        class="btn btn-sm fw-semibold d-flex align-items-center gap-1"
-                        style="background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.3); font-size: 12px">
-                        <i class="bi bi-chevron-double-left"></i>Back
-                    </button>
+        /* Page Banner Header */
+        .rta-head {
+            background: linear-gradient(135deg, #2e8b5a 0%, #246e47 100%);
+            color: #fff;
+            border-bottom: 0;
+            border-radius: 10px 10px 0 0;
+            padding: .75rem 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: .85rem;
+            flex-wrap: wrap;
+        }
 
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-journal-text text-white" style="font-size: 16px"></i>
-                        <h5 class="fw-bold text-white mb-0"
-                            style="font-size: 15px; letter-spacing: .04em">Training Title Details
-                        </h5>
+        .rta-glass {
+            background: rgba(255, 255, 255, .16);
+            border: 1px solid rgba(255, 255, 255, .35);
+            color: #fff;
+            font-size: .82rem;
+            font-weight: 600;
+            padding: .38rem .85rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            transition: all .15s ease-in-out;
+            cursor: pointer;
+        }
+
+        .rta-glass:hover,
+        .rta-glass:focus {
+            background: #fff;
+            color: #246e47;
+            border-color: #fff;
+        }
+
+        .rta-title {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+            color: #fff;
+        }
+
+        .rta-title i {
+            font-size: 1.15rem;
+        }
+
+        /* Section Container */
+        .rta-section {
+            border: 1px solid var(--rta-line);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .rta-section-head {
+            background: var(--rta-soft);
+            border-bottom: 1px solid #d7e7de;
+            color: var(--rta-ink);
+            padding: .6rem .95rem;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .5rem;
+            flex-wrap: wrap;
+        }
+
+        .rta-section-head i {
+            color: var(--rta-green);
+            font-size: .95rem;
+        }
+
+        .rta-head-note {
+            font-weight: 500;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #5c7568;
+            font-size: .75rem;
+        }
+
+        .rta-label {
+            display: block;
+            margin-bottom: .3rem;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--rta-ink);
+        }
+
+        .rta-page .form-control,
+        .rta-page .form-select,
+        .rta-page .input-group-text {
+            font-size: .85rem;
+            border-color: #cbdad1;
+        }
+
+        .rta-page .form-control:focus,
+        .rta-page .form-select:focus {
+            border-color: var(--rta-green);
+            box-shadow: 0 0 0 .2rem rgba(46, 139, 90, .15);
+        }
+
+        .rta-currency-badge {
+            background: #eaf6ef;
+            color: #246e47;
+            border-color: #cbdad1;
+            font-weight: 700;
+            font-size: .9rem;
+        }
+
+        /* Radio Button List */
+        .rta-radio-card {
+            background: #fbfdfc;
+            border: 1px solid #cbdad1;
+            border-radius: 6px;
+            padding: .45rem .85rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .rta-radio-card input[type="radio"] {
+            margin-right: .3rem;
+            cursor: pointer;
+            accent-color: var(--rta-green);
+        }
+
+        .rta-radio-card label {
+            margin: 0;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #2b3b33;
+            cursor: pointer;
+        }
+
+        /* Footer Action Bar */
+        .rta-actions {
+            border-top: 1px solid var(--rta-line);
+            background: #fbfdfc;
+            padding: .75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .5rem;
+        }
+
+        .rta-btn-save {
+            background: var(--rta-green);
+            border-color: var(--rta-green);
+            color: #fff;
+            font-size: .84rem;
+            font-weight: 600;
+            padding: .45rem 1.6rem;
+            border-radius: 6px;
+            transition: all .15s ease-in-out;
+        }
+
+        .rta-btn-save:hover,
+        .rta-btn-save:focus {
+            background: var(--rta-green-dark);
+            border-color: var(--rta-green-dark);
+            color: #fff;
+        }
+
+        @media (max-width: 575.98px) {
+            .rta-head {
+                align-items: flex-start;
+            }
+            .rta-title {
+                font-size: .98rem;
+            }
+            .rta-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <div class="rta-page">
+        <div class="card">
+            <asp:UpdatePanel ID="updatePanel2" runat="server">
+                <ContentTemplate>
+
+                    <%-- ==================== PAGE HEADER ==================== --%>
+                    <div class="card-header rta-head">
+                        <button runat="server" id="btnHome" class="rta-glass" title="Go back to Reference Training List">
+                            <i class="bi bi-chevron-double-left"></i><span>Back</span>
+                        </button>
+                        <h2 class="rta-title">
+                            <i class="bi bi-journal-text"></i><span>Training Title Details</span>
+                        </h2>
                     </div>
 
-                    <%-- Spacer to balance the back button --%>
-                    <div style="width: 70px"></div>
-                </div>
-
-                <%-- BODY --%>
-                <div class="card-body p-3">
-                    <div class="card border rounded-3 shadow-none">
-                        <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-2 px-3">
-                            <i class="bi bi-info-circle text-secondary"></i>
-                            <span class="fw-semibold text-uppercase text-secondary"
-                                style="font-size: 11px; letter-spacing: .06em">Training Information
-                            </span>
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row g-3">
+                    <%-- ==================== BODY CONTENT ==================== --%>
+                    <div class="card-body p-3">
+                        <div class="card rta-section">
+                            <div class="card-header rta-section-head">
+                                <span class="d-inline-flex align-items-center gap-2">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <span>Training Information</span>
+                                </span>
+                                <span class="rta-head-note">Fields marked <span class="text-danger">*</span> are required</span>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="row g-3">
 
                                 <%-- Training Title --%>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Training Title <span class="text-danger">*</span>
                                     </label>
                                     <asp:TextBox runat="server" ID="txtTrainingTitle"
@@ -60,8 +251,7 @@
 
                                 <%-- Description --%>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Description <span class="text-danger">*</span>
                                     </label>
                                     <asp:TextBox runat="server" ID="txtDescription"
@@ -77,8 +267,7 @@
 
                                 <%-- Learning Mode --%>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Learning Mode <span class="text-danger">*</span>
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlPreferredMode"
@@ -94,8 +283,7 @@
 
                                 <%-- Learning Tracks --%>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Learning Tracks <span class="text-danger">*</span>
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlLearningTracks"
@@ -112,19 +300,17 @@
 
                                 <%-- Learning Tracks Other --%>
                                 <div runat="server" id="divTracksOther" class="col-12">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Learning Tracks — Other (specify)
                                     </label>
                                     <asp:TextBox runat="server" ID="txtLearningTracksOther"
                                         CssClass="form-control"
-                                        placeholder="Please specify"></asp:TextBox>
+                                        placeholder="Please specify other learning track"></asp:TextBox>
                                 </div>
 
                                 <%-- Training Program Fee --%>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Training Program Fee <span class="text-danger">*</span>
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlTrainingProgFee"
@@ -141,20 +327,17 @@
 
                                 <%-- Registration Fee --%>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold mb-1"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label">
                                         Registration Fee
                                     </label>
                                     <div class="input-group">
-                                        <span class="input-group-text"
-                                            style="background: #cdf9df; color: #2e8b5a; border-color: #a8f0c4; font-weight: 600">₱
-                                        </span>
+                                        <span class="input-group-text rta-currency-badge">₱</span>
                                         <asp:TextBox runat="server" ID="txtRegistrationFee"
-                                            CssClass="form-control text-end"
+                                            CssClass="form-control text-end fw-semibold"
                                             TextMode="Number"
                                             min="0.00" max="999999.99"
                                             MaxLength="9" step="any"
-                                            Style="background-color: #f8f9fa"
+                                            Style="background-color: #f8fbf9"
                                             ReadOnly="true"
                                             required="required"
                                             placeholder="0.00"></asp:TextBox>
@@ -163,28 +346,27 @@
 
                                 <%-- Is Active --%>
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold mb-2"
-                                        style="font-size: 13px; color: #1a4a2e">
+                                    <label class="rta-label mb-2">
                                         Is Active?
                                     </label>
-                                    <asp:RadioButtonList runat="server" ID="rblIsactive"
-                                        RepeatDirection="Horizontal"
-                                        RepeatLayout="Flow" CssClass="form-control"
-                                        Style="font-size: 13px; color: #1a4a2e; display: flex; gap: .5rem; align-items: center">
-                                        <asp:ListItem Text="&nbsp;Yes" Value="Y" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Text="&nbsp;No" Value="N"></asp:ListItem>
-                                    </asp:RadioButtonList>
+                                    <div class="d-inline-flex rta-radio-card">
+                                        <asp:RadioButtonList runat="server" ID="rblIsactive"
+                                            RepeatDirection="Horizontal"
+                                            RepeatLayout="Flow">
+                                            <asp:ListItem Text="Yes" Value="Y" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="No" Value="N"></asp:ListItem>
+                                        </asp:RadioButtonList>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <%-- FOOTER --%>
-                        <div class="card-footer bg-white border-top d-flex justify-content-end gap-2 px-3 py-2">
+                        <%-- ==================== FOOTER ==================== --%>
+                        <div class="rta-actions">
                             <asp:Button runat="server" ID="btnSave"
-                                Text="Save"
-                                CssClass="btn btn-sm fw-semibold text-white px-4"
-                                Style="background: #2e8b5a; border-color: #2e8b5a"
+                                Text="Save Training"
+                                CssClass="btn rta-btn-save"
                                 ValidationGroup="DOC" />
                         </div>
 
@@ -195,6 +377,7 @@
         </asp:UpdatePanel>
 
     </div>
+</div>
 
 
     <asp:UpdatePanel ID="updatePanel3" runat="server">
