@@ -1,41 +1,28 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" EnableEventValidation="false" CodeFile="admin.aspx.vb" Inherits="_admin" Theme="Skins" %>
-
-<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
-<!DOCTYPE html>
 <%@ Register Src="~/Include/sFooter.ascx" TagName="sFooter" TagPrefix="uc3" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
+<html lang="en">
 <head id="Head1" runat="server">
     <meta charset="utf-8" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="Shortcut Icon" href="~/Images/favicon.ico" type="image/x-icon" />
-    <title>CITY COLLEGE</title>
+    <link rel="icon" href="~/Images/favicon.ico" type="image/x-icon" />
+    <title>CITY COLLEGE | Administrator Login</title>
 
     <link href="Scripts/Bootstrap5/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Scripts/NiceAdmin/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <script src="Scripts/Bootstrap5/js/bootstrap.bundle.min.js"></script>
 
     <style type="text/css">
+        /* Brand tokens: only what Bootstrap utilities cannot express */
         :root {
-            --primary-base: #2e8b5a;
-            --primary-dark: #246e47;
-            --border-soft: #d3dfd8;
+            --brand: #2e8b5a;
+            --brand-dark: #246e47;
+            --brand-ring: rgba(46, 139, 90, .25);
         }
 
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f4f8fb;
-        }
-
-        /* Full layout wrapper with subtle split / gradient background inspired by reference */
         .login-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             background: linear-gradient(135deg, #a6d8eb 0%, #bde3f3 48%, #eef7fb 52%, #cbe9f7 100%);
         }
 
@@ -45,257 +32,128 @@
             }
         }
 
-        .login-main {
-            flex: 1 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1.5rem 2rem;
-        }
-
-        /* Left graphic panel */
-        .left-illustration-col {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem 2.5rem;
-        }
-
-        .left-illustration-img {
-            max-width: 85%;
-            height: auto;
+        .illustration {
             max-height: 380px;
-            object-fit: contain;
-            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .10));
         }
 
-        /* Partner Logos & Subtitle Above Card */
-        .partner-logos {
-            flex-wrap: wrap;
-        }
-
-        .partner-logos img {
+        .partner-logo {
             height: 48px;
             width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
         }
 
-        .portal-subtext {
-            font-size: 0.82rem;
-            color: #3f6854;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
-        /* Admin Login Card */
         .login-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 16px 36px rgba(18, 48, 32, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            max-width: 420px;
-            width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
+            max-width: 440px;
         }
 
-        .login-card-header {
-            background-color: var(--primary-base);
-            color: #ffffff;
-            padding: 0.95rem 1.5rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.05rem;
-            letter-spacing: 0.02em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .bg-brand {
+            background-color: var(--brand);
         }
 
-        .login-card-body {
-            padding: 1.85rem 2rem 1.6rem;
+        .text-brand {
+            color: var(--brand);
         }
 
-        .form-label-custom {
-            font-size: 0.86rem;
-            font-weight: 600;
-            color: #2b3a32;
-            margin-bottom: 0.35rem;
+        /* Focus states in the brand colour */
+        .login-card .form-control:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 .2rem var(--brand-ring);
         }
 
-        .input-group-custom {
-            border: 1px solid #c9d5cf;
-            border-radius: 6px;
-            overflow: hidden;
-            transition: all 0.2s ease-in-out;
-            background-color: #ffffff;
+        .login-card .input-group:focus-within .input-group-text,
+        .login-card .input-group:focus-within .btn {
+            border-color: var(--brand);
         }
 
-        .input-group-custom:focus-within {
-            border-color: var(--primary-base);
-            box-shadow: 0 0 0 0.2rem rgba(46, 139, 90, 0.2);
+        .login-card .input-group:focus-within .input-group-text {
+            color: var(--brand);
         }
 
-        .input-group-custom .input-group-text {
-            background: transparent;
-            border: none;
-            color: #798d83;
-            font-size: 1.05rem;
-            padding-left: 0.85rem;
-            padding-right: 0.5rem;
+        .btn-brand {
+            background-color: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
         }
 
-        .input-group-custom .form-control {
-            border: none;
-            box-shadow: none;
-            padding: 0.62rem 0.75rem 0.62rem 0.2rem;
-            font-size: 0.92rem;
-            color: #2b3a32;
+        .btn-brand:hover,
+        .btn-brand:focus-visible {
+            background-color: var(--brand-dark);
+            border-color: var(--brand-dark);
+            color: #fff;
         }
 
-        .input-group-custom .form-control::placeholder {
-            color: #9cb0a5;
-            font-size: 0.88rem;
+        .btn-brand:focus-visible {
+            box-shadow: 0 0 0 .2rem var(--brand-ring);
         }
 
-        .btn-sign-in {
-            background-color: var(--primary-base);
-            border-color: var(--primary-base);
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.65rem 1.25rem;
-            border-radius: 6px;
-            transition: all 0.25s ease-in-out;
+        .btn-brand:active {
+            background-color: #1d5838 !important;
+            border-color: #1d5838 !important;
+            color: #fff !important;
         }
 
-        .btn-sign-in:hover, .btn-sign-in:focus, .btn-sign-in:focus-visible {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-            color: #ffffff;
-            box-shadow: 0 0 0 0.2rem rgba(46, 139, 90, 0.22);
-        }
-
-        .btn-sign-in:active {
-            background-color: #1d5838;
-            border-color: #1d5838;
-            color: #ffffff;
-        }
-
-        .btn-sign-in i {
-            font-size: 1.05rem;
-            line-height: 1;
-        }
-
-        .login-card-footer {
-            border-top: 1px solid #f0f4f2;
-            padding: 0.8rem 1.25rem;
-            text-align: center;
-            background-color: #ffffff;
-            font-size: 0.76rem;
-            color: #63776d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.35rem;
-        }
-
-        /* Footer wrapper retained so the existing sFooter control keeps working */
-        .footer {
-            flex-shrink: 0;
-            width: 100%;
-            background-color: #e7e7e7;
-            color: #212529;
-            border-top: 1px solid #d9d9d9;
-        }
-
-        /* Small screens */
-        @media (max-width: 575.98px) {
-            .login-main {
-                padding: 2rem 1rem 1.5rem;
-            }
-
-            .left-illustration-img {
-                max-height: 220px;
-                max-width: 100%;
-            }
-
-            .partner-logos img {
-                height: 38px;
-            }
-
-            .login-card-body {
-                padding: 1.5rem 1.25rem 1.25rem;
-            }
+        /* Validator text: do NOT add d-block here, it overrides the
+           display:none that Display="Dynamic" relies on to hide the message. */
+        .validator-msg {
+            font-size: .8rem;
+            font-style: italic;
+            color: var(--bs-danger, #dc3545);
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <%--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTES5DW7T1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-BTES5DW7T1');
-    </script>--%>
 </head>
-<body class="bg-light">
+<body>
 
-
-    <form id="form1" runat="server" autocomplete="off">
+    <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
 
-        <div class="login-wrapper">
-            <main class="login-main">
-                <div class="container-fluid px-3 px-md-4">
-                    <div class="row align-items-center justify-content-center gy-4 gx-lg-5">
+        <div class="login-wrapper min-vh-100 d-flex flex-column">
 
-                        <%-- LEFT SIDE: Illustration (login.png) --%>
-                        <div class="col-12 col-lg-6 left-illustration-col">
+            <main class="flex-grow-1 d-flex align-items-center py-4 py-md-5">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center g-4 g-xl-5">
+
+                        <%-- LEFT: Illustration (desktop only, so mobile users see the form first) --%>
+                        <div class="col-lg-6 col-xl-7 d-none d-lg-flex justify-content-center">
                             <img src="<%=ResolveClientUrl("~/Images/login.png")%>"
-                                class="left-illustration-img img-fluid"
+                                class="img-fluid illustration"
                                 alt="City College Training Management System" />
                         </div>
 
-                        <%-- RIGHT SIDE: Brand Logos, Subtext & Admin Login Card --%>
-                        <div class="col-12 col-md-8 col-lg-5 col-xl-4">
+                        <%-- RIGHT: Branding + Login card --%>
+                        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
 
-                            <%-- Top partner / system logos and subtitle --%>
+                            <%-- Partner logos and portal name --%>
                             <div class="text-center mb-3">
-                                <div class="d-flex align-items-center justify-content-center gap-3 partner-logos mb-2">
-                                    <img src="<%=ResolveClientUrl("~/Images/CCLogo.png")%>" alt="City College Logo" />
-                                    <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" alt="City of Cagayan de Oro Seal" />
-                                    <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" alt="RISE Cagayan de Oro" />
+                                <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 mb-2">
+                                    <img src="<%=ResolveClientUrl("~/Images/CCLogo.png")%>" class="partner-logo" alt="City College Logo" />
+                                    <img src="<%=ResolveClientUrl("~/Images/CDOSeal.png")%>" class="partner-logo" alt="City of Cagayan de Oro Seal" />
+                                    <img src="<%=ResolveClientUrl("~/Images/RISE.png")%>" class="partner-logo" alt="RISE Cagayan de Oro" />
                                 </div>
-                                <div class="portal-subtext">
-                                    Office of the City College — Admin Portal
+                                <div class="small fw-medium text-secondary">
+                                    Office of the City College &mdash; Admin Portal
                                 </div>
                             </div>
 
-                            <%-- Login Card --%>
-                            <div class="login-card">
-                                <%-- Card Header --%>
-                                <div class="login-card-header">
-                                    <i class="bi bi-shield-lock"></i>
+                            <%-- Login card --%>
+                            <div class="card login-card mx-auto border-0 shadow-lg overflow-hidden">
+
+                                <div class="card-header bg-brand text-white text-center fw-semibold py-3 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-shield-lock" aria-hidden="true"></i>
                                     <span>Administrator Login</span>
                                 </div>
 
-                                <%-- Card Body --%>
-                                <div class="login-card-body">
+                                <div class="card-body p-4">
 
                                     <%-- User ID --%>
-                                    <div class="mb-3 text-start">
+                                    <div class="mb-3">
                                         <asp:Label runat="server" AssociatedControlID="txtUserId"
-                                            CssClass="form-label form-label-custom">
+                                            CssClass="form-label fw-semibold small mb-1">
                                             User ID <span class="text-danger">*</span>
                                         </asp:Label>
-                                        <div class="input-group-custom d-flex align-items-center">
-                                            <span class="input-group-text">
-                                                <i class="bi bi-person"></i>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white text-secondary">
+                                                <i class="bi bi-person" aria-hidden="true"></i>
                                             </span>
                                             <asp:TextBox runat="server" ID="txtUserId"
                                                 CssClass="form-control"
@@ -304,40 +162,42 @@
                                         </div>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                                             ControlToValidate="txtUserId" SetFocusOnError="true"
-                                            CssClass="text-danger fst-italic mt-1 d-block"
-                                            Style="font-size: 11px"
+                                            CssClass="validator-msg"
                                             Display="Dynamic" Text="User ID is required"
                                             ValidationGroup="DOC" />
                                     </div>
 
                                     <%-- Password --%>
-                                    <div class="mb-4 text-start">
+                                    <div class="mb-4">
                                         <asp:Label runat="server" AssociatedControlID="txtPassword"
-                                            CssClass="form-label form-label-custom">
+                                            CssClass="form-label fw-semibold small mb-1">
                                             Password <span class="text-danger">*</span>
                                         </asp:Label>
-                                        <div class="input-group-custom d-flex align-items-center">
-                                            <span class="input-group-text">
-                                                <i class="bi bi-lock"></i>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white text-secondary">
+                                                <i class="bi bi-lock" aria-hidden="true"></i>
                                             </span>
                                             <input runat="server" type="password" id="txtPassword"
                                                 class="form-control"
                                                 autocomplete="current-password"
                                                 placeholder="Enter your password" />
+                                            <button type="button" class="btn btn-outline-secondary js-toggle-password"
+                                                aria-label="Show password" title="Show password">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>
+                                            </button>
                                         </div>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                             ControlToValidate="txtPassword" SetFocusOnError="true"
-                                            CssClass="text-danger fst-italic mt-1 d-block"
-                                            Style="font-size: 11px"
+                                            CssClass="validator-msg"
                                             Display="Dynamic" Text="Password is required"
                                             ValidationGroup="DOC" />
                                     </div>
 
-                                    <%-- Sign in button --%>
-                                    <div class="d-grid mb-2">
-                                        <button runat="server" id="btnLogin"
-                                            class="btn btn-sign-in d-flex align-items-center justify-content-center gap-2"
-                                            causesvalidation="false">
+                                    <%-- Sign in --%>
+                                    <div class="d-grid">
+                                        <button runat="server" id="btnLogin" type="submit"
+                                            class="btn btn-brand fw-semibold py-2 d-flex align-items-center justify-content-center gap-2"
+                                            causesvalidation="true" validationgroup="DOC">
                                             <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
                                             <span>Sign in</span>
                                         </button>
@@ -351,28 +211,40 @@
                                 </div>
 
                                 <%-- Security notice --%>
-                                <div class="login-card-footer">
-                                    <i class="bi bi-shield-check" style="color: var(--primary-base);"></i>
+                                <div class="card-footer bg-white text-secondary small text-center py-3 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-shield-check text-brand" aria-hidden="true"></i>
                                     <span>Authorized access only. All activity is monitored and logged.</span>
                                 </div>
 
                             </div>
-
                         </div>
 
                     </div>
                 </div>
             </main>
 
-            <!-- Footer -->
-            <div class="footer">
+            <%-- Footer (existing user control) --%>
+            <div class="footer flex-shrink-0 w-100 border-top" style="background-color: #e7e7e7;">
                 <uc3:sFooter ID="sFooter1" runat="server" />
             </div>
 
         </div>
-
-
     </form>
+
+    <script src="<%=ResolveClientUrl("~/Scripts/Bootstrap5/js/bootstrap.bundle.min.js")%>"></script>
+    <script>
+        // Show / hide password
+        document.querySelectorAll('.js-toggle-password').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var input = btn.closest('.input-group').querySelector('input');
+                var icon = btn.querySelector('i');
+                var show = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                icon.className = show ? 'bi bi-eye-slash' : 'bi bi-eye';
+                btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+                btn.title = show ? 'Hide password' : 'Show password';
+            });
+        });
+    </script>
 </body>
 </html>
-

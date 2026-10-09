@@ -71,14 +71,36 @@ Partial Class Secured_Reference_RefTrainingsAdd
         isTracksOther()
     End Sub
 
-    Private Function getRefTrainingProgFee(ByVal _thisId As String) As Decimal
+    Private Function getRefTrainingProgFee(ByVal _thisId As String, Optional _thisProgFee As Decimal = 0) As Decimal
 
+        Dim dt As New DataTable
         Dim _fee As Decimal = 0
-        Try
-            _fee = _clsDB.Get_DB_Item("SELECT fee_amount FROM tbl_ref_training_program_fee WHERE trans_id = '" & _thisId & "' LIMIT 1")
-        Catch ex As Exception
 
-        End Try
+        dt = _clsDB.Fill_DataTable("SELECT * FROM tbl_ref_training_program_fee WHERE trans_id = '" & _thisId & "' LIMIT 1 ")
+
+        If dt.Rows.Count > 0 Then
+            Try
+
+                If dt.Rows(0)("is_fixed") = "Y" Then
+                    _fee = dt.Rows(0)("fee_amount")
+
+                Else
+                    txtRegistrationFee.ReadOnly = False
+
+                    If _thisProgFee > 0 Then
+                        _fee = _thisProgFee
+                    Else
+                        _fee = dt.Rows(0)("fee_amount")
+                    End If
+
+
+                End If
+
+
+            Catch ex As Exception
+
+            End Try
+        End If
 
         Return _fee
 
@@ -104,7 +126,9 @@ Partial Class Secured_Reference_RefTrainingsAdd
             ddlTrainingProgFee.SelectedValue = .trainingProgFee
             rblIsactive.SelectedValue = .isActive
 
-            txtRegistrationFee.Text = getRefTrainingProgFee(.trainingProgFee)
+            txtRegistrationFee.Text = getRefTrainingProgFee(.trainingProgFee, .trainingProgFeeAmount)
+          
+
         End With
 
 
